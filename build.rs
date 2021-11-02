@@ -1,4 +1,5 @@
 use std::env;
+use std::env::current_dir;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
@@ -32,7 +33,7 @@ impl Cmake {
     }
 
     fn generate(&self) -> PathBuf {
-        let build_path = env::current_dir().unwrap().join(Path::new("build"));
+        let build_path = env::current_dir().unwrap().join(Path::new("libs"));
 
         let command = Command::new("cmake")
             .arg("-S")
@@ -48,16 +49,40 @@ impl Cmake {
         build_path
     }
 
-    pub fn build(&self) {
+    pub fn build(&self) -> PathBuf {
         let build_path = self.generate();
 
         let command = Command::new("cmake")
             .arg("--build")
-            .arg(build_path)
+            .arg(build_path.clone())
             .stdout(Stdio::piped())
             .spawn()
             .unwrap();
 
         Self::print_output(command);
+
+        build_path
+    }
+}
+
+fn main() {
+    let target_os = env::var("TARGET").unwrap();
+    let sdl_path = Cmake::new("SDL").build();
+
+    println!("cargo:rustc-link-search={}", sdl_path.to_str().unwrap());
+
+    println!("cargo:rustc-link-lib=static=SDL2");
+
+    if target_os.contains("darwin") {
+        println!("cargo:rustc-link-lib=framework=Cocoa");
+        println!("cargo:rustc-link-lib=framework=IOKit");
+        println!("cargo:rustc-link-lib=framework=Carbon");
+        println!("cargo:rustc-link-lib=framework=ForceFeedback");
+        println!("cargo:rustc-link-lib=framework=GameController");
+        println!("cargo:rustc-link-lib=framework=CoreVideo");
+        println!("cargo:rustc-link-lib=framework=CoreAudio");
+        println!("cargo:rustc-link-lib=framework=AudioToolbox");
+        println!("cargo:rustc-link-lib=framework=Metal");
+        println!("cargo:rustc-link-lib=iconv");
     }
 }

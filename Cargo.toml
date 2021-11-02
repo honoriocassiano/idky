@@ -2,7 +2,16 @@
 name = "dont-know-yet"
 version = "0.1.0"
 edition = "2018"
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "sdl"
+path = "src/bindings/sdl.rs"
+
+[[bin]]
+name = "idky"
+path = "src/main.rs"
 
 [dependencies]
