@@ -1,3 +1,9 @@
+use crate::build::Cmake;
+
+mod build;
+
 fn main() {
-    println!("Hello, world!");
+
+    Cmake::new("SDL")
+        .build();
 }
