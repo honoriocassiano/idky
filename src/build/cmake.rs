@@ -1,7 +1,7 @@
 use std::env;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
+use std::process::{Command, ExitStatus, Stdio};
 
 pub struct Cmake {
     path: PathBuf,
@@ -14,38 +14,54 @@ impl Cmake {
         }
     }
 
-    pub fn build(&self) -> Result<(), String> {
+    fn generate(&self) -> PathBuf {
+        let build_path = env::current_dir().unwrap().join(Path::new("build"));
+
         let mut command = Command::new("cmake")
             .arg("-S")
             .arg(self.path.as_os_str())
             .arg("-B")
-            .arg(env::current_dir().unwrap().join(Path::new("build")))
+            .arg(build_path.clone())
             .stdout(Stdio::piped())
             .spawn()
-            // TODO Improve error handling
             .unwrap();
 
-        // TODO Improve error handling
         let stdout = command.stdout.as_mut().unwrap();
         let reader = BufReader::new(stdout);
         let lines = reader.lines();
 
         for l in lines {
-            // TODO Improve error handling
             println!("{}", l.unwrap());
         }
 
-        match command.wait() {
-            Ok(status) => {
-                // TODO Improve error handling
-                println!("Exited with status {}", status.code().unwrap());
-                Ok(())
-            }
-            Err(_) => {
-                // TODO Improve error handling
-                println!("Failed to run cmake");
-                Err("Error".to_owned())
-            }
+        let exit_status = command.wait()
+            .unwrap()
+            .code()
+            .unwrap();
+
+        println!("Exited with status {}", exit_status);
+
+        build_path
+    }
+
+    pub fn build(&self) {
+        let build_path = self.generate();
+
+        let mut command = Command::new("cmake")
+            .arg("--build")
+            .arg(build_path)
+            .stdout(Stdio::piped())
+            .spawn()
+            .unwrap();
+
+        let stdout = command.stdout.as_mut().unwrap();
+        let reader = BufReader::new(stdout);
+        let lines = reader.lines();
+
+        for l in lines {
+            println!("{}", l.unwrap());
         }
+
+        command.wait();
     }
 }
