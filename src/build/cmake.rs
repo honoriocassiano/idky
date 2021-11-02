@@ -34,7 +34,7 @@ impl Cmake {
     fn generate(&self) -> PathBuf {
         let build_path = env::current_dir().unwrap().join(Path::new("build"));
 
-        let mut command = Command::new("cmake")
+        let command = Command::new("cmake")
             .arg("-S")
             .arg(self.path.as_os_str())
             .arg("-B")
@@ -51,7 +51,7 @@ impl Cmake {
     pub fn build(&self) {
         let build_path = self.generate();
 
-        let mut command = Command::new("cmake")
+        let command = Command::new("cmake")
             .arg("--build")
             .arg(build_path)
             .stdout(Stdio::piped())
