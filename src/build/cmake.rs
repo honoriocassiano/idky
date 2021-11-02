@@ -1,7 +1,7 @@
 use std::env;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Child, Command, ExitStatus, Stdio};
+use std::process::{Child, Command, Stdio};
 
 pub struct Cmake {
     path: PathBuf,
