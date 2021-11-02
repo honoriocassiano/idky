@@ -1,9 +1,18 @@
-use crate::build::Cmake;
+use std::{thread, time};
+use std::ffi::CStr;
 
-mod build;
+use sdl::*;
 
 fn main() {
+    unsafe {
+        let status = SDL_Init(SDL_INIT_VIDEO);
 
-    Cmake::new("SDL")
-        .build();
+        if status < 0 {
+            let error = CStr::from_ptr(SDL_GetError()).to_str().unwrap();
+
+            println!("Error initializing SDL: {}", error);
+        } else {
+            println!("Ok");
+        }
+    }
 }
