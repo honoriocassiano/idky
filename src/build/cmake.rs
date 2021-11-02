@@ -1,7 +1,7 @@
 use std::env;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Command, ExitStatus, Stdio};
+use std::process::{Child, Command, ExitStatus, Stdio};
 
 pub struct Cmake {
     path: PathBuf,
@@ -14,18 +14,7 @@ impl Cmake {
         }
     }
 
-    fn generate(&self) -> PathBuf {
-        let build_path = env::current_dir().unwrap().join(Path::new("build"));
-
-        let mut command = Command::new("cmake")
-            .arg("-S")
-            .arg(self.path.as_os_str())
-            .arg("-B")
-            .arg(build_path.clone())
-            .stdout(Stdio::piped())
-            .spawn()
-            .unwrap();
-
+    fn print_output(mut command: Child) {
         let stdout = command.stdout.as_mut().unwrap();
         let reader = BufReader::new(stdout);
         let lines = reader.lines();
@@ -40,6 +29,21 @@ impl Cmake {
             .unwrap();
 
         println!("Exited with status {}", exit_status);
+    }
+
+    fn generate(&self) -> PathBuf {
+        let build_path = env::current_dir().unwrap().join(Path::new("build"));
+
+        let mut command = Command::new("cmake")
+            .arg("-S")
+            .arg(self.path.as_os_str())
+            .arg("-B")
+            .arg(build_path.clone())
+            .stdout(Stdio::piped())
+            .spawn()
+            .unwrap();
+
+        Self::print_output(command);
 
         build_path
     }
@@ -54,14 +58,6 @@ impl Cmake {
             .spawn()
             .unwrap();
 
-        let stdout = command.stdout.as_mut().unwrap();
-        let reader = BufReader::new(stdout);
-        let lines = reader.lines();
-
-        for l in lines {
-            println!("{}", l.unwrap());
-        }
-
-        command.wait();
+        Self::print_output(command);
     }
 }
