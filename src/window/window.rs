@@ -23,6 +23,7 @@ fn get_error() -> Option<String> {
 #[allow(dead_code)]
 #[repr(u32)]
 pub enum Backend {
+    Software = 0,
     Metal = SDL_WindowFlags_SDL_WINDOW_METAL,
     Opengl = SDL_WindowFlags_SDL_WINDOW_OPENGL,
     Vulkan = SDL_WindowFlags_SDL_WINDOW_VULKAN,
