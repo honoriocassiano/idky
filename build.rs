@@ -11,7 +11,7 @@ pub struct Cmake {
 impl Cmake {
     pub fn new<P: AsRef<Path>>(path: P) -> Self {
         Self {
-            path: env::current_dir().unwrap().join(path)
+            path: env::current_dir().unwrap().join(path),
         }
     }
 
@@ -24,10 +24,7 @@ impl Cmake {
             println!("{}", l.unwrap());
         }
 
-        let exit_status = command.wait()
-            .unwrap()
-            .code()
-            .unwrap();
+        let exit_status = command.wait().unwrap().code().unwrap();
 
         println!("Exited with status {}", exit_status);
     }

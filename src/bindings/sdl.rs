@@ -2,6 +2,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+#![allow(improper_ctypes)]
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -17,8 +18,8 @@ impl<Storage> __BindgenBitfieldUnit<Storage> {
 }
 
 impl<Storage> __BindgenBitfieldUnit<Storage>
-    where
-        Storage: AsRef<[u8]> + AsMut<[u8]>,
+where
+    Storage: AsRef<[u8]> + AsMut<[u8]>,
 {
     #[inline]
     pub fn get_bit(&self, index: usize) -> bool {
@@ -96,7 +97,7 @@ pub const MAC_OS_X_VERSION_10_6: u32 = 1060;
 pub const MAC_OS_X_VERSION_10_7: u32 = 1070;
 pub const MAC_OS_X_VERSION_10_8: u32 = 1080;
 pub const MAC_OS_X_VERSION_10_9: u32 = 1090;
-pub const MAC_OS_X_VERSION_10_10: u32 = 101000;
+pub const MAC_OS_X_VERSION_10_10: u32 = 101_000;
 pub const MAC_OS_X_VERSION_10_10_2: u32 = 101002;
 pub const MAC_OS_X_VERSION_10_10_3: u32 = 101003;
 pub const MAC_OS_X_VERSION_10_11: u32 = 101100;
@@ -1413,20 +1414,20 @@ fn bindgen_test_layout___mbstate_t() {
         unsafe { &(*(::std::ptr::null::<__mbstate_t>())).__mbstate8 as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__mbstate_t),
-        "::",
-        stringify!(__mbstate8)
+            "Offset of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(__mbstate8)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__mbstate_t>()))._mbstateL as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__mbstate_t),
-        "::",
-        stringify!(_mbstateL)
+            "Offset of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(_mbstateL)
         )
     );
 }
@@ -1502,10 +1503,10 @@ fn bindgen_test_layout___darwin_pthread_handler_rec() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_pthread_handler_rec),
-        "::",
-        stringify!(__routine)
+            "Offset of field: ",
+            stringify!(__darwin_pthread_handler_rec),
+            "::",
+            stringify!(__routine)
         )
     );
     assert_eq!(
@@ -1514,10 +1515,10 @@ fn bindgen_test_layout___darwin_pthread_handler_rec() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_pthread_handler_rec),
-        "::",
-        stringify!(__arg)
+            "Offset of field: ",
+            stringify!(__darwin_pthread_handler_rec),
+            "::",
+            stringify!(__arg)
         )
     );
     assert_eq!(
@@ -1526,10 +1527,10 @@ fn bindgen_test_layout___darwin_pthread_handler_rec() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_pthread_handler_rec),
-        "::",
-        stringify!(__next)
+            "Offset of field: ",
+            stringify!(__darwin_pthread_handler_rec),
+            "::",
+            stringify!(__next)
         )
     );
 }
@@ -1557,20 +1558,20 @@ fn bindgen_test_layout__opaque_pthread_attr_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_attr_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_attr_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_attr_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_attr_t>())).__opaque as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_attr_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_attr_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1598,20 +1599,20 @@ fn bindgen_test_layout__opaque_pthread_cond_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_cond_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_cond_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_cond_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_cond_t>())).__opaque as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_cond_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_cond_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1641,10 +1642,10 @@ fn bindgen_test_layout__opaque_pthread_condattr_t() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_condattr_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_condattr_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1653,10 +1654,10 @@ fn bindgen_test_layout__opaque_pthread_condattr_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_condattr_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_condattr_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1684,10 +1685,10 @@ fn bindgen_test_layout__opaque_pthread_mutex_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_mutex_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_mutex_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_mutex_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1696,10 +1697,10 @@ fn bindgen_test_layout__opaque_pthread_mutex_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_mutex_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_mutex_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1729,10 +1730,10 @@ fn bindgen_test_layout__opaque_pthread_mutexattr_t() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_mutexattr_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_mutexattr_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1741,10 +1742,10 @@ fn bindgen_test_layout__opaque_pthread_mutexattr_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_mutexattr_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_mutexattr_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1772,20 +1773,20 @@ fn bindgen_test_layout__opaque_pthread_once_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_once_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_once_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_once_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_once_t>())).__opaque as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_once_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_once_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1813,10 +1814,10 @@ fn bindgen_test_layout__opaque_pthread_rwlock_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_rwlock_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_rwlock_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_rwlock_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1825,10 +1826,10 @@ fn bindgen_test_layout__opaque_pthread_rwlock_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_rwlock_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_rwlock_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1858,10 +1859,10 @@ fn bindgen_test_layout__opaque_pthread_rwlockattr_t() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_rwlockattr_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_rwlockattr_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1870,10 +1871,10 @@ fn bindgen_test_layout__opaque_pthread_rwlockattr_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_rwlockattr_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_rwlockattr_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -1902,10 +1903,10 @@ fn bindgen_test_layout__opaque_pthread_t() {
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_t>())).__sig as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_t),
-        "::",
-        stringify!(__sig)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_t),
+            "::",
+            stringify!(__sig)
         )
     );
     assert_eq!(
@@ -1914,20 +1915,20 @@ fn bindgen_test_layout__opaque_pthread_t() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_t),
-        "::",
-        stringify!(__cleanup_stack)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_t),
+            "::",
+            stringify!(__cleanup_stack)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_opaque_pthread_t>())).__opaque as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_opaque_pthread_t),
-        "::",
-        stringify!(__opaque)
+            "Offset of field: ",
+            stringify!(_opaque_pthread_t),
+            "::",
+            stringify!(__opaque)
         )
     );
 }
@@ -2002,10 +2003,10 @@ fn bindgen_test_layout_fd_set() {
         unsafe { &(*(::std::ptr::null::<fd_set>())).fds_bits as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(fd_set),
-        "::",
-        stringify!(fds_bits)
+            "Offset of field: ",
+            stringify!(fd_set),
+            "::",
+            stringify!(fds_bits)
         )
     );
 }
@@ -2088,20 +2089,20 @@ fn bindgen_test_layout___sbuf() {
         unsafe { &(*(::std::ptr::null::<__sbuf>()))._base as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sbuf),
-        "::",
-        stringify!(_base)
+            "Offset of field: ",
+            stringify!(__sbuf),
+            "::",
+            stringify!(_base)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sbuf>()))._size as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sbuf),
-        "::",
-        stringify!(_size)
+            "Offset of field: ",
+            stringify!(__sbuf),
+            "::",
+            stringify!(_size)
         )
     );
 }
@@ -2173,200 +2174,200 @@ fn bindgen_test_layout___sFILE() {
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._p as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_p)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_p)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._r as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_r)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_r)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._w as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_w)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_w)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._flags as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_flags)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_flags)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._file as *const _ as usize },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_file)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_file)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._bf as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_bf)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_bf)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._lbfsize as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_lbfsize)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_lbfsize)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._cookie as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_cookie)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_cookie)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._close as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_close)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_close)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._read as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_read)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_read)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._seek as *const _ as usize },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_seek)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_seek)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._write as *const _ as usize },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_write)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_write)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._ub as *const _ as usize },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_ub)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_ub)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._extra as *const _ as usize },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_extra)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_extra)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._ur as *const _ as usize },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_ur)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_ur)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._ubuf as *const _ as usize },
         116usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_ubuf)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_ubuf)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._nbuf as *const _ as usize },
         119usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_nbuf)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_nbuf)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._lb as *const _ as usize },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_lb)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_lb)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._blksize as *const _ as usize },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_blksize)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_blksize)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sFILE>()))._offset as *const _ as usize },
         144usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sFILE),
-        "::",
-        stringify!(_offset)
+            "Offset of field: ",
+            stringify!(__sFILE),
+            "::",
+            stringify!(_offset)
         )
     );
 }
@@ -2976,10 +2977,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__eax)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__eax)
         )
     );
     assert_eq!(
@@ -2988,10 +2989,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__ebx)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__ebx)
         )
     );
     assert_eq!(
@@ -3000,10 +3001,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__ecx)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__ecx)
         )
     );
     assert_eq!(
@@ -3012,10 +3013,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__edx)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__edx)
         )
     );
     assert_eq!(
@@ -3024,10 +3025,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__edi)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__edi)
         )
     );
     assert_eq!(
@@ -3036,10 +3037,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__esi)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__esi)
         )
     );
     assert_eq!(
@@ -3048,10 +3049,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__ebp)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__ebp)
         )
     );
     assert_eq!(
@@ -3060,20 +3061,20 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__esp)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__esp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__ss as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -3082,10 +3083,10 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__eflags)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__eflags)
         )
     );
     assert_eq!(
@@ -3094,60 +3095,60 @@ fn bindgen_test_layout___darwin_i386_thread_state() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__eip)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__eip)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__cs as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__cs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__cs)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__ds as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__ds)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__ds)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__es as *const _ as usize },
         52usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__fs as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__fs)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_i386_thread_state>())).__gs as *const _ as usize },
         60usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_thread_state),
-        "::",
-        stringify!(__gs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_thread_state),
+            "::",
+            stringify!(__gs)
         )
     );
 }
@@ -3593,20 +3594,20 @@ fn bindgen_test_layout___darwin_mmst_reg() {
         unsafe { &(*(::std::ptr::null::<__darwin_mmst_reg>())).__mmst_reg as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mmst_reg),
-        "::",
-        stringify!(__mmst_reg)
+            "Offset of field: ",
+            stringify!(__darwin_mmst_reg),
+            "::",
+            stringify!(__mmst_reg)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mmst_reg>())).__mmst_rsrv as *const _ as usize },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mmst_reg),
-        "::",
-        stringify!(__mmst_rsrv)
+            "Offset of field: ",
+            stringify!(__darwin_mmst_reg),
+            "::",
+            stringify!(__mmst_rsrv)
         )
     );
 }
@@ -3633,10 +3634,10 @@ fn bindgen_test_layout___darwin_xmm_reg() {
         unsafe { &(*(::std::ptr::null::<__darwin_xmm_reg>())).__xmm_reg as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_xmm_reg),
-        "::",
-        stringify!(__xmm_reg)
+            "Offset of field: ",
+            stringify!(__darwin_xmm_reg),
+            "::",
+            stringify!(__xmm_reg)
         )
     );
 }
@@ -3663,10 +3664,10 @@ fn bindgen_test_layout___darwin_ymm_reg() {
         unsafe { &(*(::std::ptr::null::<__darwin_ymm_reg>())).__ymm_reg as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ymm_reg),
-        "::",
-        stringify!(__ymm_reg)
+            "Offset of field: ",
+            stringify!(__darwin_ymm_reg),
+            "::",
+            stringify!(__ymm_reg)
         )
     );
 }
@@ -3693,10 +3694,10 @@ fn bindgen_test_layout___darwin_zmm_reg() {
         unsafe { &(*(::std::ptr::null::<__darwin_zmm_reg>())).__zmm_reg as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_zmm_reg),
-        "::",
-        stringify!(__zmm_reg)
+            "Offset of field: ",
+            stringify!(__darwin_zmm_reg),
+            "::",
+            stringify!(__zmm_reg)
         )
     );
 }
@@ -3725,10 +3726,10 @@ fn bindgen_test_layout___darwin_opmask_reg() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_opmask_reg),
-        "::",
-        stringify!(__opmask_reg)
+            "Offset of field: ",
+            stringify!(__darwin_opmask_reg),
+            "::",
+            stringify!(__opmask_reg)
         )
     );
 }
@@ -3789,10 +3790,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -3801,10 +3802,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -3813,10 +3814,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -3825,10 +3826,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -3837,10 +3838,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -3849,10 +3850,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -3861,10 +3862,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -3873,10 +3874,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -3885,10 +3886,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -3897,10 +3898,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -3909,10 +3910,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -3921,10 +3922,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -3933,10 +3934,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -3946,10 +3947,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -3958,10 +3959,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -3970,10 +3971,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -3982,10 +3983,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -3994,10 +3995,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -4006,10 +4007,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -4018,10 +4019,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -4030,10 +4031,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -4042,10 +4043,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -4054,10 +4055,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -4066,10 +4067,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -4078,10 +4079,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -4090,10 +4091,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -4102,10 +4103,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -4114,10 +4115,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -4126,10 +4127,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -4138,10 +4139,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -4150,10 +4151,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -4163,10 +4164,10 @@ fn bindgen_test_layout___darwin_i386_float_state() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_float_state),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_float_state),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
 }
@@ -4235,10 +4236,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -4247,10 +4248,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -4259,10 +4260,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -4271,10 +4272,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -4283,10 +4284,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -4295,10 +4296,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -4307,10 +4308,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -4319,10 +4320,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -4331,10 +4332,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -4343,10 +4344,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -4355,10 +4356,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -4367,10 +4368,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -4379,10 +4380,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -4391,10 +4392,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -4403,10 +4404,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -4415,10 +4416,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -4427,10 +4428,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -4439,10 +4440,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -4451,10 +4452,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -4463,10 +4464,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -4475,10 +4476,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -4487,10 +4488,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -4499,10 +4500,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -4511,10 +4512,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -4523,10 +4524,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -4535,10 +4536,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -4547,10 +4548,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -4559,10 +4560,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -4571,10 +4572,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -4583,10 +4584,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -4595,10 +4596,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -4607,10 +4608,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
     assert_eq!(
@@ -4619,10 +4620,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         524usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__avx_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__avx_reserved1)
         )
     );
     assert_eq!(
@@ -4631,10 +4632,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         588usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh0)
         )
     );
     assert_eq!(
@@ -4643,10 +4644,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         604usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh1)
         )
     );
     assert_eq!(
@@ -4655,10 +4656,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         620usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh2)
         )
     );
     assert_eq!(
@@ -4667,10 +4668,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         636usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh3)
         )
     );
     assert_eq!(
@@ -4679,10 +4680,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         652usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh4)
         )
     );
     assert_eq!(
@@ -4691,10 +4692,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         668usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh5)
         )
     );
     assert_eq!(
@@ -4703,10 +4704,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         684usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh6)
         )
     );
     assert_eq!(
@@ -4715,10 +4716,10 @@ fn bindgen_test_layout___darwin_i386_avx_state() {
         },
         700usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx_state),
-        "::",
-        stringify!(__fpu_ymmh7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx_state),
+            "::",
+            stringify!(__fpu_ymmh7)
         )
     );
 }
@@ -4804,10 +4805,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -4816,10 +4817,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -4828,10 +4829,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -4840,10 +4841,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -4852,10 +4853,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -4864,10 +4865,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -4876,10 +4877,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -4888,10 +4889,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -4900,10 +4901,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -4912,10 +4913,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -4924,10 +4925,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -4936,10 +4937,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -4948,10 +4949,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -4961,10 +4962,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -4973,10 +4974,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -4985,10 +4986,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -4997,10 +4998,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -5009,10 +5010,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -5021,10 +5022,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -5033,10 +5034,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -5045,10 +5046,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -5057,10 +5058,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -5069,10 +5070,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -5081,10 +5082,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -5093,10 +5094,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -5105,10 +5106,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -5117,10 +5118,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -5129,10 +5130,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -5141,10 +5142,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -5153,10 +5154,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -5165,10 +5166,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -5178,10 +5179,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
     assert_eq!(
@@ -5191,10 +5192,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         524usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__avx_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__avx_reserved1)
         )
     );
     assert_eq!(
@@ -5203,10 +5204,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         588usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh0)
         )
     );
     assert_eq!(
@@ -5215,10 +5216,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         604usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh1)
         )
     );
     assert_eq!(
@@ -5227,10 +5228,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         620usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh2)
         )
     );
     assert_eq!(
@@ -5239,10 +5240,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         636usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh3)
         )
     );
     assert_eq!(
@@ -5251,10 +5252,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         652usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh4)
         )
     );
     assert_eq!(
@@ -5263,10 +5264,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         668usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh5)
         )
     );
     assert_eq!(
@@ -5275,10 +5276,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         684usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh6)
         )
     );
     assert_eq!(
@@ -5287,10 +5288,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         700usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_ymmh7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_ymmh7)
         )
     );
     assert_eq!(
@@ -5299,10 +5300,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         716usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k0)
         )
     );
     assert_eq!(
@@ -5311,10 +5312,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         724usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k1)
         )
     );
     assert_eq!(
@@ -5323,10 +5324,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         732usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k2)
         )
     );
     assert_eq!(
@@ -5335,10 +5336,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         740usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k3)
         )
     );
     assert_eq!(
@@ -5347,10 +5348,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         748usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k4)
         )
     );
     assert_eq!(
@@ -5359,10 +5360,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         756usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k5)
         )
     );
     assert_eq!(
@@ -5371,10 +5372,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         764usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k6)
         )
     );
     assert_eq!(
@@ -5383,10 +5384,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         772usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_k7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_k7)
         )
     );
     assert_eq!(
@@ -5395,10 +5396,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         780usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh0)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh0)
         )
     );
     assert_eq!(
@@ -5407,10 +5408,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         812usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh1)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh1)
         )
     );
     assert_eq!(
@@ -5419,10 +5420,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         844usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh2)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh2)
         )
     );
     assert_eq!(
@@ -5431,10 +5432,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         876usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh3)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh3)
         )
     );
     assert_eq!(
@@ -5443,10 +5444,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         908usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh4)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh4)
         )
     );
     assert_eq!(
@@ -5455,10 +5456,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         940usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh5)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh5)
         )
     );
     assert_eq!(
@@ -5467,10 +5468,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         972usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh6)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh6)
         )
     );
     assert_eq!(
@@ -5479,10 +5480,10 @@ fn bindgen_test_layout___darwin_i386_avx512_state() {
         },
         1004usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_avx512_state),
-        "::",
-        stringify!(__fpu_zmmh7)
+            "Offset of field: ",
+            stringify!(__darwin_i386_avx512_state),
+            "::",
+            stringify!(__fpu_zmmh7)
         )
     );
 }
@@ -5514,10 +5515,10 @@ fn bindgen_test_layout___darwin_i386_exception_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_exception_state),
-        "::",
-        stringify!(__trapno)
+            "Offset of field: ",
+            stringify!(__darwin_i386_exception_state),
+            "::",
+            stringify!(__trapno)
         )
     );
     assert_eq!(
@@ -5526,10 +5527,10 @@ fn bindgen_test_layout___darwin_i386_exception_state() {
         },
         2usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_exception_state),
-        "::",
-        stringify!(__cpu)
+            "Offset of field: ",
+            stringify!(__darwin_i386_exception_state),
+            "::",
+            stringify!(__cpu)
         )
     );
     assert_eq!(
@@ -5538,10 +5539,10 @@ fn bindgen_test_layout___darwin_i386_exception_state() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_exception_state),
-        "::",
-        stringify!(__err)
+            "Offset of field: ",
+            stringify!(__darwin_i386_exception_state),
+            "::",
+            stringify!(__err)
         )
     );
     assert_eq!(
@@ -5551,10 +5552,10 @@ fn bindgen_test_layout___darwin_i386_exception_state() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_i386_exception_state),
-        "::",
-        stringify!(__faultvaddr)
+            "Offset of field: ",
+            stringify!(__darwin_i386_exception_state),
+            "::",
+            stringify!(__faultvaddr)
         )
     );
 }
@@ -5590,10 +5591,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr0)
         )
     );
     assert_eq!(
@@ -5602,10 +5603,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr1)
         )
     );
     assert_eq!(
@@ -5614,10 +5615,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr2)
         )
     );
     assert_eq!(
@@ -5626,10 +5627,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr3)
         )
     );
     assert_eq!(
@@ -5638,10 +5639,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr4)
         )
     );
     assert_eq!(
@@ -5650,10 +5651,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr5)
         )
     );
     assert_eq!(
@@ -5662,10 +5663,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr6)
         )
     );
     assert_eq!(
@@ -5674,10 +5675,10 @@ fn bindgen_test_layout___darwin_x86_debug_state32() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state32),
-        "::",
-        stringify!(__dr7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state32),
+            "::",
+            stringify!(__dr7)
         )
     );
 }
@@ -5706,10 +5707,10 @@ fn bindgen_test_layout___x86_pagein_state() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__x86_pagein_state),
-        "::",
-        stringify!(__pagein_error)
+            "Offset of field: ",
+            stringify!(__x86_pagein_state),
+            "::",
+            stringify!(__pagein_error)
         )
     );
 }
@@ -5758,10 +5759,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rax)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rax)
         )
     );
     assert_eq!(
@@ -5770,10 +5771,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rbx)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rbx)
         )
     );
     assert_eq!(
@@ -5782,10 +5783,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rcx)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rcx)
         )
     );
     assert_eq!(
@@ -5794,10 +5795,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rdx)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rdx)
         )
     );
     assert_eq!(
@@ -5806,10 +5807,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rdi)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rdi)
         )
     );
     assert_eq!(
@@ -5818,10 +5819,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rsi)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rsi)
         )
     );
     assert_eq!(
@@ -5830,10 +5831,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rbp)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rbp)
         )
     );
     assert_eq!(
@@ -5842,10 +5843,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rsp)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rsp)
         )
     );
     assert_eq!(
@@ -5854,10 +5855,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r8)
         )
     );
     assert_eq!(
@@ -5866,10 +5867,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r9)
         )
     );
     assert_eq!(
@@ -5878,10 +5879,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r10)
         )
     );
     assert_eq!(
@@ -5890,10 +5891,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r11)
         )
     );
     assert_eq!(
@@ -5902,10 +5903,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r12)
         )
     );
     assert_eq!(
@@ -5914,10 +5915,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r13)
         )
     );
     assert_eq!(
@@ -5926,10 +5927,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r14)
         )
     );
     assert_eq!(
@@ -5938,10 +5939,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__r15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__r15)
         )
     );
     assert_eq!(
@@ -5950,10 +5951,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rip)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rip)
         )
     );
     assert_eq!(
@@ -5962,10 +5963,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__rflags)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__rflags)
         )
     );
     assert_eq!(
@@ -5974,10 +5975,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         144usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__cs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__cs)
         )
     );
     assert_eq!(
@@ -5986,10 +5987,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__fs)
         )
     );
     assert_eq!(
@@ -5998,10 +5999,10 @@ fn bindgen_test_layout___darwin_x86_thread_state64() {
         },
         160usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_state64),
-        "::",
-        stringify!(__gs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_state64),
+            "::",
+            stringify!(__gs)
         )
     );
 }
@@ -6027,8 +6028,8 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         ::std::mem::align_of::<__darwin_x86_thread_full_state64>(),
         8usize,
         concat!(
-        "Alignment of ",
-        stringify!(__darwin_x86_thread_full_state64)
+            "Alignment of ",
+            stringify!(__darwin_x86_thread_full_state64)
         )
     );
     assert_eq!(
@@ -6037,10 +6038,10 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_full_state64),
-        "::",
-        stringify!(__ss64)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_full_state64),
+            "::",
+            stringify!(__ss64)
         )
     );
     assert_eq!(
@@ -6049,10 +6050,10 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_full_state64),
-        "::",
-        stringify!(__ds)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_full_state64),
+            "::",
+            stringify!(__ds)
         )
     );
     assert_eq!(
@@ -6061,10 +6062,10 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         },
         176usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_full_state64),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_full_state64),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
@@ -6073,10 +6074,10 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_full_state64),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_full_state64),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -6086,10 +6087,10 @@ fn bindgen_test_layout___darwin_x86_thread_full_state64() {
         },
         192usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_thread_full_state64),
-        "::",
-        stringify!(__gsbase)
+            "Offset of field: ",
+            stringify!(__darwin_x86_thread_full_state64),
+            "::",
+            stringify!(__gsbase)
         )
     );
 }
@@ -6158,10 +6159,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -6170,10 +6171,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -6182,10 +6183,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -6194,10 +6195,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -6206,10 +6207,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -6218,10 +6219,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -6230,10 +6231,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -6242,10 +6243,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -6254,10 +6255,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -6266,10 +6267,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -6278,10 +6279,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -6290,10 +6291,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -6302,10 +6303,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -6315,10 +6316,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -6327,10 +6328,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -6339,10 +6340,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -6351,10 +6352,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -6363,10 +6364,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -6375,10 +6376,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -6387,10 +6388,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -6399,10 +6400,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -6411,10 +6412,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -6423,10 +6424,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -6435,10 +6436,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -6447,10 +6448,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -6459,10 +6460,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -6471,10 +6472,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -6483,10 +6484,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -6495,10 +6496,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -6507,10 +6508,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -6519,10 +6520,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm8)
         )
     );
     assert_eq!(
@@ -6531,10 +6532,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         312usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm9)
         )
     );
     assert_eq!(
@@ -6543,10 +6544,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         328usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm10)
         )
     );
     assert_eq!(
@@ -6555,10 +6556,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         344usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm11)
         )
     );
     assert_eq!(
@@ -6567,10 +6568,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         360usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm12)
         )
     );
     assert_eq!(
@@ -6579,10 +6580,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         376usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm13)
         )
     );
     assert_eq!(
@@ -6591,10 +6592,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         392usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm14)
         )
     );
     assert_eq!(
@@ -6603,10 +6604,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         408usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_xmm15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_xmm15)
         )
     );
     assert_eq!(
@@ -6615,10 +6616,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         424usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -6628,10 +6629,10 @@ fn bindgen_test_layout___darwin_x86_float_state64() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_float_state64),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_float_state64),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
 }
@@ -6716,10 +6717,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -6728,10 +6729,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -6740,10 +6741,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -6752,10 +6753,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -6764,10 +6765,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -6776,10 +6777,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -6788,10 +6789,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -6800,10 +6801,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -6812,10 +6813,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -6824,10 +6825,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -6836,10 +6837,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -6848,10 +6849,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -6860,10 +6861,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -6873,10 +6874,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -6885,10 +6886,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -6897,10 +6898,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -6909,10 +6910,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -6921,10 +6922,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -6933,10 +6934,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -6945,10 +6946,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -6957,10 +6958,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -6969,10 +6970,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -6981,10 +6982,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -6993,10 +6994,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -7005,10 +7006,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -7017,10 +7018,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -7029,10 +7030,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -7041,10 +7042,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -7053,10 +7054,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -7065,10 +7066,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -7077,10 +7078,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm8)
         )
     );
     assert_eq!(
@@ -7089,10 +7090,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         312usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm9)
         )
     );
     assert_eq!(
@@ -7101,10 +7102,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         328usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm10)
         )
     );
     assert_eq!(
@@ -7113,10 +7114,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         344usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm11)
         )
     );
     assert_eq!(
@@ -7125,10 +7126,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         360usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm12)
         )
     );
     assert_eq!(
@@ -7137,10 +7138,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         376usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm13)
         )
     );
     assert_eq!(
@@ -7149,10 +7150,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         392usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm14)
         )
     );
     assert_eq!(
@@ -7161,10 +7162,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         408usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_xmm15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_xmm15)
         )
     );
     assert_eq!(
@@ -7173,10 +7174,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         424usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -7186,10 +7187,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
     assert_eq!(
@@ -7199,10 +7200,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         524usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__avx_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__avx_reserved1)
         )
     );
     assert_eq!(
@@ -7211,10 +7212,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         588usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh0)
         )
     );
     assert_eq!(
@@ -7223,10 +7224,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         604usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh1)
         )
     );
     assert_eq!(
@@ -7235,10 +7236,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         620usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh2)
         )
     );
     assert_eq!(
@@ -7247,10 +7248,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         636usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh3)
         )
     );
     assert_eq!(
@@ -7259,10 +7260,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         652usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh4)
         )
     );
     assert_eq!(
@@ -7271,10 +7272,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         668usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh5)
         )
     );
     assert_eq!(
@@ -7283,10 +7284,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         684usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh6)
         )
     );
     assert_eq!(
@@ -7295,10 +7296,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         700usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh7)
         )
     );
     assert_eq!(
@@ -7307,10 +7308,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         716usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh8)
         )
     );
     assert_eq!(
@@ -7319,10 +7320,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         732usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh9)
         )
     );
     assert_eq!(
@@ -7331,10 +7332,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         748usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh10)
         )
     );
     assert_eq!(
@@ -7343,10 +7344,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         764usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh11)
         )
     );
     assert_eq!(
@@ -7355,10 +7356,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         780usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh12)
         )
     );
     assert_eq!(
@@ -7367,10 +7368,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         796usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh13)
         )
     );
     assert_eq!(
@@ -7379,10 +7380,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         812usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh14)
         )
     );
     assert_eq!(
@@ -7391,10 +7392,10 @@ fn bindgen_test_layout___darwin_x86_avx_state64() {
         },
         828usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx_state64),
-        "::",
-        stringify!(__fpu_ymmh15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx_state64),
+            "::",
+            stringify!(__fpu_ymmh15)
         )
     );
 }
@@ -7520,10 +7521,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_reserved)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_reserved)
         )
     );
     assert_eq!(
@@ -7532,10 +7533,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_fcw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_fcw)
         )
     );
     assert_eq!(
@@ -7544,10 +7545,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_fsw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_fsw)
         )
     );
     assert_eq!(
@@ -7556,10 +7557,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ftw)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ftw)
         )
     );
     assert_eq!(
@@ -7568,10 +7569,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_rsrv1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_rsrv1)
         )
     );
     assert_eq!(
@@ -7580,10 +7581,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_fop)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_fop)
         )
     );
     assert_eq!(
@@ -7592,10 +7593,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ip)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ip)
         )
     );
     assert_eq!(
@@ -7604,10 +7605,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_cs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_cs)
         )
     );
     assert_eq!(
@@ -7616,10 +7617,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         22usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_rsrv2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_rsrv2)
         )
     );
     assert_eq!(
@@ -7628,10 +7629,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_dp)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_dp)
         )
     );
     assert_eq!(
@@ -7640,10 +7641,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ds)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ds)
         )
     );
     assert_eq!(
@@ -7652,10 +7653,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_rsrv3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_rsrv3)
         )
     );
     assert_eq!(
@@ -7664,10 +7665,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_mxcsr)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_mxcsr)
         )
     );
     assert_eq!(
@@ -7677,10 +7678,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_mxcsrmask)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_mxcsrmask)
         )
     );
     assert_eq!(
@@ -7689,10 +7690,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm0)
         )
     );
     assert_eq!(
@@ -7701,10 +7702,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm1)
         )
     );
     assert_eq!(
@@ -7713,10 +7714,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm2)
         )
     );
     assert_eq!(
@@ -7725,10 +7726,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm3)
         )
     );
     assert_eq!(
@@ -7737,10 +7738,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm4)
         )
     );
     assert_eq!(
@@ -7749,10 +7750,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm5)
         )
     );
     assert_eq!(
@@ -7761,10 +7762,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm6)
         )
     );
     assert_eq!(
@@ -7773,10 +7774,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_stmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_stmm7)
         )
     );
     assert_eq!(
@@ -7785,10 +7786,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm0)
         )
     );
     assert_eq!(
@@ -7797,10 +7798,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm1)
         )
     );
     assert_eq!(
@@ -7809,10 +7810,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm2)
         )
     );
     assert_eq!(
@@ -7821,10 +7822,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm3)
         )
     );
     assert_eq!(
@@ -7833,10 +7834,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm4)
         )
     );
     assert_eq!(
@@ -7845,10 +7846,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm5)
         )
     );
     assert_eq!(
@@ -7857,10 +7858,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm6)
         )
     );
     assert_eq!(
@@ -7869,10 +7870,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm7)
         )
     );
     assert_eq!(
@@ -7881,10 +7882,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         296usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm8)
         )
     );
     assert_eq!(
@@ -7893,10 +7894,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         312usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm9)
         )
     );
     assert_eq!(
@@ -7905,10 +7906,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         328usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm10)
         )
     );
     assert_eq!(
@@ -7917,10 +7918,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         344usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm11)
         )
     );
     assert_eq!(
@@ -7929,10 +7930,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         360usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm12)
         )
     );
     assert_eq!(
@@ -7941,10 +7942,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         376usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm13)
         )
     );
     assert_eq!(
@@ -7953,10 +7954,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         392usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm14)
         )
     );
     assert_eq!(
@@ -7965,10 +7966,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         408usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_xmm15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_xmm15)
         )
     );
     assert_eq!(
@@ -7977,10 +7978,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         424usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_rsrv4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_rsrv4)
         )
     );
     assert_eq!(
@@ -7990,10 +7991,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         520usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_reserved1)
         )
     );
     assert_eq!(
@@ -8003,10 +8004,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         524usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__avx_reserved1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__avx_reserved1)
         )
     );
     assert_eq!(
@@ -8015,10 +8016,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         588usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh0)
         )
     );
     assert_eq!(
@@ -8027,10 +8028,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         604usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh1)
         )
     );
     assert_eq!(
@@ -8039,10 +8040,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         620usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh2)
         )
     );
     assert_eq!(
@@ -8051,10 +8052,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         636usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh3)
         )
     );
     assert_eq!(
@@ -8063,10 +8064,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         652usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh4)
         )
     );
     assert_eq!(
@@ -8075,10 +8076,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         668usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh5)
         )
     );
     assert_eq!(
@@ -8087,10 +8088,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         684usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh6)
         )
     );
     assert_eq!(
@@ -8099,10 +8100,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         700usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh7)
         )
     );
     assert_eq!(
@@ -8111,10 +8112,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         716usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh8)
         )
     );
     assert_eq!(
@@ -8123,10 +8124,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         732usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh9)
         )
     );
     assert_eq!(
@@ -8136,10 +8137,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         748usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh10)
         )
     );
     assert_eq!(
@@ -8149,10 +8150,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         764usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh11)
         )
     );
     assert_eq!(
@@ -8162,10 +8163,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         780usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh12)
         )
     );
     assert_eq!(
@@ -8175,10 +8176,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         796usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh13)
         )
     );
     assert_eq!(
@@ -8188,10 +8189,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         812usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh14)
         )
     );
     assert_eq!(
@@ -8201,10 +8202,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         828usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_ymmh15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_ymmh15)
         )
     );
     assert_eq!(
@@ -8213,10 +8214,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         844usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k0)
         )
     );
     assert_eq!(
@@ -8225,10 +8226,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         852usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k1)
         )
     );
     assert_eq!(
@@ -8237,10 +8238,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         860usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k2)
         )
     );
     assert_eq!(
@@ -8249,10 +8250,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         868usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k3)
         )
     );
     assert_eq!(
@@ -8261,10 +8262,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         876usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k4)
         )
     );
     assert_eq!(
@@ -8273,10 +8274,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         884usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k5)
         )
     );
     assert_eq!(
@@ -8285,10 +8286,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         892usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k6)
         )
     );
     assert_eq!(
@@ -8297,10 +8298,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         900usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_k7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_k7)
         )
     );
     assert_eq!(
@@ -8309,10 +8310,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         908usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh0)
         )
     );
     assert_eq!(
@@ -8321,10 +8322,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         940usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh1)
         )
     );
     assert_eq!(
@@ -8333,10 +8334,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         972usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh2)
         )
     );
     assert_eq!(
@@ -8345,10 +8346,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1004usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh3)
         )
     );
     assert_eq!(
@@ -8357,10 +8358,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1036usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh4)
         )
     );
     assert_eq!(
@@ -8369,10 +8370,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1068usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh5)
         )
     );
     assert_eq!(
@@ -8381,10 +8382,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1100usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh6)
         )
     );
     assert_eq!(
@@ -8393,10 +8394,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1132usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh7)
         )
     );
     assert_eq!(
@@ -8405,10 +8406,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1164usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh8)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh8)
         )
     );
     assert_eq!(
@@ -8417,10 +8418,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1196usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh9)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh9)
         )
     );
     assert_eq!(
@@ -8430,10 +8431,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1228usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh10)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh10)
         )
     );
     assert_eq!(
@@ -8443,10 +8444,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1260usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh11)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh11)
         )
     );
     assert_eq!(
@@ -8456,10 +8457,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1292usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh12)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh12)
         )
     );
     assert_eq!(
@@ -8469,10 +8470,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1324usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh13)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh13)
         )
     );
     assert_eq!(
@@ -8482,10 +8483,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1356usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh14)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh14)
         )
     );
     assert_eq!(
@@ -8495,10 +8496,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1388usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmmh15)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmmh15)
         )
     );
     assert_eq!(
@@ -8507,10 +8508,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1420usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm16)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm16)
         )
     );
     assert_eq!(
@@ -8519,10 +8520,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1484usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm17)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm17)
         )
     );
     assert_eq!(
@@ -8531,10 +8532,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1548usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm18)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm18)
         )
     );
     assert_eq!(
@@ -8543,10 +8544,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1612usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm19)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm19)
         )
     );
     assert_eq!(
@@ -8555,10 +8556,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1676usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm20)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm20)
         )
     );
     assert_eq!(
@@ -8567,10 +8568,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1740usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm21)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm21)
         )
     );
     assert_eq!(
@@ -8579,10 +8580,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1804usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm22)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm22)
         )
     );
     assert_eq!(
@@ -8591,10 +8592,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1868usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm23)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm23)
         )
     );
     assert_eq!(
@@ -8603,10 +8604,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1932usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm24)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm24)
         )
     );
     assert_eq!(
@@ -8615,10 +8616,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         1996usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm25)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm25)
         )
     );
     assert_eq!(
@@ -8627,10 +8628,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2060usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm26)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm26)
         )
     );
     assert_eq!(
@@ -8639,10 +8640,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2124usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm27)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm27)
         )
     );
     assert_eq!(
@@ -8651,10 +8652,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2188usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm28)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm28)
         )
     );
     assert_eq!(
@@ -8663,10 +8664,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2252usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm29)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm29)
         )
     );
     assert_eq!(
@@ -8675,10 +8676,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2316usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm30)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm30)
         )
     );
     assert_eq!(
@@ -8687,10 +8688,10 @@ fn bindgen_test_layout___darwin_x86_avx512_state64() {
         },
         2380usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_avx512_state64),
-        "::",
-        stringify!(__fpu_zmm31)
+            "Offset of field: ",
+            stringify!(__darwin_x86_avx512_state64),
+            "::",
+            stringify!(__fpu_zmm31)
         )
     );
 }
@@ -8722,10 +8723,10 @@ fn bindgen_test_layout___darwin_x86_exception_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_exception_state64),
-        "::",
-        stringify!(__trapno)
+            "Offset of field: ",
+            stringify!(__darwin_x86_exception_state64),
+            "::",
+            stringify!(__trapno)
         )
     );
     assert_eq!(
@@ -8734,10 +8735,10 @@ fn bindgen_test_layout___darwin_x86_exception_state64() {
         },
         2usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_exception_state64),
-        "::",
-        stringify!(__cpu)
+            "Offset of field: ",
+            stringify!(__darwin_x86_exception_state64),
+            "::",
+            stringify!(__cpu)
         )
     );
     assert_eq!(
@@ -8746,10 +8747,10 @@ fn bindgen_test_layout___darwin_x86_exception_state64() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_exception_state64),
-        "::",
-        stringify!(__err)
+            "Offset of field: ",
+            stringify!(__darwin_x86_exception_state64),
+            "::",
+            stringify!(__err)
         )
     );
     assert_eq!(
@@ -8759,10 +8760,10 @@ fn bindgen_test_layout___darwin_x86_exception_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_exception_state64),
-        "::",
-        stringify!(__faultvaddr)
+            "Offset of field: ",
+            stringify!(__darwin_x86_exception_state64),
+            "::",
+            stringify!(__faultvaddr)
         )
     );
 }
@@ -8798,10 +8799,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr0)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr0)
         )
     );
     assert_eq!(
@@ -8810,10 +8811,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr1)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr1)
         )
     );
     assert_eq!(
@@ -8822,10 +8823,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr2)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr2)
         )
     );
     assert_eq!(
@@ -8834,10 +8835,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr3)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr3)
         )
     );
     assert_eq!(
@@ -8846,10 +8847,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr4)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr4)
         )
     );
     assert_eq!(
@@ -8858,10 +8859,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr5)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr5)
         )
     );
     assert_eq!(
@@ -8870,10 +8871,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr6)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr6)
         )
     );
     assert_eq!(
@@ -8882,10 +8883,10 @@ fn bindgen_test_layout___darwin_x86_debug_state64() {
         },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_debug_state64),
-        "::",
-        stringify!(__dr7)
+            "Offset of field: ",
+            stringify!(__darwin_x86_debug_state64),
+            "::",
+            stringify!(__dr7)
         )
     );
 }
@@ -8914,10 +8915,10 @@ fn bindgen_test_layout___darwin_x86_cpmu_state64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_x86_cpmu_state64),
-        "::",
-        stringify!(__ctrs)
+            "Offset of field: ",
+            stringify!(__darwin_x86_cpmu_state64),
+            "::",
+            stringify!(__ctrs)
         )
     );
 }
@@ -8946,30 +8947,30 @@ fn bindgen_test_layout___darwin_mcontext32() {
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext32>())).__es as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext32),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext32),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext32>())).__ss as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext32),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext32),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext32>())).__fs as *const _ as usize },
         76usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext32),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext32),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -8998,30 +8999,30 @@ fn bindgen_test_layout___darwin_mcontext_avx32() {
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx32>())).__es as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx32),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx32),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx32>())).__ss as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx32),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx32),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx32>())).__fs as *const _ as usize },
         76usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx32),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx32),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9052,10 +9053,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_32() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_32),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_32),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
@@ -9064,10 +9065,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_32() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_32),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_32),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -9076,10 +9077,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_32() {
         },
         76usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_32),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_32),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9108,30 +9109,30 @@ fn bindgen_test_layout___darwin_mcontext64() {
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64>())).__es as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64>())).__ss as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64>())).__fs as *const _ as usize },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9160,30 +9161,30 @@ fn bindgen_test_layout___darwin_mcontext64_full() {
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64_full>())).__es as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64_full),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64_full),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64_full>())).__ss as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64_full),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64_full),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext64_full>())).__fs as *const _ as usize },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext64_full),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext64_full),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9212,30 +9213,30 @@ fn bindgen_test_layout___darwin_mcontext_avx64() {
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx64>())).__es as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx64>())).__ss as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_mcontext_avx64>())).__fs as *const _ as usize },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9266,10 +9267,10 @@ fn bindgen_test_layout___darwin_mcontext_avx64_full() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64_full),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64_full),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
@@ -9278,10 +9279,10 @@ fn bindgen_test_layout___darwin_mcontext_avx64_full() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64_full),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64_full),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -9290,10 +9291,10 @@ fn bindgen_test_layout___darwin_mcontext_avx64_full() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx64_full),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx64_full),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9324,10 +9325,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
@@ -9336,10 +9337,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -9348,10 +9349,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9375,8 +9376,8 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64_full() {
         ::std::mem::align_of::<__darwin_mcontext_avx512_64_full>(),
         8usize,
         concat!(
-        "Alignment of ",
-        stringify!(__darwin_mcontext_avx512_64_full)
+            "Alignment of ",
+            stringify!(__darwin_mcontext_avx512_64_full)
         )
     );
     assert_eq!(
@@ -9385,10 +9386,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64_full() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64_full),
-        "::",
-        stringify!(__es)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64_full),
+            "::",
+            stringify!(__es)
         )
     );
     assert_eq!(
@@ -9397,10 +9398,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64_full() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64_full),
-        "::",
-        stringify!(__ss)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64_full),
+            "::",
+            stringify!(__ss)
         )
     );
     assert_eq!(
@@ -9409,10 +9410,10 @@ fn bindgen_test_layout___darwin_mcontext_avx512_64_full() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_mcontext_avx512_64_full),
-        "::",
-        stringify!(__fs)
+            "Offset of field: ",
+            stringify!(__darwin_mcontext_avx512_64_full),
+            "::",
+            stringify!(__fs)
         )
     );
 }
@@ -9443,30 +9444,30 @@ fn bindgen_test_layout___darwin_sigaltstack() {
         unsafe { &(*(::std::ptr::null::<__darwin_sigaltstack>())).ss_sp as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_sigaltstack),
-        "::",
-        stringify!(ss_sp)
+            "Offset of field: ",
+            stringify!(__darwin_sigaltstack),
+            "::",
+            stringify!(ss_sp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_sigaltstack>())).ss_size as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_sigaltstack),
-        "::",
-        stringify!(ss_size)
+            "Offset of field: ",
+            stringify!(__darwin_sigaltstack),
+            "::",
+            stringify!(ss_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_sigaltstack>())).ss_flags as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_sigaltstack),
-        "::",
-        stringify!(ss_flags)
+            "Offset of field: ",
+            stringify!(__darwin_sigaltstack),
+            "::",
+            stringify!(ss_flags)
         )
     );
 }
@@ -9500,60 +9501,60 @@ fn bindgen_test_layout___darwin_ucontext() {
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_onstack as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_onstack)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_onstack)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_sigmask as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_sigmask)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_sigmask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_stack as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_stack)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_stack)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_link as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_link)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_link)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_mcsize as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_mcsize)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_mcsize)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__darwin_ucontext>())).uc_mcontext as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__darwin_ucontext),
-        "::",
-        stringify!(uc_mcontext)
+            "Offset of field: ",
+            stringify!(__darwin_ucontext),
+            "::",
+            stringify!(uc_mcontext)
         )
     );
 }
@@ -9584,20 +9585,20 @@ fn bindgen_test_layout_sigval() {
         unsafe { &(*(::std::ptr::null::<sigval>())).sival_int as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigval),
-        "::",
-        stringify!(sival_int)
+            "Offset of field: ",
+            stringify!(sigval),
+            "::",
+            stringify!(sival_int)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigval>())).sival_ptr as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigval),
-        "::",
-        stringify!(sival_ptr)
+            "Offset of field: ",
+            stringify!(sigval),
+            "::",
+            stringify!(sival_ptr)
         )
     );
 }
@@ -9628,40 +9629,40 @@ fn bindgen_test_layout_sigevent() {
         unsafe { &(*(::std::ptr::null::<sigevent>())).sigev_notify as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigevent),
-        "::",
-        stringify!(sigev_notify)
+            "Offset of field: ",
+            stringify!(sigevent),
+            "::",
+            stringify!(sigev_notify)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigevent>())).sigev_signo as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigevent),
-        "::",
-        stringify!(sigev_signo)
+            "Offset of field: ",
+            stringify!(sigevent),
+            "::",
+            stringify!(sigev_signo)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigevent>())).sigev_value as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigevent),
-        "::",
-        stringify!(sigev_value)
+            "Offset of field: ",
+            stringify!(sigevent),
+            "::",
+            stringify!(sigev_value)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigevent>())).sigev_notify_function as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigevent),
-        "::",
-        stringify!(sigev_notify_function)
+            "Offset of field: ",
+            stringify!(sigevent),
+            "::",
+            stringify!(sigev_notify_function)
         )
     );
     assert_eq!(
@@ -9670,10 +9671,10 @@ fn bindgen_test_layout_sigevent() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigevent),
-        "::",
-        stringify!(sigev_notify_attributes)
+            "Offset of field: ",
+            stringify!(sigevent),
+            "::",
+            stringify!(sigev_notify_attributes)
         )
     );
 }
@@ -9709,100 +9710,100 @@ fn bindgen_test_layout___siginfo() {
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_signo as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_signo)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_signo)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_errno as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_errno)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_errno)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_code as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_code)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_code)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_pid as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_pid)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_pid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_uid as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_uid)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_uid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_status as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_status)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_status)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_addr as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_addr)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_addr)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_value as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_value)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_value)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).si_band as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(si_band)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(si_band)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__siginfo>())).__pad as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__siginfo),
-        "::",
-        stringify!(__pad)
+            "Offset of field: ",
+            stringify!(__siginfo),
+            "::",
+            stringify!(__pad)
         )
     );
 }
@@ -9838,20 +9839,20 @@ fn bindgen_test_layout___sigaction_u() {
         unsafe { &(*(::std::ptr::null::<__sigaction_u>())).__sa_handler as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction_u),
-        "::",
-        stringify!(__sa_handler)
+            "Offset of field: ",
+            stringify!(__sigaction_u),
+            "::",
+            stringify!(__sa_handler)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sigaction_u>())).__sa_sigaction as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction_u),
-        "::",
-        stringify!(__sa_sigaction)
+            "Offset of field: ",
+            stringify!(__sigaction_u),
+            "::",
+            stringify!(__sa_sigaction)
         )
     );
 }
@@ -9889,40 +9890,40 @@ fn bindgen_test_layout___sigaction() {
         unsafe { &(*(::std::ptr::null::<__sigaction>())).__sigaction_u as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction),
-        "::",
-        stringify!(__sigaction_u)
+            "Offset of field: ",
+            stringify!(__sigaction),
+            "::",
+            stringify!(__sigaction_u)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sigaction>())).sa_tramp as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction),
-        "::",
-        stringify!(sa_tramp)
+            "Offset of field: ",
+            stringify!(__sigaction),
+            "::",
+            stringify!(sa_tramp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sigaction>())).sa_mask as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction),
-        "::",
-        stringify!(sa_mask)
+            "Offset of field: ",
+            stringify!(__sigaction),
+            "::",
+            stringify!(sa_mask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__sigaction>())).sa_flags as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__sigaction),
-        "::",
-        stringify!(sa_flags)
+            "Offset of field: ",
+            stringify!(__sigaction),
+            "::",
+            stringify!(sa_flags)
         )
     );
 }
@@ -9951,30 +9952,30 @@ fn bindgen_test_layout_sigaction() {
         unsafe { &(*(::std::ptr::null::<sigaction>())).__sigaction_u as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigaction),
-        "::",
-        stringify!(__sigaction_u)
+            "Offset of field: ",
+            stringify!(sigaction),
+            "::",
+            stringify!(__sigaction_u)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigaction>())).sa_mask as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigaction),
-        "::",
-        stringify!(sa_mask)
+            "Offset of field: ",
+            stringify!(sigaction),
+            "::",
+            stringify!(sa_mask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigaction>())).sa_flags as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigaction),
-        "::",
-        stringify!(sa_flags)
+            "Offset of field: ",
+            stringify!(sigaction),
+            "::",
+            stringify!(sa_flags)
         )
     );
 }
@@ -10005,30 +10006,30 @@ fn bindgen_test_layout_sigvec() {
         unsafe { &(*(::std::ptr::null::<sigvec>())).sv_handler as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigvec),
-        "::",
-        stringify!(sv_handler)
+            "Offset of field: ",
+            stringify!(sigvec),
+            "::",
+            stringify!(sv_handler)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigvec>())).sv_mask as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigvec),
-        "::",
-        stringify!(sv_mask)
+            "Offset of field: ",
+            stringify!(sigvec),
+            "::",
+            stringify!(sv_mask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigvec>())).sv_flags as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigvec),
-        "::",
-        stringify!(sv_flags)
+            "Offset of field: ",
+            stringify!(sigvec),
+            "::",
+            stringify!(sv_flags)
         )
     );
 }
@@ -10056,20 +10057,20 @@ fn bindgen_test_layout_sigstack() {
         unsafe { &(*(::std::ptr::null::<sigstack>())).ss_sp as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigstack),
-        "::",
-        stringify!(ss_sp)
+            "Offset of field: ",
+            stringify!(sigstack),
+            "::",
+            stringify!(ss_sp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<sigstack>())).ss_onstack as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(sigstack),
-        "::",
-        stringify!(ss_onstack)
+            "Offset of field: ",
+            stringify!(sigstack),
+            "::",
+            stringify!(ss_onstack)
         )
     );
 }
@@ -10128,20 +10129,20 @@ fn bindgen_test_layout_timeval() {
         unsafe { &(*(::std::ptr::null::<timeval>())).tv_sec as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(timeval),
-        "::",
-        stringify!(tv_sec)
+            "Offset of field: ",
+            stringify!(timeval),
+            "::",
+            stringify!(tv_sec)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<timeval>())).tv_usec as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(timeval),
-        "::",
-        stringify!(tv_usec)
+            "Offset of field: ",
+            stringify!(timeval),
+            "::",
+            stringify!(tv_usec)
         )
     );
 }
@@ -10185,160 +10186,160 @@ fn bindgen_test_layout_rusage() {
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_utime as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_utime)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_utime)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_stime as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_stime)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_stime)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_maxrss as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_maxrss)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_maxrss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_ixrss as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_ixrss)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_ixrss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_idrss as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_idrss)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_idrss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_isrss as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_isrss)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_isrss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_minflt as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_minflt)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_minflt)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_majflt as *const _ as usize },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_majflt)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_majflt)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_nswap as *const _ as usize },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_nswap)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_nswap)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_inblock as *const _ as usize },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_inblock)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_inblock)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_oublock as *const _ as usize },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_oublock)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_oublock)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_msgsnd as *const _ as usize },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_msgsnd)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_msgsnd)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_msgrcv as *const _ as usize },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_msgrcv)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_msgrcv)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_nsignals as *const _ as usize },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_nsignals)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_nsignals)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_nvcsw as *const _ as usize },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_nvcsw)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_nvcsw)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage>())).ru_nivcsw as *const _ as usize },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage),
-        "::",
-        stringify!(ru_nivcsw)
+            "Offset of field: ",
+            stringify!(rusage),
+            "::",
+            stringify!(ru_nivcsw)
         )
     );
 }
@@ -10377,30 +10378,30 @@ fn bindgen_test_layout_rusage_info_v0() {
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_uuid as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_uuid)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_uuid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_user_time as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_user_time)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_system_time as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_system_time)
         )
     );
     assert_eq!(
@@ -10409,10 +10410,10 @@ fn bindgen_test_layout_rusage_info_v0() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -10421,40 +10422,40 @@ fn bindgen_test_layout_rusage_info_v0() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_pageins as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_pageins)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_wired_size as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_wired_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_wired_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v0>())).ri_resident_size as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_resident_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_resident_size)
         )
     );
     assert_eq!(
@@ -10463,10 +10464,10 @@ fn bindgen_test_layout_rusage_info_v0() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_phys_footprint)
         )
     );
     assert_eq!(
@@ -10475,10 +10476,10 @@ fn bindgen_test_layout_rusage_info_v0() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_proc_start_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_proc_start_abstime)
         )
     );
     assert_eq!(
@@ -10487,10 +10488,10 @@ fn bindgen_test_layout_rusage_info_v0() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v0),
-        "::",
-        stringify!(ri_proc_exit_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v0),
+            "::",
+            stringify!(ri_proc_exit_abstime)
         )
     );
 }
@@ -10533,30 +10534,30 @@ fn bindgen_test_layout_rusage_info_v1() {
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_uuid as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_uuid)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_uuid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_user_time as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_user_time)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_system_time as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_system_time)
         )
     );
     assert_eq!(
@@ -10565,10 +10566,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -10577,40 +10578,40 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_pageins as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_pageins)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_wired_size as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_wired_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_wired_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_resident_size as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_resident_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_resident_size)
         )
     );
     assert_eq!(
@@ -10619,10 +10620,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_phys_footprint)
         )
     );
     assert_eq!(
@@ -10631,10 +10632,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_proc_start_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_proc_start_abstime)
         )
     );
     assert_eq!(
@@ -10643,10 +10644,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_proc_exit_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_proc_exit_abstime)
         )
     );
     assert_eq!(
@@ -10655,10 +10656,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_user_time)
         )
     );
     assert_eq!(
@@ -10667,10 +10668,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_system_time)
         )
     );
     assert_eq!(
@@ -10679,10 +10680,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -10691,20 +10692,20 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v1>())).ri_child_pageins as *const _ as usize },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_pageins)
         )
     );
     assert_eq!(
@@ -10713,10 +10714,10 @@ fn bindgen_test_layout_rusage_info_v1() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v1),
-        "::",
-        stringify!(ri_child_elapsed_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v1),
+            "::",
+            stringify!(ri_child_elapsed_abstime)
         )
     );
 }
@@ -10761,30 +10762,30 @@ fn bindgen_test_layout_rusage_info_v2() {
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_uuid as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_uuid)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_uuid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_user_time as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_user_time)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_system_time as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_system_time)
         )
     );
     assert_eq!(
@@ -10793,10 +10794,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -10805,40 +10806,40 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_pageins as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_pageins)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_wired_size as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_wired_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_wired_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_resident_size as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_resident_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_resident_size)
         )
     );
     assert_eq!(
@@ -10847,10 +10848,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_phys_footprint)
         )
     );
     assert_eq!(
@@ -10859,10 +10860,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_proc_start_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_proc_start_abstime)
         )
     );
     assert_eq!(
@@ -10871,10 +10872,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_proc_exit_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_proc_exit_abstime)
         )
     );
     assert_eq!(
@@ -10883,10 +10884,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_user_time)
         )
     );
     assert_eq!(
@@ -10895,10 +10896,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_system_time)
         )
     );
     assert_eq!(
@@ -10907,10 +10908,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -10919,20 +10920,20 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v2>())).ri_child_pageins as *const _ as usize },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_pageins)
         )
     );
     assert_eq!(
@@ -10941,10 +10942,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_child_elapsed_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_child_elapsed_abstime)
         )
     );
     assert_eq!(
@@ -10953,10 +10954,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         144usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_diskio_bytesread)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_diskio_bytesread)
         )
     );
     assert_eq!(
@@ -10965,10 +10966,10 @@ fn bindgen_test_layout_rusage_info_v2() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v2),
-        "::",
-        stringify!(ri_diskio_byteswritten)
+            "Offset of field: ",
+            stringify!(rusage_info_v2),
+            "::",
+            stringify!(ri_diskio_byteswritten)
         )
     );
 }
@@ -11022,30 +11023,30 @@ fn bindgen_test_layout_rusage_info_v3() {
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_uuid as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_uuid)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_uuid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_user_time as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_user_time)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_system_time as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_system_time)
         )
     );
     assert_eq!(
@@ -11054,10 +11055,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -11066,40 +11067,40 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_pageins as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_pageins)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_wired_size as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_wired_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_wired_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_resident_size as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_resident_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_resident_size)
         )
     );
     assert_eq!(
@@ -11108,10 +11109,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_phys_footprint)
         )
     );
     assert_eq!(
@@ -11120,10 +11121,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_proc_start_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_proc_start_abstime)
         )
     );
     assert_eq!(
@@ -11132,10 +11133,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_proc_exit_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_proc_exit_abstime)
         )
     );
     assert_eq!(
@@ -11144,10 +11145,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_user_time)
         )
     );
     assert_eq!(
@@ -11156,10 +11157,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_system_time)
         )
     );
     assert_eq!(
@@ -11168,10 +11169,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -11180,20 +11181,20 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v3>())).ri_child_pageins as *const _ as usize },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_pageins)
         )
     );
     assert_eq!(
@@ -11202,10 +11203,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_child_elapsed_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_child_elapsed_abstime)
         )
     );
     assert_eq!(
@@ -11214,10 +11215,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         144usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_diskio_bytesread)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_diskio_bytesread)
         )
     );
     assert_eq!(
@@ -11226,10 +11227,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_diskio_byteswritten)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_diskio_byteswritten)
         )
     );
     assert_eq!(
@@ -11238,10 +11239,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         160usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_default)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_default)
         )
     );
     assert_eq!(
@@ -11251,10 +11252,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_maintenance)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_maintenance)
         )
     );
     assert_eq!(
@@ -11264,10 +11265,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         176usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_background)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_background)
         )
     );
     assert_eq!(
@@ -11276,10 +11277,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_utility)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_utility)
         )
     );
     assert_eq!(
@@ -11288,10 +11289,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         192usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_legacy)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_legacy)
         )
     );
     assert_eq!(
@@ -11301,10 +11302,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_user_initiated)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_user_initiated)
         )
     );
     assert_eq!(
@@ -11314,10 +11315,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         208usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_cpu_time_qos_user_interactive)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_cpu_time_qos_user_interactive)
         )
     );
     assert_eq!(
@@ -11326,10 +11327,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_billed_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_billed_system_time)
         )
     );
     assert_eq!(
@@ -11338,10 +11339,10 @@ fn bindgen_test_layout_rusage_info_v3() {
         },
         224usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v3),
-        "::",
-        stringify!(ri_serviced_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v3),
+            "::",
+            stringify!(ri_serviced_system_time)
         )
     );
 }
@@ -11403,30 +11404,30 @@ fn bindgen_test_layout_rusage_info_v4() {
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_uuid as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_uuid)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_uuid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_user_time as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_user_time)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_system_time as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_system_time)
         )
     );
     assert_eq!(
@@ -11435,10 +11436,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -11447,40 +11448,40 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_pageins as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_pageins)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_wired_size as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_wired_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_wired_size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_resident_size as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_resident_size)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_resident_size)
         )
     );
     assert_eq!(
@@ -11489,10 +11490,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         72usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_phys_footprint)
         )
     );
     assert_eq!(
@@ -11501,10 +11502,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_proc_start_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_proc_start_abstime)
         )
     );
     assert_eq!(
@@ -11513,10 +11514,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_proc_exit_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_proc_exit_abstime)
         )
     );
     assert_eq!(
@@ -11525,10 +11526,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         96usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_user_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_user_time)
         )
     );
     assert_eq!(
@@ -11537,10 +11538,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         104usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_system_time)
         )
     );
     assert_eq!(
@@ -11549,10 +11550,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         112usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_pkg_idle_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_pkg_idle_wkups)
         )
     );
     assert_eq!(
@@ -11561,20 +11562,20 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         120usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_interrupt_wkups)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_interrupt_wkups)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_child_pageins as *const _ as usize },
         128usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_pageins)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_pageins)
         )
     );
     assert_eq!(
@@ -11583,10 +11584,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_child_elapsed_abstime)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_child_elapsed_abstime)
         )
     );
     assert_eq!(
@@ -11595,10 +11596,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         144usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_diskio_bytesread)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_diskio_bytesread)
         )
     );
     assert_eq!(
@@ -11607,10 +11608,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_diskio_byteswritten)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_diskio_byteswritten)
         )
     );
     assert_eq!(
@@ -11619,10 +11620,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         160usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_default)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_default)
         )
     );
     assert_eq!(
@@ -11632,10 +11633,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_maintenance)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_maintenance)
         )
     );
     assert_eq!(
@@ -11645,10 +11646,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         176usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_background)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_background)
         )
     );
     assert_eq!(
@@ -11657,10 +11658,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_utility)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_utility)
         )
     );
     assert_eq!(
@@ -11669,10 +11670,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         192usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_legacy)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_legacy)
         )
     );
     assert_eq!(
@@ -11682,10 +11683,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_user_initiated)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_user_initiated)
         )
     );
     assert_eq!(
@@ -11695,10 +11696,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         208usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cpu_time_qos_user_interactive)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cpu_time_qos_user_interactive)
         )
     );
     assert_eq!(
@@ -11707,10 +11708,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         216usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_billed_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_billed_system_time)
         )
     );
     assert_eq!(
@@ -11719,10 +11720,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         224usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_serviced_system_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_serviced_system_time)
         )
     );
     assert_eq!(
@@ -11731,10 +11732,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         232usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_logical_writes)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_logical_writes)
         )
     );
     assert_eq!(
@@ -11744,40 +11745,40 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         240usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_lifetime_max_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_lifetime_max_phys_footprint)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_instructions as *const _ as usize },
         248usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_instructions)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_instructions)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_cycles as *const _ as usize },
         256usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_cycles)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_cycles)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_billed_energy as *const _ as usize },
         264usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_billed_energy)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_billed_energy)
         )
     );
     assert_eq!(
@@ -11786,10 +11787,10 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         272usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_serviced_energy)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_serviced_energy)
         )
     );
     assert_eq!(
@@ -11799,20 +11800,20 @@ fn bindgen_test_layout_rusage_info_v4() {
         },
         280usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_interval_max_phys_footprint)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_interval_max_phys_footprint)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rusage_info_v4>())).ri_runnable_time as *const _ as usize },
         288usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rusage_info_v4),
-        "::",
-        stringify!(ri_runnable_time)
+            "Offset of field: ",
+            stringify!(rusage_info_v4),
+            "::",
+            stringify!(ri_runnable_time)
         )
     );
 }
@@ -11842,20 +11843,20 @@ fn bindgen_test_layout_rlimit() {
         unsafe { &(*(::std::ptr::null::<rlimit>())).rlim_cur as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rlimit),
-        "::",
-        stringify!(rlim_cur)
+            "Offset of field: ",
+            stringify!(rlimit),
+            "::",
+            stringify!(rlim_cur)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<rlimit>())).rlim_max as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(rlimit),
-        "::",
-        stringify!(rlim_max)
+            "Offset of field: ",
+            stringify!(rlimit),
+            "::",
+            stringify!(rlim_max)
         )
     );
 }
@@ -11885,10 +11886,10 @@ fn bindgen_test_layout_proc_rlimit_control_wakeupmon() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(proc_rlimit_control_wakeupmon),
-        "::",
-        stringify!(wm_flags)
+            "Offset of field: ",
+            stringify!(proc_rlimit_control_wakeupmon),
+            "::",
+            stringify!(wm_flags)
         )
     );
     assert_eq!(
@@ -11897,10 +11898,10 @@ fn bindgen_test_layout_proc_rlimit_control_wakeupmon() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(proc_rlimit_control_wakeupmon),
-        "::",
-        stringify!(wm_rate)
+            "Offset of field: ",
+            stringify!(proc_rlimit_control_wakeupmon),
+            "::",
+            stringify!(wm_rate)
         )
     );
 }
@@ -12142,10 +12143,10 @@ fn bindgen_test_layout_wait() {
         unsafe { &(*(::std::ptr::null::<wait>())).w_status as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(wait),
-        "::",
-        stringify!(w_status)
+            "Offset of field: ",
+            stringify!(wait),
+            "::",
+            stringify!(w_status)
         )
     );
     assert_eq!(
@@ -12229,20 +12230,20 @@ fn bindgen_test_layout_div_t() {
         unsafe { &(*(::std::ptr::null::<div_t>())).quot as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(div_t),
-        "::",
-        stringify!(quot)
+            "Offset of field: ",
+            stringify!(div_t),
+            "::",
+            stringify!(quot)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<div_t>())).rem as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(div_t),
-        "::",
-        stringify!(rem)
+            "Offset of field: ",
+            stringify!(div_t),
+            "::",
+            stringify!(rem)
         )
     );
 }
@@ -12270,20 +12271,20 @@ fn bindgen_test_layout_ldiv_t() {
         unsafe { &(*(::std::ptr::null::<ldiv_t>())).quot as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(ldiv_t),
-        "::",
-        stringify!(quot)
+            "Offset of field: ",
+            stringify!(ldiv_t),
+            "::",
+            stringify!(quot)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<ldiv_t>())).rem as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(ldiv_t),
-        "::",
-        stringify!(rem)
+            "Offset of field: ",
+            stringify!(ldiv_t),
+            "::",
+            stringify!(rem)
         )
     );
 }
@@ -12311,20 +12312,20 @@ fn bindgen_test_layout_lldiv_t() {
         unsafe { &(*(::std::ptr::null::<lldiv_t>())).quot as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(lldiv_t),
-        "::",
-        stringify!(quot)
+            "Offset of field: ",
+            stringify!(lldiv_t),
+            "::",
+            stringify!(quot)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<lldiv_t>())).rem as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(lldiv_t),
-        "::",
-        stringify!(rem)
+            "Offset of field: ",
+            stringify!(lldiv_t),
+            "::",
+            stringify!(rem)
         )
     );
 }
@@ -13448,20 +13449,20 @@ fn bindgen_test_layout_imaxdiv_t() {
         unsafe { &(*(::std::ptr::null::<imaxdiv_t>())).quot as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(imaxdiv_t),
-        "::",
-        stringify!(quot)
+            "Offset of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(quot)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<imaxdiv_t>())).rem as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(imaxdiv_t),
-        "::",
-        stringify!(rem)
+            "Offset of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(rem)
         )
     );
 }
@@ -13529,40 +13530,40 @@ fn bindgen_test_layout__RuneEntry() {
         unsafe { &(*(::std::ptr::null::<_RuneEntry>())).__min as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneEntry),
-        "::",
-        stringify!(__min)
+            "Offset of field: ",
+            stringify!(_RuneEntry),
+            "::",
+            stringify!(__min)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneEntry>())).__max as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneEntry),
-        "::",
-        stringify!(__max)
+            "Offset of field: ",
+            stringify!(_RuneEntry),
+            "::",
+            stringify!(__max)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneEntry>())).__map as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneEntry),
-        "::",
-        stringify!(__map)
+            "Offset of field: ",
+            stringify!(_RuneEntry),
+            "::",
+            stringify!(__map)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneEntry>())).__types as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneEntry),
-        "::",
-        stringify!(__types)
+            "Offset of field: ",
+            stringify!(_RuneEntry),
+            "::",
+            stringify!(__types)
         )
     );
 }
@@ -13590,20 +13591,20 @@ fn bindgen_test_layout__RuneRange() {
         unsafe { &(*(::std::ptr::null::<_RuneRange>())).__nranges as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneRange),
-        "::",
-        stringify!(__nranges)
+            "Offset of field: ",
+            stringify!(_RuneRange),
+            "::",
+            stringify!(__nranges)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneRange>())).__ranges as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneRange),
-        "::",
-        stringify!(__ranges)
+            "Offset of field: ",
+            stringify!(_RuneRange),
+            "::",
+            stringify!(__ranges)
         )
     );
 }
@@ -13631,20 +13632,20 @@ fn bindgen_test_layout__RuneCharClass() {
         unsafe { &(*(::std::ptr::null::<_RuneCharClass>())).__name as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneCharClass),
-        "::",
-        stringify!(__name)
+            "Offset of field: ",
+            stringify!(_RuneCharClass),
+            "::",
+            stringify!(__name)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneCharClass>())).__mask as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneCharClass),
-        "::",
-        stringify!(__mask)
+            "Offset of field: ",
+            stringify!(_RuneCharClass),
+            "::",
+            stringify!(__mask)
         )
     );
 }
@@ -13698,150 +13699,150 @@ fn bindgen_test_layout__RuneLocale() {
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__magic as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__magic)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__magic)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__encoding as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__encoding)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__encoding)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__sgetrune as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__sgetrune)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__sgetrune)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__sputrune as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__sputrune)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__sputrune)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__invalid_rune as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__invalid_rune)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__invalid_rune)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__runetype as *const _ as usize },
         60usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__runetype)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__runetype)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__maplower as *const _ as usize },
         1084usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__maplower)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__maplower)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__mapupper as *const _ as usize },
         2108usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__mapupper)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__mapupper)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__runetype_ext as *const _ as usize },
         3136usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__runetype_ext)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__runetype_ext)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__maplower_ext as *const _ as usize },
         3152usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__maplower_ext)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__maplower_ext)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__mapupper_ext as *const _ as usize },
         3168usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__mapupper_ext)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__mapupper_ext)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__variable as *const _ as usize },
         3184usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__variable)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__variable)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__variable_len as *const _ as usize },
         3192usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__variable_len)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__variable_len)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__ncharclasses as *const _ as usize },
         3196usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__ncharclasses)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__ncharclasses)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<_RuneLocale>())).__charclasses as *const _ as usize },
         3200usize,
         concat!(
-        "Offset of field: ",
-        stringify!(_RuneLocale),
-        "::",
-        stringify!(__charclasses)
+            "Offset of field: ",
+            stringify!(_RuneLocale),
+            "::",
+            stringify!(__charclasses)
         )
     );
 }
@@ -14655,20 +14656,20 @@ fn bindgen_test_layout___float2() {
         unsafe { &(*(::std::ptr::null::<__float2>())).__sinval as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__float2),
-        "::",
-        stringify!(__sinval)
+            "Offset of field: ",
+            stringify!(__float2),
+            "::",
+            stringify!(__sinval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__float2>())).__cosval as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__float2),
-        "::",
-        stringify!(__cosval)
+            "Offset of field: ",
+            stringify!(__float2),
+            "::",
+            stringify!(__cosval)
         )
     );
 }
@@ -14696,20 +14697,20 @@ fn bindgen_test_layout___double2() {
         unsafe { &(*(::std::ptr::null::<__double2>())).__sinval as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__double2),
-        "::",
-        stringify!(__sinval)
+            "Offset of field: ",
+            stringify!(__double2),
+            "::",
+            stringify!(__sinval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__double2>())).__cosval as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__double2),
-        "::",
-        stringify!(__cosval)
+            "Offset of field: ",
+            stringify!(__double2),
+            "::",
+            stringify!(__cosval)
         )
     );
 }
@@ -14812,50 +14813,50 @@ fn bindgen_test_layout_exception() {
         unsafe { &(*(::std::ptr::null::<exception>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(exception),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(exception),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<exception>())).name as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(exception),
-        "::",
-        stringify!(name)
+            "Offset of field: ",
+            stringify!(exception),
+            "::",
+            stringify!(name)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<exception>())).arg1 as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(exception),
-        "::",
-        stringify!(arg1)
+            "Offset of field: ",
+            stringify!(exception),
+            "::",
+            stringify!(arg1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<exception>())).arg2 as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(exception),
-        "::",
-        stringify!(arg2)
+            "Offset of field: ",
+            stringify!(exception),
+            "::",
+            stringify!(arg2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<exception>())).retval as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(exception),
-        "::",
-        stringify!(retval)
+            "Offset of field: ",
+            stringify!(exception),
+            "::",
+            stringify!(retval)
         )
     );
 }
@@ -14906,7 +14907,7 @@ extern "C" {
 }
 
 pub type SDL_malloc_func =
-::std::option::Option<unsafe extern "C" fn(size: size_t) -> *mut ::std::os::raw::c_void>;
+    ::std::option::Option<unsafe extern "C" fn(size: size_t) -> *mut ::std::os::raw::c_void>;
 pub type SDL_calloc_func = ::std::option::Option<
     unsafe extern "C" fn(nmemb: size_t, size: size_t) -> *mut ::std::os::raw::c_void,
 >;
@@ -14917,7 +14918,7 @@ pub type SDL_realloc_func = ::std::option::Option<
     ) -> *mut ::std::os::raw::c_void,
 >;
 pub type SDL_free_func =
-::std::option::Option<unsafe extern "C" fn(mem: *mut ::std::os::raw::c_void)>;
+    ::std::option::Option<unsafe extern "C" fn(mem: *mut ::std::os::raw::c_void)>;
 
 extern "C" {
     #[doc = " Get the current set of SDL memory functions"]
@@ -15623,70 +15624,70 @@ fn bindgen_test_layout_SDL_AssertData() {
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).always_ignore as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(always_ignore)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(always_ignore)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).trigger_count as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(trigger_count)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(trigger_count)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).condition as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(condition)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(condition)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).filename as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(filename)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(filename)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).linenum as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(linenum)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(linenum)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).function as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(function)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(function)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AssertData>())).next as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AssertData),
-        "::",
-        stringify!(next)
+            "Offset of field: ",
+            stringify!(SDL_AssertData),
+            "::",
+            stringify!(next)
         )
     );
 }
@@ -15913,10 +15914,10 @@ fn bindgen_test_layout_SDL_atomic_t() {
         unsafe { &(*(::std::ptr::null::<SDL_atomic_t>())).value as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_atomic_t),
-        "::",
-        stringify!(value)
+            "Offset of field: ",
+            stringify!(SDL_atomic_t),
+            "::",
+            stringify!(value)
         )
     );
 }
@@ -16869,16 +16870,16 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_1() {
         ::std::mem::size_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_1>(),
         16usize,
         concat!(
-        "Size of: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1)
+            "Size of: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1)
         )
     );
     assert_eq!(
         ::std::mem::align_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         concat!(
-        "Alignment of ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1)
+            "Alignment of ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1)
         )
     );
     assert_eq!(
@@ -16888,10 +16889,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_1() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1),
-        "::",
-        stringify!(autoclose)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(autoclose)
         )
     );
     assert_eq!(
@@ -16901,10 +16902,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_1() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1),
-        "::",
-        stringify!(fp)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(fp)
         )
     );
 }
@@ -16923,16 +16924,16 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_2() {
         ::std::mem::size_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_2>(),
         24usize,
         concat!(
-        "Size of: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2)
+            "Size of: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2)
         )
     );
     assert_eq!(
         ::std::mem::align_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_2>(),
         8usize,
         concat!(
-        "Alignment of ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2)
+            "Alignment of ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2)
         )
     );
     assert_eq!(
@@ -16942,10 +16943,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_2() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
-        "::",
-        stringify!(base)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
+            "::",
+            stringify!(base)
         )
     );
     assert_eq!(
@@ -16955,10 +16956,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_2() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
-        "::",
-        stringify!(here)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
+            "::",
+            stringify!(here)
         )
     );
     assert_eq!(
@@ -16968,10 +16969,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_2() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
-        "::",
-        stringify!(stop)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_2),
+            "::",
+            stringify!(stop)
         )
     );
 }
@@ -16989,16 +16990,16 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_3() {
         ::std::mem::size_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_3>(),
         16usize,
         concat!(
-        "Size of: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3)
+            "Size of: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3)
         )
     );
     assert_eq!(
         ::std::mem::align_of::<SDL_RWops__bindgen_ty_1__bindgen_ty_3>(),
         8usize,
         concat!(
-        "Alignment of ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3)
+            "Alignment of ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3)
         )
     );
     assert_eq!(
@@ -17008,10 +17009,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_3() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3),
-        "::",
-        stringify!(data1)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3),
+            "::",
+            stringify!(data1)
         )
     );
     assert_eq!(
@@ -17021,10 +17022,10 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1__bindgen_ty_3() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3),
-        "::",
-        stringify!(data2)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1__bindgen_ty_3),
+            "::",
+            stringify!(data2)
         )
     );
 }
@@ -17045,30 +17046,30 @@ fn bindgen_test_layout_SDL_RWops__bindgen_ty_1() {
         unsafe { &(*(::std::ptr::null::<SDL_RWops__bindgen_ty_1>())).stdio as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1),
-        "::",
-        stringify!(stdio)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1),
+            "::",
+            stringify!(stdio)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops__bindgen_ty_1>())).mem as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1),
-        "::",
-        stringify!(mem)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1),
+            "::",
+            stringify!(mem)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops__bindgen_ty_1>())).unknown as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops__bindgen_ty_1),
-        "::",
-        stringify!(unknown)
+            "Offset of field: ",
+            stringify!(SDL_RWops__bindgen_ty_1),
+            "::",
+            stringify!(unknown)
         )
     );
 }
@@ -17089,70 +17090,70 @@ fn bindgen_test_layout_SDL_RWops() {
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).size as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(size)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).seek as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(seek)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(seek)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).read as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(read)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(read)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).write as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(write)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(write)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).close as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(close)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(close)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).type_ as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RWops>())).hidden as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RWops),
-        "::",
-        stringify!(hidden)
+            "Offset of field: ",
+            stringify!(SDL_RWops),
+            "::",
+            stringify!(hidden)
         )
     );
 }
@@ -17538,96 +17539,96 @@ fn bindgen_test_layout_SDL_AudioSpec() {
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).freq as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(freq)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(freq)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).format as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(format)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).channels as *const _ as usize },
         6usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(channels)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(channels)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).silence as *const _ as usize },
         7usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(silence)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(silence)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).samples as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(samples)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(samples)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).padding as *const _ as usize },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(padding)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(padding)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).size as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(size)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(size)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).callback as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(callback)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(callback)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioSpec>())).userdata as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioSpec),
-        "::",
-        stringify!(userdata)
+            "Offset of field: ",
+            stringify!(SDL_AudioSpec),
+            "::",
+            stringify!(userdata)
         )
     );
 }
 
 pub type SDL_AudioFilter =
-::std::option::Option<unsafe extern "C" fn(cvt: *mut SDL_AudioCVT, format: SDL_AudioFormat)>;
+    ::std::option::Option<unsafe extern "C" fn(cvt: *mut SDL_AudioCVT, format: SDL_AudioFormat)>;
 
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
@@ -17672,110 +17673,110 @@ fn bindgen_test_layout_SDL_AudioCVT() {
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).needed as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(needed)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(needed)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).src_format as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(src_format)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(src_format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).dst_format as *const _ as usize },
         6usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(dst_format)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(dst_format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).rate_incr as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(rate_incr)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(rate_incr)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).buf as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(buf)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(buf)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).len as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(len)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(len)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).len_cvt as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(len_cvt)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(len_cvt)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).len_mult as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(len_mult)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(len_mult)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).len_ratio as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(len_ratio)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(len_ratio)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).filters as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(filters)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(filters)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioCVT>())).filter_index as *const _ as usize },
         124usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioCVT),
-        "::",
-        stringify!(filter_index)
+            "Offset of field: ",
+            stringify!(SDL_AudioCVT),
+            "::",
+            stringify!(filter_index)
         )
     );
 }
@@ -19667,40 +19668,40 @@ fn bindgen_test_layout_SDL_Color() {
         unsafe { &(*(::std::ptr::null::<SDL_Color>())).r as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Color),
-        "::",
-        stringify!(r)
+            "Offset of field: ",
+            stringify!(SDL_Color),
+            "::",
+            stringify!(r)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Color>())).g as *const _ as usize },
         1usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Color),
-        "::",
-        stringify!(g)
+            "Offset of field: ",
+            stringify!(SDL_Color),
+            "::",
+            stringify!(g)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Color>())).b as *const _ as usize },
         2usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Color),
-        "::",
-        stringify!(b)
+            "Offset of field: ",
+            stringify!(SDL_Color),
+            "::",
+            stringify!(b)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Color>())).a as *const _ as usize },
         3usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Color),
-        "::",
-        stringify!(a)
+            "Offset of field: ",
+            stringify!(SDL_Color),
+            "::",
+            stringify!(a)
         )
     );
 }
@@ -19730,40 +19731,40 @@ fn bindgen_test_layout_SDL_Palette() {
         unsafe { &(*(::std::ptr::null::<SDL_Palette>())).ncolors as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Palette),
-        "::",
-        stringify!(ncolors)
+            "Offset of field: ",
+            stringify!(SDL_Palette),
+            "::",
+            stringify!(ncolors)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Palette>())).colors as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Palette),
-        "::",
-        stringify!(colors)
+            "Offset of field: ",
+            stringify!(SDL_Palette),
+            "::",
+            stringify!(colors)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Palette>())).version as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Palette),
-        "::",
-        stringify!(version)
+            "Offset of field: ",
+            stringify!(SDL_Palette),
+            "::",
+            stringify!(version)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Palette>())).refcount as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Palette),
-        "::",
-        stringify!(refcount)
+            "Offset of field: ",
+            stringify!(SDL_Palette),
+            "::",
+            stringify!(refcount)
         )
     );
 }
@@ -19809,190 +19810,190 @@ fn bindgen_test_layout_SDL_PixelFormat() {
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).format as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(format)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).palette as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(palette)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(palette)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).BitsPerPixel as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(BitsPerPixel)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(BitsPerPixel)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).BytesPerPixel as *const _ as usize },
         17usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(BytesPerPixel)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(BytesPerPixel)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).padding as *const _ as usize },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(padding)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(padding)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Rmask as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Rmask)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Rmask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Gmask as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Gmask)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Gmask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Bmask as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Bmask)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Bmask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Amask as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Amask)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Amask)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Rloss as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Rloss)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Rloss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Gloss as *const _ as usize },
         37usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Gloss)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Gloss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Bloss as *const _ as usize },
         38usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Bloss)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Bloss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Aloss as *const _ as usize },
         39usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Aloss)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Aloss)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Rshift as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Rshift)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Rshift)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Gshift as *const _ as usize },
         41usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Gshift)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Gshift)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Bshift as *const _ as usize },
         42usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Bshift)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Bshift)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).Ashift as *const _ as usize },
         43usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(Ashift)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(Ashift)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).refcount as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(refcount)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(refcount)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_PixelFormat>())).next as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_PixelFormat),
-        "::",
-        stringify!(next)
+            "Offset of field: ",
+            stringify!(SDL_PixelFormat),
+            "::",
+            stringify!(next)
         )
     );
 }
@@ -20301,20 +20302,20 @@ fn bindgen_test_layout_SDL_Point() {
         unsafe { &(*(::std::ptr::null::<SDL_Point>())).x as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Point),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_Point),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Point>())).y as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Point),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_Point),
+            "::",
+            stringify!(y)
         )
     );
 }
@@ -20346,20 +20347,20 @@ fn bindgen_test_layout_SDL_FPoint() {
         unsafe { &(*(::std::ptr::null::<SDL_FPoint>())).x as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FPoint),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_FPoint),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_FPoint>())).y as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FPoint),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_FPoint),
+            "::",
+            stringify!(y)
         )
     );
 }
@@ -20397,40 +20398,40 @@ fn bindgen_test_layout_SDL_Rect() {
         unsafe { &(*(::std::ptr::null::<SDL_Rect>())).x as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Rect),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_Rect),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Rect>())).y as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Rect),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_Rect),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Rect>())).w as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Rect),
-        "::",
-        stringify!(w)
+            "Offset of field: ",
+            stringify!(SDL_Rect),
+            "::",
+            stringify!(w)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Rect>())).h as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Rect),
-        "::",
-        stringify!(h)
+            "Offset of field: ",
+            stringify!(SDL_Rect),
+            "::",
+            stringify!(h)
         )
     );
 }
@@ -20461,40 +20462,40 @@ fn bindgen_test_layout_SDL_FRect() {
         unsafe { &(*(::std::ptr::null::<SDL_FRect>())).x as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FRect),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_FRect),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_FRect>())).y as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FRect),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_FRect),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_FRect>())).w as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FRect),
-        "::",
-        stringify!(w)
+            "Offset of field: ",
+            stringify!(SDL_FRect),
+            "::",
+            stringify!(w)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_FRect>())).h as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_FRect),
-        "::",
-        stringify!(h)
+            "Offset of field: ",
+            stringify!(SDL_FRect),
+            "::",
+            stringify!(h)
         )
     );
 }
@@ -20803,120 +20804,120 @@ fn bindgen_test_layout_SDL_Surface() {
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).flags as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(flags)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(flags)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).format as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(format)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).w as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(w)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(w)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).h as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(h)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(h)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).pitch as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(pitch)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(pitch)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).pixels as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(pixels)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(pixels)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).userdata as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(userdata)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(userdata)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).locked as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(locked)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(locked)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).list_blitmap as *const _ as usize },
         56usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(list_blitmap)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(list_blitmap)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).clip_rect as *const _ as usize },
         64usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(clip_rect)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(clip_rect)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).map as *const _ as usize },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(map)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(map)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Surface>())).refcount as *const _ as usize },
         88usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Surface),
-        "::",
-        stringify!(refcount)
+            "Offset of field: ",
+            stringify!(SDL_Surface),
+            "::",
+            stringify!(refcount)
         )
     );
 }
@@ -21346,7 +21347,7 @@ extern "C" {
     #[doc = " \\sa SDL_GetSurfaceAlphaMod"]
     #[doc = " \\sa SDL_SetSurfaceColorMod"]
     pub fn SDL_SetSurfaceAlphaMod(surface: *mut SDL_Surface, alpha: Uint8)
-                                  -> ::std::os::raw::c_int;
+        -> ::std::os::raw::c_int;
 }
 
 extern "C" {
@@ -21734,50 +21735,50 @@ fn bindgen_test_layout_SDL_DisplayMode() {
         unsafe { &(*(::std::ptr::null::<SDL_DisplayMode>())).format as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayMode),
-        "::",
-        stringify!(format)
+            "Offset of field: ",
+            stringify!(SDL_DisplayMode),
+            "::",
+            stringify!(format)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayMode>())).w as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayMode),
-        "::",
-        stringify!(w)
+            "Offset of field: ",
+            stringify!(SDL_DisplayMode),
+            "::",
+            stringify!(w)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayMode>())).h as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayMode),
-        "::",
-        stringify!(h)
+            "Offset of field: ",
+            stringify!(SDL_DisplayMode),
+            "::",
+            stringify!(h)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayMode>())).refresh_rate as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayMode),
-        "::",
-        stringify!(refresh_rate)
+            "Offset of field: ",
+            stringify!(SDL_DisplayMode),
+            "::",
+            stringify!(refresh_rate)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayMode>())).driverdata as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayMode),
-        "::",
-        stringify!(driverdata)
+            "Offset of field: ",
+            stringify!(SDL_DisplayMode),
+            "::",
+            stringify!(driverdata)
         )
     );
 }
@@ -21976,9 +21977,9 @@ pub const SDL_GLcontextReleaseFlag_SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH: SDL_GL
 pub type SDL_GLcontextReleaseFlag = ::std::os::raw::c_uint;
 
 pub const SDL_GLContextResetNotification_SDL_GL_CONTEXT_RESET_NO_NOTIFICATION:
-SDL_GLContextResetNotification = 0;
+    SDL_GLContextResetNotification = 0;
 pub const SDL_GLContextResetNotification_SDL_GL_CONTEXT_RESET_LOSE_CONTEXT:
-SDL_GLContextResetNotification = 1;
+    SDL_GLContextResetNotification = 1;
 
 pub type SDL_GLContextResetNotification = ::std::os::raw::c_uint;
 
@@ -22080,7 +22081,7 @@ extern "C" {
     #[doc = ""]
     #[doc = " \\sa SDL_GetNumVideoDisplays"]
     pub fn SDL_GetDisplayName(displayIndex: ::std::os::raw::c_int)
-                              -> *const ::std::os::raw::c_char;
+        -> *const ::std::os::raw::c_char;
 }
 
 extern "C" {
@@ -22174,7 +22175,7 @@ extern "C" {
     #[doc = ""]
     #[doc = " \\sa SDL_GetNumVideoDisplays"]
     pub fn SDL_GetDisplayOrientation(displayIndex: ::std::os::raw::c_int)
-                                     -> SDL_DisplayOrientation;
+        -> SDL_DisplayOrientation;
 }
 
 extern "C" {
@@ -22883,7 +22884,7 @@ extern "C" {
     #[doc = " \\sa SDL_GetWindowDisplayMode"]
     #[doc = " \\sa SDL_SetWindowDisplayMode"]
     pub fn SDL_SetWindowFullscreen(window: *mut SDL_Window, flags: Uint32)
-                                   -> ::std::os::raw::c_int;
+        -> ::std::os::raw::c_int;
 }
 
 extern "C" {
@@ -24315,40 +24316,40 @@ fn bindgen_test_layout_SDL_Keysym() {
         unsafe { &(*(::std::ptr::null::<SDL_Keysym>())).scancode as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Keysym),
-        "::",
-        stringify!(scancode)
+            "Offset of field: ",
+            stringify!(SDL_Keysym),
+            "::",
+            stringify!(scancode)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Keysym>())).sym as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Keysym),
-        "::",
-        stringify!(sym)
+            "Offset of field: ",
+            stringify!(SDL_Keysym),
+            "::",
+            stringify!(sym)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Keysym>())).mod_ as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Keysym),
-        "::",
-        stringify!(mod_)
+            "Offset of field: ",
+            stringify!(SDL_Keysym),
+            "::",
+            stringify!(mod_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Keysym>())).unused as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Keysym),
-        "::",
-        stringify!(unused)
+            "Offset of field: ",
+            stringify!(SDL_Keysym),
+            "::",
+            stringify!(unused)
         )
     );
 }
@@ -25008,10 +25009,10 @@ fn bindgen_test_layout_SDL_JoystickGUID() {
         unsafe { &(*(::std::ptr::null::<SDL_JoystickGUID>())).data as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoystickGUID),
-        "::",
-        stringify!(data)
+            "Offset of field: ",
+            stringify!(SDL_JoystickGUID),
+            "::",
+            stringify!(data)
         )
     );
 }
@@ -26008,16 +26009,16 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1(
         ::std::mem::size_of::<SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         concat!(
-        "Size of: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1)
+            "Size of: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1)
         )
     );
     assert_eq!(
         ::std::mem::align_of::<SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         concat!(
-        "Alignment of ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1)
+            "Alignment of ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1)
         )
     );
     assert_eq!(
@@ -26027,10 +26028,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1(
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1),
-        "::",
-        stringify!(hat)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(hat)
         )
     );
     assert_eq!(
@@ -26040,10 +26041,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1(
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1),
-        "::",
-        stringify!(hat_mask)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1__bindgen_ty_1),
+            "::",
+            stringify!(hat_mask)
         )
     );
 }
@@ -26054,16 +26055,16 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1() {
         ::std::mem::size_of::<SDL_GameControllerButtonBind__bindgen_ty_1>(),
         8usize,
         concat!(
-        "Size of: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1)
+            "Size of: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1)
         )
     );
     assert_eq!(
         ::std::mem::align_of::<SDL_GameControllerButtonBind__bindgen_ty_1>(),
         4usize,
         concat!(
-        "Alignment of ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1)
+            "Alignment of ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1)
         )
     );
     assert_eq!(
@@ -26073,10 +26074,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
@@ -26086,10 +26087,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
-        "::",
-        stringify!(axis)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
+            "::",
+            stringify!(axis)
         )
     );
     assert_eq!(
@@ -26099,10 +26100,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind__bindgen_ty_1() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
-        "::",
-        stringify!(hat)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind__bindgen_ty_1),
+            "::",
+            stringify!(hat)
         )
     );
 }
@@ -26125,10 +26126,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind),
-        "::",
-        stringify!(bindType)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind),
+            "::",
+            stringify!(bindType)
         )
     );
     assert_eq!(
@@ -26137,10 +26138,10 @@ fn bindgen_test_layout_SDL_GameControllerButtonBind() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_GameControllerButtonBind),
-        "::",
-        stringify!(value)
+            "Offset of field: ",
+            stringify!(SDL_GameControllerButtonBind),
+            "::",
+            stringify!(value)
         )
     );
 }
@@ -26349,7 +26350,7 @@ extern "C" {
     #[doc = " \\sa SDL_GameControllerNameForIndex"]
     #[doc = " \\sa SDL_IsGameController"]
     pub fn SDL_GameControllerOpen(joystick_index: ::std::os::raw::c_int)
-                                  -> *mut SDL_GameController;
+        -> *mut SDL_GameController;
 }
 
 extern "C" {
@@ -26995,40 +26996,40 @@ fn bindgen_test_layout_SDL_Finger() {
         unsafe { &(*(::std::ptr::null::<SDL_Finger>())).id as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Finger),
-        "::",
-        stringify!(id)
+            "Offset of field: ",
+            stringify!(SDL_Finger),
+            "::",
+            stringify!(id)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Finger>())).x as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Finger),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_Finger),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Finger>())).y as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Finger),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_Finger),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Finger>())).pressure as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Finger),
-        "::",
-        stringify!(pressure)
+            "Offset of field: ",
+            stringify!(SDL_Finger),
+            "::",
+            stringify!(pressure)
         )
     );
 }
@@ -27315,20 +27316,20 @@ fn bindgen_test_layout_SDL_CommonEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_CommonEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_CommonEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_CommonEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_CommonEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_CommonEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_CommonEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
 }
@@ -27368,80 +27369,80 @@ fn bindgen_test_layout_SDL_DisplayEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).display as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(display)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(display)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).event as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(event)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(event)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).padding1 as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DisplayEvent>())).data1 as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DisplayEvent),
-        "::",
-        stringify!(data1)
+            "Offset of field: ",
+            stringify!(SDL_DisplayEvent),
+            "::",
+            stringify!(data1)
         )
     );
 }
@@ -27483,90 +27484,90 @@ fn bindgen_test_layout_SDL_WindowEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).event as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(event)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(event)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).padding1 as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).data1 as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(data1)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(data1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowEvent>())).data2 as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowEvent),
-        "::",
-        stringify!(data2)
+            "Offset of field: ",
+            stringify!(SDL_WindowEvent),
+            "::",
+            stringify!(data2)
         )
     );
 }
@@ -27607,80 +27608,80 @@ fn bindgen_test_layout_SDL_KeyboardEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).state as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(state)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(state)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).repeat as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(repeat)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(repeat)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_KeyboardEvent>())).keysym as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_KeyboardEvent),
-        "::",
-        stringify!(keysym)
+            "Offset of field: ",
+            stringify!(SDL_KeyboardEvent),
+            "::",
+            stringify!(keysym)
         )
     );
 }
@@ -27719,60 +27720,60 @@ fn bindgen_test_layout_SDL_TextEditingEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).text as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(text)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(text)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).start as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(start)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(start)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextEditingEvent>())).length as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextEditingEvent),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_TextEditingEvent),
+            "::",
+            stringify!(length)
         )
     );
 }
@@ -27807,40 +27808,40 @@ fn bindgen_test_layout_SDL_TextInputEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_TextInputEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextInputEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_TextInputEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextInputEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextInputEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_TextInputEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextInputEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextInputEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_TextInputEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TextInputEvent>())).text as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TextInputEvent),
-        "::",
-        stringify!(text)
+            "Offset of field: ",
+            stringify!(SDL_TextInputEvent),
+            "::",
+            stringify!(text)
         )
     );
 }
@@ -27885,90 +27886,90 @@ fn bindgen_test_layout_SDL_MouseMotionEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).which as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).state as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(state)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(state)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).x as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).y as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).xrel as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(xrel)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(xrel)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseMotionEvent>())).yrel as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseMotionEvent),
-        "::",
-        stringify!(yrel)
+            "Offset of field: ",
+            stringify!(SDL_MouseMotionEvent),
+            "::",
+            stringify!(yrel)
         )
     );
 }
@@ -28014,100 +28015,100 @@ fn bindgen_test_layout_SDL_MouseButtonEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).which as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).button as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).state as *const _ as usize },
         17usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(state)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(state)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).clicks as *const _ as usize },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(clicks)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(clicks)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).padding1 as *const _ as usize },
         19usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).x as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseButtonEvent>())).y as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseButtonEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_MouseButtonEvent),
+            "::",
+            stringify!(y)
         )
     );
 }
@@ -28148,70 +28149,70 @@ fn bindgen_test_layout_SDL_MouseWheelEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).which as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).x as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).y as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MouseWheelEvent>())).direction as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MouseWheelEvent),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_MouseWheelEvent),
+            "::",
+            stringify!(direction)
         )
     );
 }
@@ -28252,90 +28253,90 @@ fn bindgen_test_layout_SDL_JoyAxisEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).axis as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(axis)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(axis)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).padding1 as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).value as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(value)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(value)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyAxisEvent>())).padding4 as *const _ as usize },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyAxisEvent),
-        "::",
-        stringify!(padding4)
+            "Offset of field: ",
+            stringify!(SDL_JoyAxisEvent),
+            "::",
+            stringify!(padding4)
         )
     );
 }
@@ -28377,90 +28378,90 @@ fn bindgen_test_layout_SDL_JoyBallEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).ball as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(ball)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(ball)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).padding1 as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).xrel as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(xrel)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(xrel)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyBallEvent>())).yrel as *const _ as usize },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyBallEvent),
-        "::",
-        stringify!(yrel)
+            "Offset of field: ",
+            stringify!(SDL_JoyBallEvent),
+            "::",
+            stringify!(yrel)
         )
     );
 }
@@ -28504,70 +28505,70 @@ fn bindgen_test_layout_SDL_JoyHatEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).hat as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(hat)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(hat)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).value as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(value)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(value)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).padding1 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyHatEvent>())).padding2 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyHatEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_JoyHatEvent),
+            "::",
+            stringify!(padding2)
         )
     );
 }
@@ -28606,70 +28607,70 @@ fn bindgen_test_layout_SDL_JoyButtonEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).button as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).state as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(state)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(state)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).padding1 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyButtonEvent>())).padding2 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyButtonEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_JoyButtonEvent),
+            "::",
+            stringify!(padding2)
         )
     );
 }
@@ -28702,30 +28703,30 @@ fn bindgen_test_layout_SDL_JoyDeviceEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_JoyDeviceEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyDeviceEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_JoyDeviceEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyDeviceEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyDeviceEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_JoyDeviceEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_JoyDeviceEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_JoyDeviceEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_JoyDeviceEvent),
+            "::",
+            stringify!(which)
         )
     );
 }
@@ -28766,10 +28767,10 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_ControllerAxisEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -28778,30 +28779,30 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerAxisEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerAxisEvent>())).axis as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(axis)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(axis)
         )
     );
     assert_eq!(
@@ -28810,10 +28811,10 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
@@ -28822,10 +28823,10 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
@@ -28834,20 +28835,20 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(padding3)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerAxisEvent>())).value as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(value)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(value)
         )
     );
     assert_eq!(
@@ -28856,10 +28857,10 @@ fn bindgen_test_layout_SDL_ControllerAxisEvent() {
         },
         18usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerAxisEvent),
-        "::",
-        stringify!(padding4)
+            "Offset of field: ",
+            stringify!(SDL_ControllerAxisEvent),
+            "::",
+            stringify!(padding4)
         )
     );
 }
@@ -28898,10 +28899,10 @@ fn bindgen_test_layout_SDL_ControllerButtonEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_ControllerButtonEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -28910,20 +28911,20 @@ fn bindgen_test_layout_SDL_ControllerButtonEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerButtonEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
@@ -28932,20 +28933,20 @@ fn bindgen_test_layout_SDL_ControllerButtonEvent() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerButtonEvent>())).state as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(state)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(state)
         )
     );
     assert_eq!(
@@ -28954,10 +28955,10 @@ fn bindgen_test_layout_SDL_ControllerButtonEvent() {
         },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
@@ -28966,10 +28967,10 @@ fn bindgen_test_layout_SDL_ControllerButtonEvent() {
         },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerButtonEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_ControllerButtonEvent),
+            "::",
+            stringify!(padding2)
         )
     );
 }
@@ -29002,10 +29003,10 @@ fn bindgen_test_layout_SDL_ControllerDeviceEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_ControllerDeviceEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerDeviceEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_ControllerDeviceEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -29014,20 +29015,20 @@ fn bindgen_test_layout_SDL_ControllerDeviceEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerDeviceEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_ControllerDeviceEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerDeviceEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerDeviceEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_ControllerDeviceEvent),
+            "::",
+            stringify!(which)
         )
     );
 }
@@ -29072,10 +29073,10 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -29084,10 +29085,10 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
@@ -29096,10 +29097,10 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
@@ -29108,10 +29109,10 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(touchpad)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(touchpad)
         )
     );
     assert_eq!(
@@ -29120,30 +29121,30 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(finger)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(finger)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerTouchpadEvent>())).x as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerTouchpadEvent>())).y as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
@@ -29152,10 +29153,10 @@ fn bindgen_test_layout_SDL_ControllerTouchpadEvent() {
         },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerTouchpadEvent),
-        "::",
-        stringify!(pressure)
+            "Offset of field: ",
+            stringify!(SDL_ControllerTouchpadEvent),
+            "::",
+            stringify!(pressure)
         )
     );
 }
@@ -29192,10 +29193,10 @@ fn bindgen_test_layout_SDL_ControllerSensorEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_ControllerSensorEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerSensorEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_ControllerSensorEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -29204,20 +29205,20 @@ fn bindgen_test_layout_SDL_ControllerSensorEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerSensorEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_ControllerSensorEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerSensorEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerSensorEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_ControllerSensorEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
@@ -29226,20 +29227,20 @@ fn bindgen_test_layout_SDL_ControllerSensorEvent() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerSensorEvent),
-        "::",
-        stringify!(sensor)
+            "Offset of field: ",
+            stringify!(SDL_ControllerSensorEvent),
+            "::",
+            stringify!(sensor)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_ControllerSensorEvent>())).data as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_ControllerSensorEvent),
-        "::",
-        stringify!(data)
+            "Offset of field: ",
+            stringify!(SDL_ControllerSensorEvent),
+            "::",
+            stringify!(data)
         )
     );
 }
@@ -29277,70 +29278,70 @@ fn bindgen_test_layout_SDL_AudioDeviceEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).iscapture as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(iscapture)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(iscapture)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).padding1 as *const _ as usize },
         13usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(padding1)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(padding1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).padding2 as *const _ as usize },
         14usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(padding2)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(padding2)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_AudioDeviceEvent>())).padding3 as *const _ as usize },
         15usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_AudioDeviceEvent),
-        "::",
-        stringify!(padding3)
+            "Offset of field: ",
+            stringify!(SDL_AudioDeviceEvent),
+            "::",
+            stringify!(padding3)
         )
     );
 }
@@ -29386,100 +29387,100 @@ fn bindgen_test_layout_SDL_TouchFingerEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).touchId as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(touchId)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(touchId)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).fingerId as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(fingerId)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(fingerId)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).x as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).y as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).dx as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(dx)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(dx)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).dy as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(dy)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(dy)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).pressure as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(pressure)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(pressure)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_TouchFingerEvent>())).windowID as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_TouchFingerEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_TouchFingerEvent),
+            "::",
+            stringify!(windowID)
         )
     );
 }
@@ -29518,70 +29519,70 @@ fn bindgen_test_layout_SDL_MultiGestureEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).touchId as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(touchId)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(touchId)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).dTheta as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(dTheta)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(dTheta)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).dDist as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(dDist)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(dDist)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).x as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).y as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(y)
         )
     );
     assert_eq!(
@@ -29590,20 +29591,20 @@ fn bindgen_test_layout_SDL_MultiGestureEvent() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(numFingers)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(numFingers)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MultiGestureEvent>())).padding as *const _ as usize },
         34usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MultiGestureEvent),
-        "::",
-        stringify!(padding)
+            "Offset of field: ",
+            stringify!(SDL_MultiGestureEvent),
+            "::",
+            stringify!(padding)
         )
     );
 }
@@ -29643,10 +29644,10 @@ fn bindgen_test_layout_SDL_DollarGestureEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_DollarGestureEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
@@ -29655,20 +29656,20 @@ fn bindgen_test_layout_SDL_DollarGestureEvent() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DollarGestureEvent>())).touchId as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(touchId)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(touchId)
         )
     );
     assert_eq!(
@@ -29677,10 +29678,10 @@ fn bindgen_test_layout_SDL_DollarGestureEvent() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(gestureId)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(gestureId)
         )
     );
     assert_eq!(
@@ -29689,40 +29690,40 @@ fn bindgen_test_layout_SDL_DollarGestureEvent() {
         },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(numFingers)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(numFingers)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DollarGestureEvent>())).error as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(error)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(error)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DollarGestureEvent>())).x as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(x)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(x)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DollarGestureEvent>())).y as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DollarGestureEvent),
-        "::",
-        stringify!(y)
+            "Offset of field: ",
+            stringify!(SDL_DollarGestureEvent),
+            "::",
+            stringify!(y)
         )
     );
 }
@@ -29759,40 +29760,40 @@ fn bindgen_test_layout_SDL_DropEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_DropEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DropEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_DropEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DropEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DropEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_DropEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DropEvent>())).file as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DropEvent),
-        "::",
-        stringify!(file)
+            "Offset of field: ",
+            stringify!(SDL_DropEvent),
+            "::",
+            stringify!(file)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_DropEvent>())).windowID as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_DropEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_DropEvent),
+            "::",
+            stringify!(windowID)
         )
     );
 }
@@ -29827,40 +29828,40 @@ fn bindgen_test_layout_SDL_SensorEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_SensorEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SensorEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_SensorEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_SensorEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SensorEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_SensorEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_SensorEvent>())).which as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SensorEvent),
-        "::",
-        stringify!(which)
+            "Offset of field: ",
+            stringify!(SDL_SensorEvent),
+            "::",
+            stringify!(which)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_SensorEvent>())).data as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SensorEvent),
-        "::",
-        stringify!(data)
+            "Offset of field: ",
+            stringify!(SDL_SensorEvent),
+            "::",
+            stringify!(data)
         )
     );
 }
@@ -29891,20 +29892,20 @@ fn bindgen_test_layout_SDL_QuitEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_QuitEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_QuitEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_QuitEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_QuitEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_QuitEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_QuitEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
 }
@@ -29935,20 +29936,20 @@ fn bindgen_test_layout_SDL_OSEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_OSEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_OSEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_OSEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_OSEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_OSEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_OSEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
 }
@@ -29987,60 +29988,60 @@ fn bindgen_test_layout_SDL_UserEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).windowID as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(windowID)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(windowID)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).code as *const _ as usize },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(code)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(code)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).data1 as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(data1)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(data1)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_UserEvent>())).data2 as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_UserEvent),
-        "::",
-        stringify!(data2)
+            "Offset of field: ",
+            stringify!(SDL_UserEvent),
+            "::",
+            stringify!(data2)
         )
     );
 }
@@ -30082,30 +30083,30 @@ fn bindgen_test_layout_SDL_SysWMEvent() {
         unsafe { &(*(::std::ptr::null::<SDL_SysWMEvent>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SysWMEvent),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_SysWMEvent),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_SysWMEvent>())).timestamp as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SysWMEvent),
-        "::",
-        stringify!(timestamp)
+            "Offset of field: ",
+            stringify!(SDL_SysWMEvent),
+            "::",
+            stringify!(timestamp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_SysWMEvent>())).msg as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_SysWMEvent),
-        "::",
-        stringify!(msg)
+            "Offset of field: ",
+            stringify!(SDL_SysWMEvent),
+            "::",
+            stringify!(msg)
         )
     );
 }
@@ -30191,300 +30192,300 @@ fn bindgen_test_layout_SDL_Event() {
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).common as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(common)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(common)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).display as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(display)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(display)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).window as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(window)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(window)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).key as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(key)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(key)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).edit as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(edit)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(edit)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).text as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(text)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(text)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).motion as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(motion)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(motion)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).button as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).wheel as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(wheel)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(wheel)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).jaxis as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(jaxis)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(jaxis)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).jball as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(jball)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(jball)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).jhat as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(jhat)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(jhat)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).jbutton as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(jbutton)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(jbutton)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).jdevice as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(jdevice)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(jdevice)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).caxis as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(caxis)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(caxis)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).cbutton as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(cbutton)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(cbutton)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).cdevice as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(cdevice)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(cdevice)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).ctouchpad as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(ctouchpad)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(ctouchpad)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).csensor as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(csensor)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(csensor)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).adevice as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(adevice)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(adevice)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).sensor as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(sensor)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(sensor)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).quit as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(quit)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(quit)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).user as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(user)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(user)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).syswm as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(syswm)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(syswm)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).tfinger as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(tfinger)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(tfinger)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).mgesture as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(mgesture)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(mgesture)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).dgesture as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(dgesture)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(dgesture)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).drop as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(drop)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(drop)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Event>())).padding as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Event),
-        "::",
-        stringify!(padding)
+            "Offset of field: ",
+            stringify!(SDL_Event),
+            "::",
+            stringify!(padding)
         )
     );
 }
@@ -31165,20 +31166,20 @@ fn bindgen_test_layout_SDL_HapticDirection() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticDirection>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticDirection),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticDirection),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticDirection>())).dir as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticDirection),
-        "::",
-        stringify!(dir)
+            "Offset of field: ",
+            stringify!(SDL_HapticDirection),
+            "::",
+            stringify!(dir)
         )
     );
 }
@@ -31235,70 +31236,70 @@ fn bindgen_test_layout_SDL_HapticConstant() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).direction as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(direction)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).length as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).delay as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(delay)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(delay)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).button as *const _ as usize },
         26usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).interval as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(interval)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(interval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).level as *const _ as usize },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(level)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(level)
         )
     );
     assert_eq!(
@@ -31307,40 +31308,40 @@ fn bindgen_test_layout_SDL_HapticConstant() {
         },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(attack_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(attack_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).attack_level as *const _ as usize },
         34usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(attack_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(attack_level)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).fade_length as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(fade_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(fade_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticConstant>())).fade_level as *const _ as usize },
         38usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticConstant),
-        "::",
-        stringify!(fade_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticConstant),
+            "::",
+            stringify!(fade_level)
         )
     );
 }
@@ -31443,100 +31444,100 @@ fn bindgen_test_layout_SDL_HapticPeriodic() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).direction as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(direction)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).length as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).delay as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(delay)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(delay)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).button as *const _ as usize },
         26usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).interval as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(interval)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(interval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).period as *const _ as usize },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(period)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(period)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).magnitude as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(magnitude)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(magnitude)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).offset as *const _ as usize },
         34usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(offset)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(offset)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).phase as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(phase)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(phase)
         )
     );
     assert_eq!(
@@ -31545,40 +31546,40 @@ fn bindgen_test_layout_SDL_HapticPeriodic() {
         },
         38usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(attack_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(attack_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).attack_level as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(attack_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(attack_level)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).fade_length as *const _ as usize },
         42usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(fade_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(fade_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticPeriodic>())).fade_level as *const _ as usize },
         44usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticPeriodic),
-        "::",
-        stringify!(fade_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticPeriodic),
+            "::",
+            stringify!(fade_level)
         )
     );
 }
@@ -31651,120 +31652,120 @@ fn bindgen_test_layout_SDL_HapticCondition() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).direction as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(direction)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).length as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).delay as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(delay)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(delay)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).button as *const _ as usize },
         26usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).interval as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(interval)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(interval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).right_sat as *const _ as usize },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(right_sat)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(right_sat)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).left_sat as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(left_sat)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(left_sat)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).right_coeff as *const _ as usize },
         42usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(right_coeff)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(right_coeff)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).left_coeff as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(left_coeff)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(left_coeff)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).deadband as *const _ as usize },
         54usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(deadband)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(deadband)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCondition>())).center as *const _ as usize },
         60usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCondition),
-        "::",
-        stringify!(center)
+            "Offset of field: ",
+            stringify!(SDL_HapticCondition),
+            "::",
+            stringify!(center)
         )
     );
 }
@@ -31825,120 +31826,120 @@ fn bindgen_test_layout_SDL_HapticRamp() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).direction as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(direction)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).length as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).delay as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(delay)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(delay)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).button as *const _ as usize },
         26usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).interval as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(interval)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(interval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).start as *const _ as usize },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(start)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(start)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).end as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(end)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(end)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).attack_length as *const _ as usize },
         34usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(attack_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(attack_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).attack_level as *const _ as usize },
         36usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(attack_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(attack_level)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).fade_length as *const _ as usize },
         38usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(fade_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(fade_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticRamp>())).fade_level as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticRamp),
-        "::",
-        stringify!(fade_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticRamp),
+            "::",
+            stringify!(fade_level)
         )
     );
 }
@@ -31982,20 +31983,20 @@ fn bindgen_test_layout_SDL_HapticLeftRight() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticLeftRight>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticLeftRight),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticLeftRight),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticLeftRight>())).length as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticLeftRight),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticLeftRight),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
@@ -32004,10 +32005,10 @@ fn bindgen_test_layout_SDL_HapticLeftRight() {
         },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticLeftRight),
-        "::",
-        stringify!(large_magnitude)
+            "Offset of field: ",
+            stringify!(SDL_HapticLeftRight),
+            "::",
+            stringify!(large_magnitude)
         )
     );
     assert_eq!(
@@ -32016,10 +32017,10 @@ fn bindgen_test_layout_SDL_HapticLeftRight() {
         },
         10usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticLeftRight),
-        "::",
-        stringify!(small_magnitude)
+            "Offset of field: ",
+            stringify!(SDL_HapticLeftRight),
+            "::",
+            stringify!(small_magnitude)
         )
     );
 }
@@ -32086,140 +32087,140 @@ fn bindgen_test_layout_SDL_HapticCustom() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).direction as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(direction)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(direction)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).length as *const _ as usize },
         20usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(length)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).delay as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(delay)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(delay)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).button as *const _ as usize },
         26usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(button)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(button)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).interval as *const _ as usize },
         28usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(interval)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(interval)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).channels as *const _ as usize },
         30usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(channels)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(channels)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).period as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(period)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(period)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).samples as *const _ as usize },
         34usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(samples)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(samples)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).data as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(data)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(data)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).attack_length as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(attack_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(attack_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).attack_level as *const _ as usize },
         50usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(attack_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(attack_level)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).fade_length as *const _ as usize },
         52usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(fade_length)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(fade_length)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticCustom>())).fade_level as *const _ as usize },
         54usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticCustom),
-        "::",
-        stringify!(fade_level)
+            "Offset of field: ",
+            stringify!(SDL_HapticCustom),
+            "::",
+            stringify!(fade_level)
         )
     );
 }
@@ -32326,70 +32327,70 @@ fn bindgen_test_layout_SDL_HapticEffect() {
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).type_ as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(type_)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(type_)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).constant as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(constant)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(constant)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).periodic as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(periodic)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(periodic)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).condition as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(condition)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(condition)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).ramp as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(ramp)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(ramp)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).leftright as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(leftright)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(leftright)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_HapticEffect>())).custom as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_HapticEffect),
-        "::",
-        stringify!(custom)
+            "Offset of field: ",
+            stringify!(SDL_HapticEffect),
+            "::",
+            stringify!(custom)
         )
     );
 }
@@ -33413,10 +33414,10 @@ pub type SDL_MessageBoxFlags = ::std::os::raw::c_uint;
 
 #[doc = "< Marks the default button when return is hit"]
 pub const SDL_MessageBoxButtonFlags_SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT:
-SDL_MessageBoxButtonFlags = 1;
+    SDL_MessageBoxButtonFlags = 1;
 #[doc = "< Marks the default button when escape is hit"]
 pub const SDL_MessageBoxButtonFlags_SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT:
-SDL_MessageBoxButtonFlags = 2;
+    SDL_MessageBoxButtonFlags = 2;
 
 #[doc = " Flags for SDL_MessageBoxButtonData."]
 pub type SDL_MessageBoxButtonFlags = ::std::os::raw::c_uint;
@@ -33449,10 +33450,10 @@ fn bindgen_test_layout_SDL_MessageBoxButtonData() {
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxButtonData>())).flags as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxButtonData),
-        "::",
-        stringify!(flags)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxButtonData),
+            "::",
+            stringify!(flags)
         )
     );
     assert_eq!(
@@ -33461,20 +33462,20 @@ fn bindgen_test_layout_SDL_MessageBoxButtonData() {
         },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxButtonData),
-        "::",
-        stringify!(buttonid)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxButtonData),
+            "::",
+            stringify!(buttonid)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxButtonData>())).text as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxButtonData),
-        "::",
-        stringify!(text)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxButtonData),
+            "::",
+            stringify!(text)
         )
     );
 }
@@ -33504,30 +33505,30 @@ fn bindgen_test_layout_SDL_MessageBoxColor() {
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxColor>())).r as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxColor),
-        "::",
-        stringify!(r)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxColor),
+            "::",
+            stringify!(r)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxColor>())).g as *const _ as usize },
         1usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxColor),
-        "::",
-        stringify!(g)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxColor),
+            "::",
+            stringify!(g)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxColor>())).b as *const _ as usize },
         2usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxColor),
-        "::",
-        stringify!(b)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxColor),
+            "::",
+            stringify!(b)
         )
     );
 }
@@ -33567,10 +33568,10 @@ fn bindgen_test_layout_SDL_MessageBoxColorScheme() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxColorScheme),
-        "::",
-        stringify!(colors)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxColorScheme),
+            "::",
+            stringify!(colors)
         )
     );
 }
@@ -33609,70 +33610,70 @@ fn bindgen_test_layout_SDL_MessageBoxData() {
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).flags as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(flags)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(flags)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).window as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(window)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(window)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).title as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(title)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(title)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).message as *const _ as usize },
         24usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(message)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(message)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).numbuttons as *const _ as usize },
         32usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(numbuttons)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(numbuttons)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).buttons as *const _ as usize },
         40usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(buttons)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(buttons)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_MessageBoxData>())).colorScheme as *const _ as usize },
         48usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_MessageBoxData),
-        "::",
-        stringify!(colorScheme)
+            "Offset of field: ",
+            stringify!(SDL_MessageBoxData),
+            "::",
+            stringify!(colorScheme)
         )
     );
 }
@@ -33905,20 +33906,20 @@ fn bindgen_test_layout_SDL_RendererInfo() {
         unsafe { &(*(::std::ptr::null::<SDL_RendererInfo>())).name as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(name)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(name)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_RendererInfo>())).flags as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(flags)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(flags)
         )
     );
     assert_eq!(
@@ -33927,10 +33928,10 @@ fn bindgen_test_layout_SDL_RendererInfo() {
         },
         12usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(num_texture_formats)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(num_texture_formats)
         )
     );
     assert_eq!(
@@ -33939,10 +33940,10 @@ fn bindgen_test_layout_SDL_RendererInfo() {
         },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(texture_formats)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(texture_formats)
         )
     );
     assert_eq!(
@@ -33951,10 +33952,10 @@ fn bindgen_test_layout_SDL_RendererInfo() {
         },
         80usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(max_texture_width)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(max_texture_width)
         )
     );
     assert_eq!(
@@ -33963,10 +33964,10 @@ fn bindgen_test_layout_SDL_RendererInfo() {
         },
         84usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_RendererInfo),
-        "::",
-        stringify!(max_texture_height)
+            "Offset of field: ",
+            stringify!(SDL_RendererInfo),
+            "::",
+            stringify!(max_texture_height)
         )
     );
 }
@@ -34321,7 +34322,7 @@ extern "C" {
     #[doc = " \\sa SDL_GetTextureAlphaMod"]
     #[doc = " \\sa SDL_SetTextureColorMod"]
     pub fn SDL_SetTextureAlphaMod(texture: *mut SDL_Texture, alpha: Uint8)
-                                  -> ::std::os::raw::c_int;
+        -> ::std::os::raw::c_int;
 }
 
 extern "C" {
@@ -35718,20 +35719,20 @@ fn bindgen_test_layout_SDL_WindowShapeParams() {
         },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowShapeParams),
-        "::",
-        stringify!(binarizationCutoff)
+            "Offset of field: ",
+            stringify!(SDL_WindowShapeParams),
+            "::",
+            stringify!(binarizationCutoff)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowShapeParams>())).colorKey as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowShapeParams),
-        "::",
-        stringify!(colorKey)
+            "Offset of field: ",
+            stringify!(SDL_WindowShapeParams),
+            "::",
+            stringify!(colorKey)
         )
     );
 }
@@ -35762,20 +35763,20 @@ fn bindgen_test_layout_SDL_WindowShapeMode() {
         unsafe { &(*(::std::ptr::null::<SDL_WindowShapeMode>())).mode as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowShapeMode),
-        "::",
-        stringify!(mode)
+            "Offset of field: ",
+            stringify!(SDL_WindowShapeMode),
+            "::",
+            stringify!(mode)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_WindowShapeMode>())).parameters as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_WindowShapeMode),
-        "::",
-        stringify!(parameters)
+            "Offset of field: ",
+            stringify!(SDL_WindowShapeMode),
+            "::",
+            stringify!(parameters)
         )
     );
 }
@@ -35997,30 +35998,30 @@ fn bindgen_test_layout_SDL_version() {
         unsafe { &(*(::std::ptr::null::<SDL_version>())).major as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_version),
-        "::",
-        stringify!(major)
+            "Offset of field: ",
+            stringify!(SDL_version),
+            "::",
+            stringify!(major)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_version>())).minor as *const _ as usize },
         1usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_version),
-        "::",
-        stringify!(minor)
+            "Offset of field: ",
+            stringify!(SDL_version),
+            "::",
+            stringify!(minor)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_version>())).patch as *const _ as usize },
         2usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_version),
-        "::",
-        stringify!(patch)
+            "Offset of field: ",
+            stringify!(SDL_version),
+            "::",
+            stringify!(patch)
         )
     );
 }
@@ -36104,20 +36105,20 @@ fn bindgen_test_layout_SDL_Locale() {
         unsafe { &(*(::std::ptr::null::<SDL_Locale>())).language as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Locale),
-        "::",
-        stringify!(language)
+            "Offset of field: ",
+            stringify!(SDL_Locale),
+            "::",
+            stringify!(language)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<SDL_Locale>())).country as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(SDL_Locale),
-        "::",
-        stringify!(country)
+            "Offset of field: ",
+            stringify!(SDL_Locale),
+            "::",
+            stringify!(country)
         )
     );
 }
@@ -36340,40 +36341,40 @@ fn bindgen_test_layout___va_list_tag() {
         unsafe { &(*(::std::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
         0usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__va_list_tag),
-        "::",
-        stringify!(gp_offset)
+            "Offset of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(gp_offset)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
         4usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__va_list_tag),
-        "::",
-        stringify!(fp_offset)
+            "Offset of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(fp_offset)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize },
         8usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__va_list_tag),
-        "::",
-        stringify!(overflow_arg_area)
+            "Offset of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(overflow_arg_area)
         )
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize },
         16usize,
         concat!(
-        "Offset of field: ",
-        stringify!(__va_list_tag),
-        "::",
-        stringify!(reg_save_area)
+            "Offset of field: ",
+            stringify!(__va_list_tag),
+            "::",
+            stringify!(reg_save_area)
         )
     );
 }
