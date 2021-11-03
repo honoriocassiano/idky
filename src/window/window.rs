@@ -1,10 +1,10 @@
 use std::ffi::{CStr, CString};
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_Init, SDL_INIT_EVERYTHING, SDL_INIT_VIDEO,
-    SDL_Window, SDL_WindowFlags,
-    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
-    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_Init, SDL_INIT_EVERYTHING,
+    SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
+    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
+    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 pub struct Window {
