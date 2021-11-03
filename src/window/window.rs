@@ -1,23 +1,16 @@
-use std::ffi::{CStr, CString};
+use std::ffi::CString;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_Init, SDL_INIT_EVERYTHING,
-    SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
     SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
     SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
-pub struct Window {
-    window: *mut SDL_Window,
-}
+use crate::core::System;
 
-fn get_error() -> Option<String> {
-    unsafe {
-        CStr::from_ptr(sdl::SDL_GetError())
-            .to_str()
-            .ok()
-            .map(|str| str.to_owned())
-    }
+pub struct Window<'a> {
+    system: &'a System,
+    window: *mut SDL_Window,
 }
 
 #[allow(dead_code)]
@@ -37,29 +30,29 @@ pub enum Mode {
     Borderless = SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
 }
 
-impl Window {
-    pub fn new(title: &str, width: i32, height: i32, backend: Backend, mode: Mode) -> Window {
-        // TODO Split SDL initialization to another file
-        let status = unsafe { SDL_Init(SDL_INIT_EVERYTHING) };
-
-        if status < 0 {
-            panic!("Error initializing SDL: {}", get_error().unwrap());
-        }
-
+impl<'a> Window<'a> {
+    pub fn new(
+        system: &'a mut System,
+        title: &str,
+        width: i32,
+        height: i32,
+        backend: Backend,
+        mode: Mode,
+    ) -> Self {
         let window_name = CString::new(title).unwrap();
         let flags = backend as u32 | mode as u32;
 
         let window = unsafe { SDL_CreateWindow(window_name.as_ptr(), 0, 0, width, height, flags) };
 
         if window.is_null() {
-            panic!("Error initializing window: {}", get_error().unwrap());
+            panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
-        Window { window }
+        Self { system, window }
     }
 }
 
-impl Drop for Window {
+impl<'a> Drop for Window<'a> {
     fn drop(&mut self) {
         unsafe {
             SDL_DestroyWindow(self.window);
