@@ -1,4 +1,5 @@
 use std::ffi::CString;
+use std::sync::Arc;
 
 use sdl::{
     SDL_CreateWindow, SDL_DestroyWindow, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
@@ -7,10 +8,17 @@ use sdl::{
 };
 
 use crate::core::System;
+use crate::window::event::EventHandler;
 
 pub struct Window<'a> {
     system: &'a System,
     window: *mut SDL_Window,
+    event_handlers: Vec<Arc<dyn EventHandler>>,
+}
+
+pub struct EventHandlerId<'a> {
+    window: &'a Window<'a>,
+    index: usize,
 }
 
 #[allow(dead_code)]
@@ -48,7 +56,22 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
-        Self { system, window }
+        Self {
+            system,
+            window,
+            event_handlers: Vec::new(),
+        }
+    }
+
+    pub fn add_handler(&mut self, event_handler: Arc<dyn EventHandler>) -> EventHandlerId {
+        self.event_handlers.push(event_handler);
+
+        EventHandlerId {
+            window: self,
+            // FIXME This will cause a bug after remove some handler from Vec
+            // Use a slab or a hashtable instead
+            index: self.event_handlers.len(),
+        }
     }
 }
 
