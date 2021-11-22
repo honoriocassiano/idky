@@ -13,6 +13,16 @@ pub enum WindowControlFlow {
     Exit,
 }
 
-pub trait EventHandler {
-    fn handle(&mut self, event: &Event) -> WindowControlFlow;
+pub struct EventHandler;
+
+impl EventHandler {
+    pub fn handle(&mut self, _event: &Event) -> WindowControlFlow {
+        WindowControlFlow::Exit
+    }
+}
+
+impl Default for EventHandler {
+    fn default() -> Self {
+        Self {}
+    }
 }

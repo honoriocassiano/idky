@@ -2,23 +2,20 @@ use std::ffi::CString;
 use std::sync::Arc;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_Event, SDL_EventType_SDL_FIRSTEVENT,
+    SDL_EventType_SDL_QUIT, SDL_PollEvent, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
     SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
     SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 use crate::core::System;
 use crate::window::event::EventHandler;
+use crate::window::WindowControlFlow;
 
 pub struct Window<'a> {
     system: &'a System,
     window: *mut SDL_Window,
-    event_handlers: Vec<Arc<dyn EventHandler>>,
-}
-
-pub struct EventHandlerId<'a> {
-    window: &'a Window<'a>,
-    index: usize,
+    event_handler: EventHandler,
 }
 
 #[allow(dead_code)]
@@ -59,19 +56,27 @@ impl<'a> Window<'a> {
         Self {
             system,
             window,
-            event_handlers: Vec::new(),
+            event_handler: EventHandler::default(),
         }
     }
 
-    pub fn add_handler(&mut self, event_handler: Arc<dyn EventHandler>) -> EventHandlerId {
-        self.event_handlers.push(event_handler);
+    pub fn handle_events(&mut self) -> WindowControlFlow {
+        let mut event = SDL_Event {
+            type_: SDL_EventType_SDL_FIRSTEVENT,
+        };
 
-        EventHandlerId {
-            window: self,
-            // FIXME This will cause a bug after remove some handler from Vec
-            // Use a slab or a hashtable instead
-            index: self.event_handlers.len(),
+        let mut event_pointer: *mut SDL_Event = &mut event;
+
+        while unsafe { SDL_PollEvent(event_pointer) } != 0 {
+            match unsafe { event.type_ } {
+                SDL_EventType_SDL_QUIT => {
+                    return WindowControlFlow::Exit;
+                }
+                _ => continue,
+            }
         }
+
+        WindowControlFlow::Continue
     }
 }
 

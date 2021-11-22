@@ -9,20 +9,16 @@ use crate::window::{Backend, Event, EventHandler, Mode, WindowControlFlow};
 mod core;
 mod window;
 
-struct HandlerExample {}
-
-impl EventHandler for HandlerExample {
-    fn handle(&mut self, _event: &Event) -> WindowControlFlow {
-        todo!()
-    }
-}
-
 fn main() {
     let mut system = System::new();
 
     let mut window = Window::new(&mut system, "Hello", 800, 600, Backend::Metal, Mode::Window);
 
-    window.add_handler(Arc::new(HandlerExample {}));
+    loop {
+        if let WindowControlFlow::Exit = window.handle_events() {
+            break;
+        }
+    }
 
-    thread::sleep(time::Duration::from_secs(10));
+    // thread::sleep(time::Duration::from_secs(10));
 }
