@@ -1,10 +1,30 @@
-pub struct Event<'a> {
-    event: &'a sdl::SDL_Event,
+use std::convert::TryInto;
+
+use sdl::{SDL_Event, SDL_EventType_SDL_FIRSTEVENT};
+
+use crate::sdl::SdlEventType;
+
+pub struct Event {
+    event: sdl::SDL_Event,
 }
 
-impl<'a> Event<'a> {
-    pub fn new(event: &'a sdl::SDL_Event) -> Self {
-        Self { event }
+impl Event {
+    pub fn get_raw_pointer_mut(&mut self) -> *mut SDL_Event {
+        &mut self.event
+    }
+
+    pub fn get_type(&self) -> SdlEventType {
+        unsafe { self.event.type_.try_into().unwrap() }
+    }
+}
+
+impl Default for Event {
+    fn default() -> Self {
+        Self {
+            event: SDL_Event {
+                type_: SDL_EventType_SDL_FIRSTEVENT,
+            },
+        }
     }
 }
 
