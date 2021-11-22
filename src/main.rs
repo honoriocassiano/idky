@@ -1,12 +1,10 @@
-use std::sync::Arc;
-use std::{thread, time};
-
 use window::Window;
 
 use crate::core::System;
-use crate::window::{Backend, Event, EventHandler, Mode, WindowControlFlow};
+use crate::window::{Backend, Mode, WindowControlFlow};
 
 mod core;
+mod sdl;
 mod window;
 
 fn main() {
