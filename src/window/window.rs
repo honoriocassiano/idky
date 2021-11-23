@@ -64,12 +64,10 @@ impl<'a> Window<'a> {
         let mut event: Event = Default::default();
 
         while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
-            match event.get_type() {
-                SdlEventType::Quit => {
-                    return WindowControlFlow::Exit;
-                }
-                _ => continue,
-            }
+            return match event.get_type() {
+                SdlEventType::Quit => WindowControlFlow::Exit,
+                _ => self.event_handler.handle(&event),
+            };
         }
 
         WindowControlFlow::Continue
