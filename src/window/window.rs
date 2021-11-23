@@ -1,16 +1,16 @@
 use std::ffi::CString;
-use std::sync::Arc;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_Event, SDL_EventType_SDL_FIRSTEVENT,
-    SDL_EventType_SDL_QUIT, SDL_PollEvent, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
-    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
-    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_PollEvent, SDL_Window,
+    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
+    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
+    SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 use crate::core::System;
+use crate::sdl::SdlEventType;
 use crate::window::event::EventHandler;
-use crate::window::WindowControlFlow;
+use crate::window::{Event, WindowControlFlow};
 
 pub struct Window<'a> {
     system: &'a System,
@@ -61,15 +61,11 @@ impl<'a> Window<'a> {
     }
 
     pub fn handle_events(&mut self) -> WindowControlFlow {
-        let mut event = SDL_Event {
-            type_: SDL_EventType_SDL_FIRSTEVENT,
-        };
+        let mut event: Event = Default::default();
 
-        let mut event_pointer: *mut SDL_Event = &mut event;
-
-        while unsafe { SDL_PollEvent(event_pointer) } != 0 {
-            match unsafe { event.type_ } {
-                SDL_EventType_SDL_QUIT => {
+        while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
+            match event.get_type() {
+                SdlEventType::Quit => {
                     return WindowControlFlow::Exit;
                 }
                 _ => continue,
