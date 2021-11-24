@@ -1,23 +1,21 @@
 #![allow(non_upper_case_globals)]
 
-use std::convert::TryInto;
 use std::ffi::CString;
 use std::path::PathBuf;
 
-use sdl::{
-    SDL_FreeSurface, SDL_KeyCode_SDLK_DOWN, SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_LoadBMP_RW,
-    SDL_RWFromFile, SDL_Surface,
-};
+use sdl::{SDL_FreeSurface, SDL_LoadBMP_RW, SDL_RWFromFile, SDL_Rect, SDL_Surface};
 
-use crate::sdl::SdlEventType;
-use crate::window::Event;
+use crate::core::Vec2;
+use crate::window::{RenderData, RenderTarget, Renderable};
 
 pub struct Player {
+    render_target: RenderTarget,
     surface: *mut SDL_Surface,
+    position: Vec2,
 }
 
 impl Player {
-    pub fn new(bmp_path: PathBuf) -> Self {
+    pub fn new(bmp_path: PathBuf, position: Vec2, render_target: RenderTarget) -> Self {
         let path = CString::new(bmp_path.to_str().unwrap()).unwrap();
         let mode = CString::new("rb").unwrap();
 
@@ -29,7 +27,37 @@ impl Player {
             panic!("Failed to load image");
         }
 
-        Self { surface }
+        Self {
+            render_target,
+            surface,
+            position,
+        }
+    }
+
+    fn get_sdl_rect(&self) -> SDL_Rect {
+        // FIXME Calculate using current position
+        SDL_Rect {
+            x: 0,
+            y: 0,
+            w: 80,
+            h: 80,
+        }
+    }
+}
+
+impl Renderable for Player {
+    fn get_render_target(&self) -> RenderTarget {
+        RenderTarget {
+            surface: self.render_target.surface,
+        }
+    }
+
+    fn get_render_data(&self) -> RenderData {
+        RenderData {
+            surface: self.surface,
+            rect: None,
+            dest_rect: self.get_sdl_rect(),
+        }
     }
 }
 
