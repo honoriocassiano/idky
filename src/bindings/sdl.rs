@@ -24019,7 +24019,7 @@ pub type SDL_Scancode = ::std::os::raw::c_uint;
 #[doc = ""]
 #[doc = "  A special exception is the number keys at the top of the keyboard which"]
 #[doc = "  always map to SDLK_0...SDLK_9, regardless of layout."]
-pub type SDL_Keycode = Sint32;
+pub type SDL_Keycode = Uint32;
 
 pub const SDL_KeyCode_SDLK_UNKNOWN: SDL_KeyCode = 0;
 pub const SDL_KeyCode_SDLK_RETURN: SDL_KeyCode = 13;
