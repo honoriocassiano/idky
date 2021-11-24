@@ -5,7 +5,7 @@ use std::convert::TryFrom;
 use sdl::*;
 
 #[repr(u32)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum SdlEventType {
     FirstEvent = SDL_EventType_SDL_FIRSTEVENT,
     Quit = SDL_EventType_SDL_QUIT,
