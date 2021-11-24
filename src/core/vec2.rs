@@ -6,7 +6,7 @@ pub use Vec2 as Point2;
 use super::optic::{Reflect, Refract};
 use super::vector::Vector;
 
-type Scalar = f64;
+type Scalar = f32;
 
 #[derive(Copy, Clone)]
 pub struct Vec2(pub Scalar, pub Scalar);
@@ -68,7 +68,7 @@ impl Refract for Vec2 {
     type Scalar = Scalar;
 
     fn refract(&self, normal: Self, eta_in_over_eta_out: Self::Scalar) -> Self {
-        let cos_theta: f64 = (-(*self)).dot(normal);
+        let cos_theta: Self::Scalar = (-(*self)).dot(normal);
 
         let vec_out_perp: Self = eta_in_over_eta_out * ((*self) + cos_theta * normal);
         let vec_out_par: Self = -(1.0 - vec_out_perp.sq_length()).abs().sqrt() * normal;
