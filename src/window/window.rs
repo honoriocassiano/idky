@@ -1,4 +1,5 @@
 use std::ffi::CString;
+use std::path::{Path, PathBuf};
 
 use sdl::{
     SDL_CreateWindow, SDL_DestroyWindow, SDL_PollEvent, SDL_Window,
@@ -10,12 +11,14 @@ use sdl::{
 use crate::core::System;
 use crate::sdl::SdlEventType;
 use crate::window::event::EventHandler;
+use crate::window::player::Player;
 use crate::window::{Event, WindowControlFlow};
 
 pub struct Window<'a> {
     system: &'a System,
     window: *mut SDL_Window,
     event_handler: EventHandler,
+    player: Player,
 }
 
 #[allow(dead_code)]
@@ -53,10 +56,14 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
+        let path = Path::new("./assets/example.bmp");
+        let player = Player::new(path.to_path_buf());
+
         Self {
             system,
             window,
             event_handler: EventHandler::default(),
+            player,
         }
     }
 
@@ -64,9 +71,9 @@ impl<'a> Window<'a> {
         let mut event: Event = Default::default();
 
         while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
-            return match event.get_type() {
-                SdlEventType::Quit => WindowControlFlow::Exit,
-                _ => self.event_handler.handle(&event),
+            match event.get_type() {
+                SdlEventType::Quit => return WindowControlFlow::Exit,
+                _ => self.player.handle_event(event),
             };
         }
 
