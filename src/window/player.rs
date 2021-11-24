@@ -31,18 +31,6 @@ impl Player {
 
         Self { surface }
     }
-
-    pub fn handle_event(&mut self, event: Event) {
-        if let SdlEventType::KeyDown = event.get_type() {
-            let key_event: SDL_KeyboardEvent = event.try_into().unwrap();
-
-            match key_event.keysym.sym {
-                SDL_KeyCode_SDLK_DOWN => println!("DOWN!"),
-                SDL_KeyCode_SDLK_UP => println!("UP!"),
-                _ => {}
-            }
-        }
-    }
 }
 
 impl Drop for Player {

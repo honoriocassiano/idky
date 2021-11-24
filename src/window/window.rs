@@ -1,11 +1,12 @@
+use std::convert::TryInto;
 use std::ffi::CString;
 use std::path::Path;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_PollEvent, SDL_Window,
-    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
-    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
-    SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_KeyCode_SDLK_DOWN, SDL_KeyCode_SDLK_UP,
+    SDL_KeyboardEvent, SDL_PollEvent, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
+    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
+    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 use crate::core::System;
@@ -73,7 +74,16 @@ impl<'a> Window<'a> {
         while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
             match event.get_type() {
                 SdlEventType::Quit => return WindowControlFlow::Exit,
-                _ => self.player.handle_event(event),
+                SdlEventType::KeyDown => {
+                    let key_event: SDL_KeyboardEvent = event.try_into().unwrap();
+
+                    match key_event.keysym.sym {
+                        SDL_KeyCode_SDLK_DOWN => println!("DOWN!"),
+                        SDL_KeyCode_SDLK_UP => println!("UP!"),
+                        _ => {}
+                    }
+                }
+                _ => {}
             };
         }
 
