@@ -1,7 +1,7 @@
 use std::convert::TryInto;
 use std::fmt::{Display, Formatter};
 
-use sdl::{SDL_Event, SDL_EventType_SDL_FIRSTEVENT, SDL_KeyboardEvent, SDL_MouseButtonEvent};
+use sdl::{SDL_Event, SDL_EventType_SDL_FIRSTEVENT, SDL_KeyboardEvent};
 
 use crate::sdl::SdlEventType;
 

@@ -1,5 +1,5 @@
 use std::ffi::CString;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use sdl::{
     SDL_CreateWindow, SDL_DestroyWindow, SDL_PollEvent, SDL_Window,

@@ -6,7 +6,7 @@ use std::path::PathBuf;
 
 use sdl::{
     SDL_FreeSurface, SDL_KeyCode_SDLK_DOWN, SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_LoadBMP_RW,
-    SDL_RWFromFile, SDL_Scancode, SDL_Surface,
+    SDL_RWFromFile, SDL_Surface,
 };
 
 use crate::sdl::SdlEventType;
