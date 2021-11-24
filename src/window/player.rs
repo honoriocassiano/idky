@@ -1,3 +1,5 @@
+#![allow(non_upper_case_globals)]
+
 use std::convert::TryInto;
 use std::ffi::CString;
 use std::path::PathBuf;
