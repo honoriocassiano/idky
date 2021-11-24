@@ -23,6 +23,8 @@ fn main() {
         if let WindowControlFlow::Exit = window.handle_events() {
             break;
         }
+
+        window.render();
     }
 
     // thread::sleep(time::Duration::from_secs(10));
