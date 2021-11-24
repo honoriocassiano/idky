@@ -3,17 +3,18 @@ use std::ffi::CString;
 use std::path::Path;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_KeyCode_SDLK_DOWN, SDL_KeyCode_SDLK_UP,
-    SDL_KeyboardEvent, SDL_PollEvent, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
-    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
-    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_GetWindowSurface, SDL_KeyCode_SDLK_DOWN,
+    SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_PollEvent, SDL_UpdateWindowSurface, SDL_Window,
+    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
+    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
+    SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
-use crate::core::System;
+use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
 use crate::window::event::EventHandler;
 use crate::window::player::Player;
-use crate::window::{Event, WindowControlFlow};
+use crate::window::{Event, RenderTarget, Renderable, WindowControlFlow};
 
 pub struct Window<'a> {
     system: &'a System,
@@ -57,8 +58,16 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
+        let window_surface = unsafe { SDL_GetWindowSurface(window) };
+
         let path = Path::new("./assets/example.bmp");
-        let player = Player::new(path.to_path_buf());
+        let player = Player::new(
+            path.to_path_buf(),
+            Vec2::zero(),
+            RenderTarget {
+                surface: window_surface,
+            },
+        );
 
         Self {
             system,
@@ -66,6 +75,12 @@ impl<'a> Window<'a> {
             event_handler: EventHandler::default(),
             player,
         }
+    }
+
+    pub fn render(&mut self) {
+        self.player.render();
+
+        unsafe { SDL_UpdateWindowSurface(self.window) };
     }
 
     pub fn handle_events(&mut self) -> WindowControlFlow {
