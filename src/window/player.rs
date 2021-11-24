@@ -35,12 +35,17 @@ impl Player {
     }
 
     fn get_sdl_rect(&self) -> SDL_Rect {
-        // FIXME Calculate using current position
+        let width = unsafe { (*self.surface).w as i32 };
+        let height = unsafe { (*self.surface).h as i32 };
+
+        let int_x = self.position.0 as i32 - (width >> 1);
+        let int_y = self.position.1 as i32 - (height >> 1);
+
         SDL_Rect {
-            x: 0,
-            y: 0,
-            w: 80,
-            h: 80,
+            x: int_x,
+            y: int_y,
+            w: width,
+            h: height,
         }
     }
 }
