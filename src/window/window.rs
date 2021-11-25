@@ -63,13 +63,7 @@ impl<'a> Window<'a> {
         let surface = unsafe { SDL_GetWindowSurface(window) };
 
         let path = Path::new("./assets/example.bmp");
-        let player = Player::new(
-            path.to_path_buf(),
-            Vec2::zero(),
-            RenderTarget {
-                surface: window_surface,
-            },
-        );
+        let player = Player::new(path.to_path_buf(), Vec2::zero(), RenderTarget { surface });
 
         Self {
             system,
@@ -81,6 +75,10 @@ impl<'a> Window<'a> {
     }
 
     pub fn render(&mut self) {
+        unsafe {
+            SDL_FillRect(self.surface, ptr::null(), 0x00000000);
+        }
+
         self.player.render();
 
         unsafe { SDL_UpdateWindowSurface(self.window) };
