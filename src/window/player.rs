@@ -34,6 +34,10 @@ impl Player {
         }
     }
 
+    pub fn move_by(&mut self, delta: Vec2) {
+        self.position += delta;
+    }
+
     fn get_sdl_rect(&self) -> SDL_Rect {
         let width = unsafe { (*self.surface).w as i32 };
         let height = unsafe { (*self.surface).h as i32 };
