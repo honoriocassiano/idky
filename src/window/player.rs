@@ -42,8 +42,8 @@ impl Player {
         let width = unsafe { (*self.surface).w as i32 };
         let height = unsafe { (*self.surface).h as i32 };
 
-        let int_x = self.position.0 as i32 - (width >> 1);
-        let int_y = self.position.1 as i32 - (height >> 1);
+        let int_x = self.position.0.round() as i32 - (width >> 1);
+        let int_y = self.position.1.round() as i32 - (height >> 1);
 
         SDL_Rect {
             x: int_x,
