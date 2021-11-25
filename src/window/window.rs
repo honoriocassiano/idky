@@ -94,8 +94,8 @@ impl<'a> Window<'a> {
                     let key_event: SDL_KeyboardEvent = event.try_into().unwrap();
 
                     match key_event.keysym.sym {
-                        SDL_KeyCode_SDLK_DOWN => println!("DOWN!"),
-                        SDL_KeyCode_SDLK_UP => println!("UP!"),
+                        SDL_KeyCode_SDLK_DOWN => self.player.move_by(Vec2(0.0, 5.0)),
+                        SDL_KeyCode_SDLK_UP => self.player.move_by(Vec2(0.0, -5.0)),
                         _ => {}
                     }
                 }
