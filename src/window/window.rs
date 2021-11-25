@@ -1,11 +1,12 @@
+use core::ptr;
 use std::convert::TryInto;
 use std::ffi::CString;
 use std::path::Path;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_GetWindowSurface, SDL_KeyCode_SDLK_DOWN,
-    SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_PollEvent, SDL_UpdateWindowSurface, SDL_Window,
-    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_FillRect, SDL_GetWindowSurface, SDL_KeyCode_SDLK_DOWN,
+    SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_PollEvent, SDL_Surface, SDL_UpdateWindowSurface,
+    SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
     SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
     SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
@@ -19,6 +20,7 @@ use crate::window::{Event, RenderTarget, Renderable, WindowControlFlow};
 pub struct Window<'a> {
     system: &'a System,
     window: *mut SDL_Window,
+    surface: *mut SDL_Surface,
     event_handler: EventHandler,
     player: Player,
 }
@@ -58,7 +60,7 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
-        let window_surface = unsafe { SDL_GetWindowSurface(window) };
+        let surface = unsafe { SDL_GetWindowSurface(window) };
 
         let path = Path::new("./assets/example.bmp");
         let player = Player::new(
@@ -72,6 +74,7 @@ impl<'a> Window<'a> {
         Self {
             system,
             window,
+            surface,
             event_handler: EventHandler::default(),
             player,
         }
