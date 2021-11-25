@@ -1,14 +1,14 @@
 use core::ptr;
-use std::convert::TryInto;
 use std::ffi::CString;
 use std::path::Path;
+use std::time::Instant;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_FillRect, SDL_GetWindowSurface, SDL_KeyCode_SDLK_DOWN,
-    SDL_KeyCode_SDLK_UP, SDL_KeyboardEvent, SDL_PollEvent, SDL_Surface, SDL_UpdateWindowSurface,
-    SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
-    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
-    SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_CreateWindow, SDL_DestroyWindow, SDL_FillRect, SDL_GetKeyboardState, SDL_GetWindowSurface,
+    SDL_PollEvent, SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface,
+    SDL_UpdateWindowSurface, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
+    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
+    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 use crate::core::{System, Vec2, Vector};
@@ -23,6 +23,7 @@ pub struct Window<'a> {
     surface: *mut SDL_Surface,
     event_handler: EventHandler,
     player: Player,
+    start_time: Instant,
 }
 
 #[allow(dead_code)]
@@ -71,6 +72,19 @@ impl<'a> Window<'a> {
             surface,
             event_handler: EventHandler::default(),
             player,
+            start_time: Instant::now(),
+        }
+    }
+
+    pub fn run(&mut self) {
+        self.start_time = Instant::now();
+
+        loop {
+            if let WindowControlFlow::Exit = self.handle_events() {
+                break;
+            }
+
+            self.render();
         }
     }
 
@@ -90,18 +104,35 @@ impl<'a> Window<'a> {
         while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
             match event.get_type() {
                 SdlEventType::Quit => return WindowControlFlow::Exit,
-                SdlEventType::KeyDown => {
-                    let key_event: SDL_KeyboardEvent = event.try_into().unwrap();
-
-                    match key_event.keysym.sym {
-                        SDL_KeyCode_SDLK_DOWN => self.player.move_by(Vec2(0.0, 5.0)),
-                        SDL_KeyCode_SDLK_UP => self.player.move_by(Vec2(0.0, -5.0)),
-                        _ => {}
-                    }
-                }
                 _ => {}
             };
         }
+
+        let mut size = 0i32;
+        let state: &[u8];
+
+        unsafe {
+            let temp = SDL_GetKeyboardState(&mut size as *mut i32);
+            state = std::slice::from_raw_parts(temp, size as usize);
+        }
+
+        let index_up = SDL_Scancode_SDL_SCANCODE_UP as usize;
+        let index_down = SDL_Scancode_SDL_SCANCODE_DOWN as usize;
+
+        let current_time = Instant::now();
+        let delta_time = current_time.duration_since(self.start_time).as_secs_f32();
+
+        let base_speed = 300.0;
+
+        if state[index_up] != 0 {
+            self.player.move_by(Vec2(0.0, -base_speed) * delta_time);
+        }
+
+        if state[index_down] != 0 {
+            self.player.move_by(Vec2(0.0, base_speed) * delta_time);
+        }
+
+        self.start_time = current_time;
 
         WindowControlFlow::Continue
     }

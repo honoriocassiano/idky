@@ -1,7 +1,7 @@
 use window::Window;
 
 use crate::core::System;
-use crate::window::{Backend, Mode, WindowControlFlow};
+use crate::window::{Backend, Mode};
 
 mod core;
 mod sdl;
@@ -19,13 +19,5 @@ fn main() {
         Mode::Window,
     );
 
-    loop {
-        if let WindowControlFlow::Exit = window.handle_events() {
-            break;
-        }
-
-        window.render();
-    }
-
-    // thread::sleep(time::Duration::from_secs(10));
+    window.run();
 }
