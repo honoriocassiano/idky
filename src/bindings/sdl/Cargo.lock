@@ -3,13 +3,5 @@
 version = 3
 
 [[package]]
-name = "dont-know-yet"
-version = "0.1.0"
-dependencies = [
- "sdl",
-]
-
-[[package]]
 name = "sdl"
 version = "0.1.0"
-

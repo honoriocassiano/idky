@@ -20787,6 +20787,12 @@ pub struct SDL_Surface {
     #[doc = "< Read-mostly"]
     pub refcount: ::std::os::raw::c_int,
 }
+#[doc = "< Private"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct SDL_BlitMap {
+    pub _address: u8,
+}
 
 #[test]
 fn bindgen_test_layout_SDL_Surface() {
@@ -36377,11 +36383,4 @@ fn bindgen_test_layout___va_list_tag() {
             stringify!(reg_save_area)
         )
     );
-}
-
-#[doc = "< Private"]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct SDL_BlitMap {
-    pub _address: u8,
 }
