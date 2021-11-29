@@ -4,19 +4,8 @@
 #![allow(improper_ctypes)]
 
 use super::sdl_bindings::*;
+use vulkan::{VkInstance, VkSurfaceKHR};
 
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct VkInstance_T {
-    _unused: [u8; 0],
-}
-pub type VkInstance = *mut VkInstance_T;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct VkSurfaceKHR_T {
-    _unused: [u8; 0],
-}
-pub type VkSurfaceKHR = *mut VkSurfaceKHR_T;
 pub type SDL_vulkanInstance = VkInstance;
 pub type SDL_vulkanSurface = VkSurfaceKHR;
 extern "C" {
