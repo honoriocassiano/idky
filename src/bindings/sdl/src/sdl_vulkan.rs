@@ -4,10 +4,10 @@
 #![allow(improper_ctypes)]
 
 use super::sdl_bindings::*;
-use vulkan::{VkInstance, VkSurfaceKHR};
+use ash::vk::{Instance, SurfaceKHR};
 
-pub type SDL_vulkanInstance = VkInstance;
-pub type SDL_vulkanSurface = VkSurfaceKHR;
+pub type SDL_vulkanInstance = Instance;
+pub type SDL_vulkanSurface = SurfaceKHR;
 extern "C" {
     #[doc = " Dynamically load the Vulkan loader library."]
     #[doc = ""]
@@ -119,8 +119,8 @@ extern "C" {
     #[doc = " \\sa SDL_Vulkan_GetDrawableSize"]
     pub fn SDL_Vulkan_CreateSurface(
         window: *mut SDL_Window,
-        instance: VkInstance,
-        surface: *mut VkSurfaceKHR,
+        instance: Instance,
+        surface: *mut SurfaceKHR,
     ) -> SDL_bool;
 }
 extern "C" {
