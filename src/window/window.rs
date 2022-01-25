@@ -27,6 +27,7 @@ pub struct Window<'a> {
 }
 
 #[allow(dead_code)]
+#[derive(Copy, Clone)]
 #[repr(u32)]
 pub enum Backend {
     Software = 0,
@@ -36,6 +37,7 @@ pub enum Backend {
 }
 
 #[allow(dead_code)]
+#[derive(Copy, Clone)]
 #[repr(u32)]
 pub enum Mode {
     Window = 0,
