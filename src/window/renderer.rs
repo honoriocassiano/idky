@@ -47,7 +47,6 @@ struct QueueFamilyIndex {
 }
 
 impl Renderer {
-    // TODO Remove this usage of raw pointers
     pub fn new(window: &mut SDL_Window) -> Self {
         let vk_entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
         let vk_instance = Self::create_instance(window, &vk_entry);
