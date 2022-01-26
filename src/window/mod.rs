@@ -8,3 +8,4 @@ mod player;
 mod render;
 mod renderer;
 mod window;
+mod pipeline;
