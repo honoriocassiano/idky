@@ -6,12 +6,11 @@ use std::ptr::{null, null_mut};
 use ash::{Device, Entry, Instance};
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
-    API_VERSION_1_1, ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo,
-    DeviceQueueCreateInfo, Extent2D, Format, Image, ImageAspectFlags, ImageSubresourceRange,
-    ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
-    make_api_version, MAX_EXTENSION_NAME_SIZE, PFN_vkCreateInstance, PhysicalDevice,
-    PhysicalDeviceFeatures, PhysicalDeviceType, PresentModeKHR, QueueFlags, SharingMode, StructureType,
-    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, TRUE,
+    ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo, DeviceQueueCreateInfo,
+    Extent2D, Format, Image, ImageAspectFlags, ImageSubresourceRange, ImageUsageFlags,
+    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, make_api_version,
+    PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SharingMode, StructureType,
+    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
 };
 
 use sdl::{SDL_GetError, SDL_Window};
@@ -144,7 +143,7 @@ impl Pipeline {
             .collect::<Vec<_>>();
 
         let physical_device_features = [PhysicalDeviceFeatures {
-            sampler_anisotropy: TRUE,
+            sampler_anisotropy: ash::vk::TRUE,
             ..Default::default()
         }];
 
@@ -248,7 +247,7 @@ impl Pipeline {
             application_version: make_api_version(1, 1, 0, 0),
             p_engine_name: "No Engine".as_ptr() as *const c_char,
             engine_version: make_api_version(1, 0, 0, 0),
-            api_version: API_VERSION_1_1,
+            api_version: ash::vk::API_VERSION_1_1,
             ..Default::default()
         };
 
@@ -345,7 +344,7 @@ impl Pipeline {
             pre_transform: surface_capabilities.current_transform,
             composite_alpha: CompositeAlphaFlagsKHR::OPAQUE,
             present_mode: PresentModeKHR::FIFO,
-            clipped: TRUE,
+            clipped: ash::vk::TRUE,
             ..Default::default()
         };
 
@@ -371,7 +370,6 @@ impl Pipeline {
         surface_format_khr: SurfaceFormatKHR,
         images: Vec<Image>,
     ) -> Vec<ImageView> {
-
         images
             .iter()
             .map(|image| unsafe {
