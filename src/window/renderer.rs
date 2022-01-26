@@ -38,7 +38,7 @@ pub enum RendererFlags {
 
 pub struct Renderer {
     renderer: *mut SDL_Renderer,
-    vk_surface: SurfaceKHR,
+    surface: SurfaceKHR,
 }
 
 struct QueueFamilyIndex {
@@ -48,15 +48,15 @@ struct QueueFamilyIndex {
 
 impl Renderer {
     pub fn new(window: &mut SDL_Window) -> Self {
-        let vk_entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
-        let vk_instance = Self::create_instance(window, &vk_entry);
+        let entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
+        let instance = Self::create_instance(window, &entry);
 
         // TODO Create a debug pipeline
-        let vk_surface_khr = unsafe {
+        let surface_khr = unsafe {
             let mut surface = SurfaceKHR::default();
 
             let result =
-                sdl::vulkan::SDL_Vulkan_CreateSurface(window, vk_instance.handle(), &mut surface);
+                sdl::vulkan::SDL_Vulkan_CreateSurface(window, instance.handle(), &mut surface);
 
             if result == 0 {
                 let error = CStr::from_ptr(SDL_GetError()).to_str().unwrap();
@@ -67,30 +67,30 @@ impl Renderer {
             surface
         };
 
-        let surface = Surface::new(&vk_entry, &vk_instance);
+        let surface = Surface::new(&entry, &instance);
 
-        let vk_device = Self::create_physical_device(&vk_instance);
+        let physical_device = Self::create_physical_device(&instance);
 
-        let vk_queue_families =
-            Self::create_queue_family(&surface, &vk_instance, &vk_device, &vk_surface_khr);
+        let queue_families =
+            Self::create_queue_family(&surface, &instance, &physical_device, &surface_khr);
 
-        let device = Self::create_device(&vk_instance, &vk_device, &vk_queue_families);
+        let device = Self::create_device(&instance, &physical_device, &queue_families);
 
         let (swapchain_khr, surface_format, images) = Self::create_swapchain(
-            &vk_instance,
+            &instance,
             &device,
-            &vk_device,
+            &physical_device,
             &surface,
-            &vk_surface_khr,
+            &surface_khr,
             window,
-            vk_queue_families,
+            queue_families,
         );
 
         let image_views = Self::create_image_views(&device, surface_format, images);
 
         Self {
             renderer: null_mut(),
-            vk_surface: vk_surface_khr,
+            surface: surface_khr,
         }
     }
 
