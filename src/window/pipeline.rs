@@ -8,9 +8,9 @@ use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo, DeviceQueueCreateInfo,
     Extent2D, Format, Image, ImageAspectFlags, ImageSubresourceRange, ImageUsageFlags,
-    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, make_api_version,
-    PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SharingMode, StructureType,
-    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn,
+    make_api_version, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
+    SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
 };
 
 use sdl::{SDL_GetError, SDL_Window};
@@ -133,9 +133,7 @@ impl Pipeline {
             })
             .collect::<Vec<_>>();
 
-        // TODO Use CString instead
-        let device_extensions =
-            unsafe { vec![CStr::from_bytes_with_nul_unchecked(b"VK_KHR_swapchain\0")] };
+        let device_extensions = unsafe { vec![KhrSwapchainFn::name()] };
 
         let device_extensions = device_extensions
             .into_iter()
