@@ -9,10 +9,11 @@ use ash::{Device, Entry, Instance};
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     API_VERSION_1_1, ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo,
-    DeviceQueueCreateInfo, Extent2D, Format, Image, ImageUsageFlags, InstanceCreateInfo,
+    DeviceQueueCreateInfo, Extent2D, Format, Image, ImageAspectFlags, ImageSubresourceRange,
+    ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
     make_api_version, MAX_EXTENSION_NAME_SIZE, PFN_vkCreateInstance, PhysicalDevice,
     PhysicalDeviceFeatures, PhysicalDeviceType, PresentModeKHR, QueueFlags, SharingMode, StructureType,
-    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, TRUE,
+    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, TRUE,
 };
 
 use sdl::{
@@ -76,7 +77,7 @@ impl Renderer {
 
         let device = Self::create_device(&vk_instance, &vk_device, &vk_queue_families);
 
-        let (swapchain_khr, images) = Self::create_swapchain(
+        let (swapchain_khr, surface_format, images) = Self::create_swapchain(
             &vk_instance,
             &device,
             &vk_device,
@@ -85,6 +86,8 @@ impl Renderer {
             window,
             vk_queue_families,
         );
+
+        let image_views = Self::create_image_views(&device, surface_format, images);
 
         Self {
             renderer: null_mut(),
@@ -267,7 +270,7 @@ impl Renderer {
         surface_khr: &SurfaceKHR,
         window: &mut SDL_Window,
         queue_family_index: QueueFamilyIndex,
-    ) -> (SwapchainKHR, Vec<Image>) {
+    ) -> (SwapchainKHR, SurfaceFormatKHR, Vec<Image>) {
         let surface_formats = unsafe {
             surface
                 .get_physical_device_surface_formats(*physical_device, *surface_khr)
@@ -355,7 +358,38 @@ impl Renderer {
                 .expect("Cannot get swapchain images")
         };
 
-        (swapchain_khr, swapchain_images)
+        (swapchain_khr, surface_format, swapchain_images)
+    }
+
+    fn create_image_views(
+        device: &Device,
+        surface_format_khr: SurfaceFormatKHR,
+        images: Vec<Image>,
+    ) -> Vec<ImageView> {
+
+        images
+            .iter()
+            .map(|image| unsafe {
+                let create_info = ImageViewCreateInfo {
+                    s_type: StructureType::IMAGE_VIEW_CREATE_INFO,
+                    image: *image,
+                    view_type: ImageViewType::TYPE_2D,
+                    format: surface_format_khr.format,
+                    subresource_range: ImageSubresourceRange {
+                        aspect_mask: ImageAspectFlags::COLOR,
+                        base_mip_level: 0,
+                        level_count: 1,
+                        base_array_layer: 0,
+                        layer_count: 1,
+                        ..Default::default()
+                    },
+                    ..Default::default()
+                };
+                device
+                    .create_image_view(&create_info, None)
+                    .expect("Cannot create image view")
+            })
+            .collect::<Vec<_>>()
     }
 }
 
