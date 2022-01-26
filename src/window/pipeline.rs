@@ -177,19 +177,16 @@ impl Pipeline {
         let graphics_queue = queue_family_properties
             .iter()
             .enumerate()
-            .find(|(i, q)| q.queue_flags.contains(QueueFlags::GRAPHICS))
+            .find(|(_, q)| q.queue_flags.contains(QueueFlags::GRAPHICS))
             .map(|(i, _)| i as u32)
             .expect("No suitable graphics queue family found");
 
-        let present_queue = queue_family_properties
-            .into_iter()
-            .enumerate()
-            .find(|(i, q)| unsafe {
+        let present_queue = (0..queue_family_properties.len() as u32)
+            .find(|i| unsafe {
                 surface
                     .get_physical_device_surface_support(*device, *i as u32, *surface_khr)
                     .is_ok()
             })
-            .map(|(i, _)| i as u32)
             .expect("No suitable present queue family found");
 
         QueueFamilyIndex {
