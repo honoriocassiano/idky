@@ -6,15 +6,26 @@ use std::os::raw::{c_char, c_uint};
 use std::ptr::{null, null_mut};
 
 use ash::{Device, Entry, Instance};
-use ash::extensions::khr::Surface;
+use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
-    API_VERSION_1_1, ApplicationInfo, DeviceCreateInfo, DeviceQueueCreateInfo, InstanceCreateInfo,
-    make_api_version, MAX_EXTENSION_NAME_SIZE, PFN_vkCreateInstance, PhysicalDevice, PhysicalDeviceFeatures,
-    PhysicalDeviceType, QueueFlags, StructureType, SurfaceKHR, TRUE,
+    API_VERSION_1_1, ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo,
+    DeviceQueueCreateInfo, Extent2D, Format, Image, ImageUsageFlags, InstanceCreateInfo,
+    make_api_version, MAX_EXTENSION_NAME_SIZE, PFN_vkCreateInstance, PhysicalDevice,
+    PhysicalDeviceFeatures, PhysicalDeviceType, PresentModeKHR, QueueFlags, SharingMode, StructureType,
+    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, TRUE,
 };
 
-use sdl::{SDL_CreateRenderer, SDL_GetError, SDL_Renderer, SDL_RendererFlags_SDL_RENDERER_ACCELERATED, SDL_RendererFlags_SDL_RENDERER_PRESENTVSYNC, SDL_RendererFlags_SDL_RENDERER_SOFTWARE, SDL_RendererFlags_SDL_RENDERER_TARGETTEXTURE, SDL_Window, vulkan};
-use sdl::vulkan::{SDL_Vulkan_CreateSurface, SDL_Vulkan_GetVkGetInstanceProcAddr};
+use sdl::{
+    SDL_CreateRenderer, SDL_GetError, SDL_Renderer, SDL_RendererFlags_SDL_RENDERER_ACCELERATED,
+    SDL_RendererFlags_SDL_RENDERER_PRESENTVSYNC, SDL_RendererFlags_SDL_RENDERER_SOFTWARE,
+    SDL_RendererFlags_SDL_RENDERER_TARGETTEXTURE, SDL_Window,
+    vulkan,
+};
+use sdl::vulkan::{
+    SDL_Vulkan_CreateSurface, SDL_Vulkan_GetDrawableSize, SDL_Vulkan_GetVkGetInstanceProcAddr,
+};
+
+use crate::Window;
 
 #[repr(u32)]
 pub enum RendererFlags {
@@ -36,14 +47,12 @@ struct QueueFamilyIndex {
 
 impl Renderer {
     // TODO Remove this usage of raw pointers
-    pub fn new(window: *mut SDL_Window) -> Self {
-
+    pub fn new(window: &mut SDL_Window) -> Self {
         let vk_entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
         let vk_instance = Self::create_instance(window, &vk_entry);
 
         // TODO Create a debug pipeline
         let vk_surface_khr = unsafe {
-
             let mut surface = SurfaceKHR::default();
 
             let result =
@@ -60,13 +69,22 @@ impl Renderer {
 
         let surface = Surface::new(&vk_entry, &vk_instance);
 
-
         let vk_device = Self::create_physical_device(&vk_instance);
 
         let vk_queue_families =
             Self::create_queue_family(&surface, &vk_instance, &vk_device, &vk_surface_khr);
 
         let device = Self::create_device(&vk_instance, &vk_device, &vk_queue_families);
+
+        let (swapchain_khr, images) = Self::create_swapchain(
+            &vk_instance,
+            &device,
+            &vk_device,
+            &surface,
+            &vk_surface_khr,
+            window,
+            vk_queue_families,
+        );
 
         Self {
             renderer: null_mut(),
@@ -87,11 +105,13 @@ impl Renderer {
         }
     }
 
-    fn create_device(instance: &Instance, physical_device: &PhysicalDevice, queue_families: &QueueFamilyIndex) -> Device {
+    fn create_device(
+        instance: &Instance,
+        physical_device: &PhysicalDevice,
+        queue_families: &QueueFamilyIndex,
+    ) -> Device {
         let x = [queue_families.graphic, queue_families.present];
-        let families = x
-            .iter()
-            .collect::<HashSet<_>>();
+        let families = x.iter().collect::<HashSet<_>>();
 
         let priority = 1.0f32;
 
@@ -107,7 +127,8 @@ impl Renderer {
             .collect::<Vec<_>>();
 
         // TODO Use CString instead
-        let device_extensions = unsafe { vec![CStr::from_bytes_with_nul_unchecked(b"VK_KHR_swapchain\0") ]};
+        let device_extensions =
+            unsafe { vec![CStr::from_bytes_with_nul_unchecked(b"VK_KHR_swapchain\0")] };
 
         let device_extensions = device_extensions
             .into_iter()
@@ -130,7 +151,11 @@ impl Renderer {
             ..Default::default()
         };
 
-        unsafe { instance.create_device(*physical_device, &create_info, None).expect("Unable to create device") }
+        unsafe {
+            instance
+                .create_device(*physical_device, &create_info, None)
+                .expect("Unable to create device")
+        }
     }
 
     fn create_queue_family(
@@ -205,7 +230,7 @@ impl Renderer {
         extension_names
     }
 
-    fn create_instance(window: *mut SDL_Window, entry: &Entry) -> ash::Instance {
+    fn create_instance(window: &mut SDL_Window, entry: &Entry) -> ash::Instance {
         // TODO Pass by function parameter
         let app_name = "";
 
@@ -232,11 +257,110 @@ impl Renderer {
         unsafe { entry.create_instance(&app_create_info, None) }
             .expect("Cannot create Vulkan instance")
     }
+
+    #[must_use]
+    fn create_swapchain(
+        instance: &Instance,
+        device: &Device,
+        physical_device: &PhysicalDevice,
+        surface: &Surface,
+        surface_khr: &SurfaceKHR,
+        window: &mut SDL_Window,
+        queue_family_index: QueueFamilyIndex,
+    ) -> (SwapchainKHR, Vec<Image>) {
+        let surface_formats = unsafe {
+            surface
+                .get_physical_device_surface_formats(*physical_device, *surface_khr)
+                .expect("Cannot get physical device surface formats")
+        };
+
+        let surface_capabilities = unsafe {
+            surface
+                .get_physical_device_surface_capabilities(*physical_device, *surface_khr)
+                .expect("Cannot get surface capabilities")
+        };
+
+        // surface_formats
+        //     .iter()
+        //     .for_each(|f| {
+        //        println!("{:?}", f);
+        //     });
+
+        let surface_format = surface_formats
+            .into_iter()
+            .find(|f| f.format != Format::B8G8R8A8_UNORM)
+            .expect("Physical device does not support required surface format");
+
+        let mut width = std::os::raw::c_int::from(0);
+        let mut height = std::os::raw::c_int::from(0);
+
+        unsafe { SDL_Vulkan_GetDrawableSize(window, &mut width, &mut height) };
+
+        let width = (width as u32).clamp(
+            surface_capabilities.min_image_extent.width,
+            surface_capabilities.max_image_extent.width,
+        );
+
+        let height = (height as u32).clamp(
+            surface_capabilities.min_image_extent.height,
+            surface_capabilities.max_image_extent.height,
+        );
+
+        let swapchain_size = Extent2D {
+            width,
+            height,
+            ..Default::default()
+        };
+
+        let queues = if queue_family_index.graphic == queue_family_index.present {
+            vec![queue_family_index.graphic, queue_family_index.present]
+        } else {
+            vec![queue_family_index.graphic]
+        };
+
+        let create_info = SwapchainCreateInfoKHR {
+            s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
+            surface: *surface_khr,
+            min_image_count: surface_capabilities.min_image_count,
+            image_format: surface_format.format,
+            image_color_space: surface_format.color_space,
+            image_extent: swapchain_size,
+            image_array_layers: 1,
+            image_usage: ImageUsageFlags::COLOR_ATTACHMENT,
+            image_sharing_mode: match queues.len() {
+                1 => SharingMode::EXCLUSIVE,
+                2 => SharingMode::CONCURRENT,
+                _ => unreachable!(),
+            },
+            queue_family_index_count: queues.len() as u32,
+            p_queue_family_indices: queues.as_ptr(),
+            pre_transform: surface_capabilities.current_transform,
+            composite_alpha: CompositeAlphaFlagsKHR::OPAQUE,
+            present_mode: PresentModeKHR::FIFO,
+            clipped: TRUE,
+            ..Default::default()
+        };
+
+        let swapchain = Swapchain::new(instance, device);
+
+        let swapchain_khr = unsafe {
+            swapchain
+                .create_swapchain(&create_info, None)
+                .expect("Cannot create swapchain")
+        };
+
+        let swapchain_images = unsafe {
+            swapchain
+                .get_swapchain_images(swapchain_khr.clone())
+                .expect("Cannot get swapchain images")
+        };
+
+        (swapchain_khr, swapchain_images)
+    }
 }
 
 impl Drop for Renderer {
     fn drop(&mut self) {
         // TODO Drop Vulkan surface
     }
-
 }
