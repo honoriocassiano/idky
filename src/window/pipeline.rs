@@ -406,6 +406,18 @@ impl Pipeline {
 
 impl Drop for Pipeline {
     fn drop(&mut self) {
-        // TODO Drop Vulkan surface
+        unsafe {
+            self.image_views
+                .iter()
+                .for_each(|iv| self.device.destroy_image_view(*iv, None));
+
+            self.images
+                .iter()
+                .for_each(|i| self.device.destroy_image(*i, None));
+
+            self.device.destroy_device(None);
+            self.surface.destroy_surface(self.surface_khr, None);
+            self.instance.destroy_instance(None);
+        }
     }
 }
