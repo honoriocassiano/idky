@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use std::ffi::CStr;
+use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_uint};
 use std::ptr::{null, null_mut};
 
@@ -206,7 +206,7 @@ impl Pipeline {
         true
     }
 
-    fn get_required_extensions(window: *mut SDL_Window) -> Vec<*const c_char> {
+    fn get_required_extensions(window: &mut SDL_Window) -> Vec<String> {
         let mut enabled_extension_count = c_uint::from(0u16);
 
         unsafe {
@@ -228,7 +228,12 @@ impl Pipeline {
             );
         }
 
-        extension_names
+        unsafe {
+            extension_names
+                .into_iter()
+                .map(|e| CStr::from_ptr(e).to_str().unwrap().to_owned())
+                .collect()
+        }
     }
 
     fn create_instance(window: &mut SDL_Window, entry: &Entry) -> ash::Instance {
@@ -245,13 +250,22 @@ impl Pipeline {
             ..Default::default()
         };
 
-        let required_extensions = Self::get_required_extensions(window);
+        // Holds the ownership of string values and must be NOT deleted
+        let required_extensions = Self::get_required_extensions(window)
+            .into_iter()
+            .map(|e| CString::new(e).unwrap())
+            .collect::<Vec<_>>();
+
+        let required_extensions_cchar = required_extensions
+            .iter()
+            .map(|e| e.as_ptr())
+            .collect::<Vec<_>>();
 
         let app_create_info = InstanceCreateInfo {
             s_type: StructureType::INSTANCE_CREATE_INFO,
             p_application_info: &app_info,
-            pp_enabled_extension_names: required_extensions.as_ptr(),
-            enabled_extension_count: required_extensions.len() as u32,
+            pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
+            enabled_extension_count: required_extensions_cchar.len() as u32,
             ..Default::default()
         };
 
