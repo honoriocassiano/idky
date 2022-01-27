@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 use std::ffi::{CStr, CString};
-use std::os::raw::{c_char, c_uint};
+use std::os::raw::c_char;
 use std::ptr::{null, null_mut};
 
 use ash::{Device, Entry, Instance};
@@ -207,7 +207,7 @@ impl Pipeline {
     }
 
     fn get_required_extensions(window: &mut SDL_Window) -> Vec<String> {
-        let mut enabled_extension_count = c_uint::from(0u16);
+        let mut enabled_extension_count = 0u32;
 
         unsafe {
             sdl::vulkan::SDL_Vulkan_GetInstanceExtensions(
@@ -306,8 +306,8 @@ impl Pipeline {
             .find(|f| f.format != Format::B8G8R8A8_UNORM)
             .expect("Physical device does not support required surface format");
 
-        let mut width = std::os::raw::c_int::from(0);
-        let mut height = std::os::raw::c_int::from(0);
+        let mut width = 0i32;
+        let mut height = 0i32;
 
         unsafe { SDL_Vulkan_GetDrawableSize(window, &mut width, &mut height) };
 
