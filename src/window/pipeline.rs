@@ -117,16 +117,15 @@ impl Pipeline {
         physical_device: PhysicalDevice,
         queue_families: QueueFamilyIndex,
     ) -> Device {
-        let x = [queue_families.graphic, queue_families.present];
-        let families = x.iter().collect::<HashSet<_>>();
+        let families = HashSet::from([queue_families.graphic, queue_families.present]);
 
         let priority = 1.0f32;
 
         let map = families
-            .iter()
+            .into_iter()
             .map(|f| DeviceQueueCreateInfo {
                 s_type: StructureType::DEVICE_QUEUE_CREATE_INFO,
-                queue_family_index: **f,
+                queue_family_index: f,
                 queue_count: 1,
                 p_queue_priorities: &priority,
                 ..Default::default()
