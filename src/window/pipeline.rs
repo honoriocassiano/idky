@@ -50,16 +50,16 @@ impl Pipeline {
         let physical_device = Self::create_physical_device(&instance);
 
         let queue_families =
-            Self::create_queue_family(&surface, &instance, &physical_device, &surface_khr);
+            Self::create_queue_family(&surface, &instance, physical_device, surface_khr);
 
-        let device = Self::create_device(&instance, &physical_device, &queue_families);
+        let device = Self::create_device(&instance, physical_device, queue_families);
 
         let (swapchain_khr, surface_format_khr, images) = Self::create_swapchain(
             &instance,
             &device,
-            &physical_device,
+            physical_device,
             &surface,
-            &surface_khr,
+            surface_khr,
             window,
             queue_families,
         );
@@ -107,15 +107,15 @@ impl Pipeline {
 
             result
                 .into_iter()
-                .find(|d| Self::check_suitability(&instance, d))
+                .find(|&d| Self::check_suitability(&instance, d))
                 .expect("No graphical card found!")
         }
     }
 
     fn create_device(
         instance: &Instance,
-        physical_device: &PhysicalDevice,
-        queue_families: &QueueFamilyIndex,
+        physical_device: PhysicalDevice,
+        queue_families: QueueFamilyIndex,
     ) -> Device {
         let x = [queue_families.graphic, queue_families.present];
         let families = x.iter().collect::<HashSet<_>>();
@@ -158,7 +158,7 @@ impl Pipeline {
 
         unsafe {
             instance
-                .create_device(*physical_device, &create_info, None)
+                .create_device(physical_device, &create_info, None)
                 .expect("Unable to create device")
         }
     }
@@ -166,11 +166,11 @@ impl Pipeline {
     fn create_queue_family(
         surface: &Surface,
         instance: &Instance,
-        device: &PhysicalDevice,
-        surface_khr: &SurfaceKHR,
+        device: PhysicalDevice,
+        surface_khr: SurfaceKHR,
     ) -> QueueFamilyIndex {
         let queue_family_properties =
-            unsafe { instance.get_physical_device_queue_family_properties(*device) };
+            unsafe { instance.get_physical_device_queue_family_properties(device) };
 
         let graphics_queue = queue_family_properties
             .iter()
@@ -182,7 +182,7 @@ impl Pipeline {
         let present_queue = (0..queue_family_properties.len() as u32)
             .find(|i| unsafe {
                 surface
-                    .get_physical_device_surface_support(*device, *i as u32, *surface_khr)
+                    .get_physical_device_surface_support(device, *i as u32, surface_khr)
                     .is_ok()
             })
             .expect("No suitable present queue family found");
@@ -193,7 +193,7 @@ impl Pipeline {
         }
     }
 
-    fn check_suitability(_instance: &Instance, _device: &PhysicalDevice) -> bool {
+    fn check_suitability(_instance: &Instance, _device: PhysicalDevice) -> bool {
         // let properties = unsafe { instance.get_physical_device_properties(*device) };
         // let features = unsafe { instance.get_physical_device_features(*device) };
         //
@@ -264,21 +264,21 @@ impl Pipeline {
     fn create_swapchain(
         instance: &Instance,
         device: &Device,
-        physical_device: &PhysicalDevice,
+        physical_device: PhysicalDevice,
         surface: &Surface,
-        surface_khr: &SurfaceKHR,
+        surface_khr: SurfaceKHR,
         window: &mut SDL_Window,
         queue_family_index: QueueFamilyIndex,
     ) -> (SwapchainKHR, SurfaceFormatKHR, Vec<Image>) {
         let surface_formats = unsafe {
             surface
-                .get_physical_device_surface_formats(*physical_device, *surface_khr)
+                .get_physical_device_surface_formats(physical_device, surface_khr)
                 .expect("Cannot get physical device surface formats")
         };
 
         let surface_capabilities = unsafe {
             surface
-                .get_physical_device_surface_capabilities(*physical_device, *surface_khr)
+                .get_physical_device_surface_capabilities(physical_device, surface_khr)
                 .expect("Cannot get surface capabilities")
         };
 
@@ -322,7 +322,7 @@ impl Pipeline {
 
         let create_info = SwapchainCreateInfoKHR {
             s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
-            surface: *surface_khr,
+            surface: surface_khr,
             min_image_count: surface_capabilities.min_image_count,
             image_format: surface_format.format,
             image_color_space: surface_format.color_space,
