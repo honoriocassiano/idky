@@ -133,7 +133,7 @@ impl Pipeline {
             })
             .collect::<Vec<_>>();
 
-        let device_extensions = unsafe { vec![KhrSwapchainFn::name()] };
+        let device_extensions = vec![KhrSwapchainFn::name()];
 
         let device_extensions = device_extensions
             .into_iter()
