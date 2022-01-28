@@ -6,11 +6,14 @@ use std::ptr::{null, null_mut};
 use ash::{Device, Entry, Instance};
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
-    ApplicationInfo, CompositeAlphaFlagsKHR, DeviceCreateInfo, DeviceQueueCreateInfo,
-    Extent2D, Format, Image, ImageAspectFlags, ImageSubresourceRange, ImageUsageFlags,
-    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn,
-    make_api_version, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
-    SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    ApplicationInfo, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
+    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D,
+    Extent3D, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange,
+    ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType,
+    InstanceCreateInfo, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags,
+    MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
+    SampleCountFlags, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR,
+    SwapchainCreateInfoKHR, SwapchainKHR,
 };
 
 use sdl::{SDL_GetError, SDL_Window};
@@ -401,6 +404,142 @@ impl Pipeline {
                     .expect("Cannot create image view")
             })
             .collect::<Vec<_>>()
+    }
+
+    pub fn create_image(
+        &mut self,
+        width: u32,
+        height: u32,
+        format: Format,
+        tiling: ImageTiling,
+        usage: ImageUsageFlags,
+        properties: MemoryPropertyFlags,
+        device_memory: DeviceMemory,
+    ) {
+        let create_info = ImageCreateInfo {
+            s_type: StructureType::IMAGE_CREATE_INFO,
+            image_type: ImageType::TYPE_2D,
+            extent: Extent3D {
+                width,
+                height,
+                depth: 1,
+                ..Default::default()
+            },
+            mip_levels: 1,
+            array_layers: 1,
+            format,
+            tiling,
+            initial_layout: ImageLayout::UNDEFINED,
+            usage,
+            samples: SampleCountFlags::TYPE_1,
+            sharing_mode: SharingMode::EXCLUSIVE,
+            ..Default::default()
+        };
+
+        let image = unsafe {
+            self.device
+                .create_image(&create_info, None)
+                .expect("Cannot create image")
+        };
+
+        let requirements = unsafe { self.device.get_image_memory_requirements(image) };
+
+        let alloc_info = MemoryAllocateInfo {
+            s_type: StructureType::MEMORY_ALLOCATE_INFO,
+            allocation_size: requirements.size,
+            memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
+            ..Default::default()
+        };
+
+        unsafe {
+            self.device
+                .allocate_memory(&alloc_info, None)
+                .expect("Cannot allocate image memory");
+            self.device.bind_image_memory(image, device_memory, 0)
+                .expect("Unable to bind image memory");
+        }
+    }
+
+    pub fn create_buffer(
+        &mut self,
+        size: DeviceSize,
+        usage: BufferUsageFlags,
+        properties: MemoryPropertyFlags,
+    ) -> (Buffer, DeviceMemory) {
+        let create_info = BufferCreateInfo {
+            s_type: StructureType::BUFFER_CREATE_INFO,
+            size,
+            usage,
+            sharing_mode: SharingMode::EXCLUSIVE,
+
+            ..Default::default()
+        };
+
+        let buffer = unsafe {
+            self.device
+                .create_buffer(&create_info, None)
+                .expect("Cannot create buffer")
+        };
+
+        let requirements = unsafe { self.device.get_buffer_memory_requirements(buffer) };
+
+        let alloc_info = MemoryAllocateInfo {
+            s_type: StructureType::MEMORY_ALLOCATE_INFO,
+            allocation_size: requirements.size, memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
+            ..Default::default()
+        };
+
+        let memory = unsafe {
+            self.device
+                .allocate_memory(&alloc_info, None)
+                .expect("Cannot allocate memory")
+        };
+
+        unsafe {
+            self.device.bind_buffer_memory(buffer, memory, 0)
+                .expect("Unable to bind buffer");
+        }
+
+        (buffer, memory)
+    }
+
+    pub fn create_image_texture(&mut self) {
+        // TODO Set size according to image
+        let width = 0u32;
+        let height = 0u32;
+        let size = DeviceSize::default();
+
+        let buffer_usage_flags = BufferUsageFlags::TRANSFER_SRC;
+        let memory_usage_flags =
+            MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT;
+
+        let (buffer, device_memory) =
+            self.create_buffer(size, buffer_usage_flags, memory_usage_flags);
+
+        let data = unsafe {
+            self.device
+                .map_memory(device_memory, 0, size, MemoryMapFlags::empty())
+                .expect("Cannot map memory")
+        };
+        // TODO Fill data
+        unsafe {
+            self.device.unmap_memory(device_memory);
+        }
+
+        self.create_image(
+            width,
+            height,
+            Format::R8G8B8A8_SRGB, // TODO Check this format
+            ImageTiling::OPTIMAL,
+            ImageUsageFlags::TRANSFER_DST | ImageUsageFlags::SAMPLED,
+            MemoryPropertyFlags::DEVICE_LOCAL,
+            device_memory,
+        );
+    }
+
+    fn find_memory_type(type_bits: u32, properties: MemoryPropertyFlags) -> u32 {
+        // TODO
+        todo!()
     }
 }
 
