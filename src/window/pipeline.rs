@@ -22,6 +22,15 @@ pub struct QueueFamilyIndex {
     pub present: u32,
 }
 
+impl Into<Vec<u32>> for QueueFamilyIndex {
+    fn into(self) -> Vec<u32> {
+        match self.graphic == self.present {
+            true => vec![self.graphic, self.present],
+            false => vec![self.graphic],
+        }
+    }
+}
+
 pub struct Pipeline {
     pub entry: Entry,
     pub instance: Instance,
@@ -117,7 +126,7 @@ impl Pipeline {
         physical_device: PhysicalDevice,
         queue_families: QueueFamilyIndex,
     ) -> Device {
-        let families = HashSet::from([queue_families.graphic, queue_families.present]);
+        let families: Vec<u32> = queue_families.into();
 
         let priority = 1.0f32;
 
@@ -327,11 +336,7 @@ impl Pipeline {
             ..Default::default()
         };
 
-        let queues = if queue_family_index.graphic == queue_family_index.present {
-            vec![queue_family_index.graphic, queue_family_index.present]
-        } else {
-            vec![queue_family_index.graphic]
-        };
+        let queues: Vec<u32> = queue_family_index.into();
 
         let create_info = SwapchainCreateInfoKHR {
             s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
