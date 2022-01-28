@@ -141,12 +141,7 @@ impl Pipeline {
             })
             .collect::<Vec<_>>();
 
-        let device_extensions = vec![KhrSwapchainFn::name()];
-
-        let device_extensions = device_extensions
-            .into_iter()
-            .map(|e| e.as_ptr())
-            .collect::<Vec<_>>();
+        let device_extensions = vec![KhrSwapchainFn::name().as_ptr()];
 
         let physical_device_features = [PhysicalDeviceFeatures {
             sampler_anisotropy: ash::vk::TRUE,
