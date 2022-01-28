@@ -183,9 +183,9 @@ impl Pipeline {
             .expect("No suitable graphics queue family found");
 
         let present_queue = (0..queue_family_properties.len() as u32)
-            .find(|i| unsafe {
+            .find(|&i| unsafe {
                 surface
-                    .get_physical_device_surface_support(device, *i as u32, surface_khr)
+                    .get_physical_device_surface_support(device, i as u32, surface_khr)
                     .is_ok()
             })
             .expect("No suitable present queue family found");
