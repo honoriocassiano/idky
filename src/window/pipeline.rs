@@ -21,9 +21,15 @@ pub struct QueueFamilyIndex {
 
 impl Into<Vec<u32>> for QueueFamilyIndex {
     fn into(self) -> Vec<u32> {
+        self.to_vec()
+    }
+}
+
+impl QueueFamilyIndex {
+    fn to_vec(&self) -> Vec<u32> {
         match self.graphic == self.present {
-            true => vec![self.graphic, self.present],
-            false => vec![self.graphic],
+            false => vec![self.graphic, self.present],
+            true => vec![self.graphic],
         }
     }
 }
