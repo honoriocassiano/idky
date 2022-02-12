@@ -8,18 +8,7 @@ use std::str::Utf8Error;
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{
-    ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT,
-    DebugUtilsMessengerCreateInfoEXT, DeviceCreateInfo, DeviceMemory,
-    DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags,
-    ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags,
-    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn,
-    make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice,
-    PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler,
-    SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR,
-    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
-};
+use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
 
 use sdl::{SDL_GetError, SDL_Window};
 use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
@@ -68,12 +57,12 @@ impl Pipeline {
 
         let surface = Surface::new(&entry, &instance);
 
-        let physical_device = Self::create_physical_device(&instance);
+        let (physical_device, additional_extensions) = Self::create_physical_device(&instance);
 
         let queue_families =
             Self::create_queue_family(&surface, &instance, physical_device, surface_khr);
 
-        let device = Self::create_device(&instance, physical_device, queue_families);
+        let device = Self::create_device(&instance, physical_device, queue_families, additional_extensions.as_slice());
 
         let (swapchain_khr, surface_format_khr, images) = Self::create_swapchain(
             &instance,
@@ -123,16 +112,27 @@ impl Pipeline {
         surface_khr
     }
 
-    fn create_physical_device(instance: &Instance) -> PhysicalDevice {
+    fn create_physical_device(instance: &Instance) -> (PhysicalDevice, Vec<&'static CStr>) {
         unsafe {
             let result = instance
                 .enumerate_physical_devices()
                 .expect("Cannot enumerate physical devices");
 
-            result
+            let device = result
                 .into_iter()
                 .find(|&d| Self::check_suitability(&instance, d))
-                .expect("No graphical card found!")
+                .expect("No graphical card found!");
+
+            let extension_properties = instance.enumerate_device_extension_properties(device).expect("Unable to enumerate physical device extension properties");
+
+            let portability_subset = extension_properties
+                .into_iter()
+                .find(|ep| CStr::from_ptr(ep.extension_name.as_ptr()) == KhrPortabilitySubsetFn::name());
+
+            let additional_extensions = portability_subset
+                .map_or(vec![], |ps| vec![KhrPortabilitySubsetFn::name()]);
+
+            (device, additional_extensions)
         }
     }
 
@@ -140,6 +140,7 @@ impl Pipeline {
         instance: &Instance,
         physical_device: PhysicalDevice,
         queue_families: QueueFamilyIndex,
+        additional_extensions: &[&'static CStr],
     ) -> Device {
         let families: Vec<u32> = queue_families.into();
 
@@ -156,7 +157,11 @@ impl Pipeline {
             })
             .collect::<Vec<_>>();
 
-        let device_extensions = vec![KhrSwapchainFn::name().as_ptr()];
+        let device_extensions = [&[KhrSwapchainFn::name()], additional_extensions]
+            .concat()
+            .iter()
+            .map(|de| de.as_ptr())
+            .collect::<Vec<_>>();
 
         let physical_device_features = [PhysicalDeviceFeatures {
             sampler_anisotropy: ash::vk::TRUE,
