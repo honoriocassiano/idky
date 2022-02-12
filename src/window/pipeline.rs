@@ -42,9 +42,10 @@ pub struct Pipeline {
     pub physical_device: PhysicalDevice,
     pub queue_families: QueueFamilyIndex,
     pub device: Device,
+    pub swapchain: Swapchain,
     pub swapchain_khr: SwapchainKHR,
     pub surface_format_khr: SurfaceFormatKHR,
-    pub images: Vec<Image>,
+    pub swapchain_images: Vec<Image>,
     pub image_views: Vec<ImageView>,
     pub samplers: Vec<Sampler>,
 }
@@ -70,7 +71,7 @@ impl Pipeline {
 
         let device = Self::create_device(&instance, physical_device, queue_families, additional_extensions.as_slice());
 
-        let (swapchain_khr, surface_format_khr, images) = Self::create_swapchain(
+        let (swapchain, swapchain_khr, surface_format_khr, swapchain_images) = Self::create_swapchain(
             &instance,
             &device,
             physical_device,
@@ -80,7 +81,7 @@ impl Pipeline {
             queue_families,
         );
 
-        let image_views = Self::create_image_views(&device, surface_format_khr, images.clone());
+        let image_views = Self::create_image_views(&device, surface_format_khr, swapchain_images.clone());
 
         let samplers = vec![Self::create_sampler(&device)];
 
@@ -92,9 +93,10 @@ impl Pipeline {
             physical_device,
             queue_families,
             device,
+            swapchain,
             swapchain_khr,
             surface_format_khr,
-            images,
+            swapchain_images,
             image_views,
             samplers,
         }
@@ -403,7 +405,7 @@ impl Pipeline {
         surface_khr: SurfaceKHR,
         window: &mut SDL_Window,
         queue_family_index: QueueFamilyIndex,
-    ) -> (SwapchainKHR, SurfaceFormatKHR, Vec<Image>) {
+    ) -> (Swapchain, SwapchainKHR, SurfaceFormatKHR, Vec<Image>) {
         let surface_formats = unsafe {
             surface
                 .get_physical_device_surface_formats(physical_device, surface_khr)
@@ -487,7 +489,7 @@ impl Pipeline {
                 .expect("Cannot get swapchain images")
         };
 
-        (swapchain_khr, surface_format, swapchain_images)
+        (swapchain, swapchain_khr, surface_format, swapchain_images)
     }
 
     fn create_image_views(
@@ -691,9 +693,8 @@ impl Drop for Pipeline {
                 .iter()
                 .for_each(|iv| self.device.destroy_image_view(*iv, None));
 
-            self.images
-                .iter()
-                .for_each(|i| self.device.destroy_image(*i, None));
+            self
+                .swapchain.destroy_swapchain(self.swapchain_khr, None);
 
             self.device.destroy_device(None);
             self.surface.destroy_surface(self.surface_khr, None);
