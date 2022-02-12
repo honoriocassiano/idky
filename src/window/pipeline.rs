@@ -60,7 +60,7 @@ impl Pipeline {
         let (physical_device, additional_extensions) = Self::create_physical_device(&instance);
 
         let queue_families =
-            Self::create_queue_family(&surface, &instance, physical_device, surface_khr);
+            Self::get_queue_families(&surface, &instance, physical_device, surface_khr);
 
         let device = Self::create_device(&instance, physical_device, queue_families, additional_extensions.as_slice());
 
@@ -186,7 +186,7 @@ impl Pipeline {
         }
     }
 
-    fn create_queue_family(
+    fn get_queue_families(
         surface: &Surface,
         instance: &Instance,
         device: PhysicalDevice,
