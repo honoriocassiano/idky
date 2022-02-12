@@ -701,3 +701,27 @@ impl Drop for Pipeline {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::window::pipeline::QueueFamilyIndex;
+
+    #[test]
+    fn should_properly_convert_queue_family_index_to_vec() {
+        let index = QueueFamilyIndex {
+            graphic: 0,
+            present: 0
+        };
+
+        assert_eq!(vec![0], index.to_vec());
+        assert_eq!(vec![0], <QueueFamilyIndex as Into<Vec<u32>>>::into(index));
+
+        let index = QueueFamilyIndex {
+            graphic: 0,
+            present: 1
+        };
+
+        assert_eq!(vec![0, 1], index.to_vec());
+        assert_eq!(vec![0, 1], <QueueFamilyIndex as Into<Vec<u32>>>::into(index));
+    }
+}
