@@ -197,9 +197,9 @@ impl fmt::Display for Vec2 {
 mod tests {
     use super::*;
 
-    const EPSILON: f64 = 1e-08;
+    const EPSILON: f32 = 1e-08;
 
-    fn almost_equal(v1: f64, v2: f64) -> bool {
+    fn almost_equal(v1: f32, v2: f32) -> bool {
         (v1 - v2).abs() < EPSILON
     }
 
