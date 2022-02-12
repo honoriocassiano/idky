@@ -37,6 +37,7 @@ pub struct Pipeline {
     pub surface_format_khr: SurfaceFormatKHR,
     pub images: Vec<Image>,
     pub image_views: Vec<ImageView>,
+    pub samplers: Vec<Sampler>,
 }
 
 impl Pipeline {
@@ -69,6 +70,8 @@ impl Pipeline {
 
         let image_views = Self::create_image_views(&device, surface_format_khr, images.clone());
 
+        let samplers = vec![Self::create_sampler(&device)];
+
         Self {
             entry,
             instance,
@@ -81,6 +84,7 @@ impl Pipeline {
             surface_format_khr,
             images,
             image_views,
+            samplers,
         }
     }
 
@@ -557,6 +561,10 @@ impl Pipeline {
 impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
+            self.samplers
+                .iter()
+                .for_each(|s| self.device.destroy_sampler(*s, None));
+
             self.image_views
                 .iter()
                 .for_each(|iv| self.device.destroy_image_view(*iv, None));
