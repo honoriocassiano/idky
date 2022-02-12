@@ -5,16 +5,7 @@ use std::ptr::{null, null_mut};
 
 use ash::{Device, Entry, Instance};
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{
-    ApplicationInfo, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D,
-    Extent3D, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange,
-    ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType,
-    InstanceCreateInfo, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags,
-    MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
-    SampleCountFlags, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR,
-    SwapchainCreateInfoKHR, SwapchainKHR,
-};
+use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
 
 use sdl::{SDL_GetError, SDL_Window};
 use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
@@ -535,6 +526,26 @@ impl Pipeline {
             MemoryPropertyFlags::DEVICE_LOCAL,
             device_memory,
         );
+    }
+
+    fn create_sampler(device: &Device) -> Sampler {
+        let create_info = SamplerCreateInfo {
+            s_type: StructureType::SAMPLER_CREATE_INFO,
+            mag_filter: Filter::NEAREST,
+            min_filter: Filter::NEAREST,
+            address_mode_u: SamplerAddressMode::REPEAT,
+            address_mode_v: SamplerAddressMode::REPEAT,
+            address_mode_w: SamplerAddressMode::REPEAT,
+            anisotropy_enable: 0,
+            max_anisotropy: 1.0,
+            ..Default::default()
+        };
+
+        unsafe {
+            device
+                .create_sampler(&create_info, None)
+                .expect("Unable to create sampler")
+        }
     }
 
     fn find_memory_type(type_bits: u32, properties: MemoryPropertyFlags) -> u32 {
