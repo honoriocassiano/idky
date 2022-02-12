@@ -1,11 +1,25 @@
 use std::collections::HashSet;
-use std::ffi::{CStr, CString};
+use std::error::Error;
+use std::ffi::{c_void, CStr, CString};
 use std::os::raw::c_char;
 use std::ptr::{null, null_mut};
+use std::str::Utf8Error;
 
 use ash::{Device, Entry, Instance};
+use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
+use ash::vk::{
+    ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
+    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT,
+    DebugUtilsMessengerCreateInfoEXT, DeviceCreateInfo, DeviceMemory,
+    DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags,
+    ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags,
+    ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrSwapchainFn,
+    make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice,
+    PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler,
+    SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR,
+    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+};
 
 use sdl::{SDL_GetError, SDL_Window};
 use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
@@ -41,6 +55,9 @@ pub struct Pipeline {
 }
 
 impl Pipeline {
+    #[cfg(debug_assertions)]
+    const VALIDATION_LAYERS: [&'static [u8; 28]; 1] = unsafe { [b"VK_LAYER_KHRONOS_validation\0"] };
+
     pub fn from_sdl_window(window: &mut SDL_Window) -> Self {
         let entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
 
@@ -238,6 +255,38 @@ impl Pipeline {
         }
     }
 
+    #[cfg(debug_assertions)]
+    extern "system" fn debug_callback(
+        _message_severity: DebugUtilsMessageSeverityFlagsEXT,
+        _message_types: DebugUtilsMessageTypeFlagsEXT,
+        p_callback_data: *const DebugUtilsMessengerCallbackDataEXT,
+        _p_user_data: *mut c_void,
+    ) -> Bool32 {
+        let message = unsafe { CStr::from_ptr((*p_callback_data).p_message).to_str() };
+
+        // TODO Add a proper log
+        match message {
+            Ok(m) => println!("{}", m),
+            Err(m) => println!("{}", m),
+        };
+
+        0
+    }
+
+    #[cfg(debug_assertions)]
+    fn create_debug_message() -> DebugUtilsMessengerCreateInfoEXT {
+        DebugUtilsMessengerCreateInfoEXT {
+            s_type: StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+            message_severity: DebugUtilsMessageSeverityFlagsEXT::WARNING
+                | DebugUtilsMessageSeverityFlagsEXT::ERROR,
+            message_type: DebugUtilsMessageTypeFlagsEXT::GENERAL
+                | DebugUtilsMessageTypeFlagsEXT::VALIDATION
+                | DebugUtilsMessageTypeFlagsEXT::PERFORMANCE,
+            pfn_user_callback: Some(Self::debug_callback),
+            ..Default::default()
+        }
+    }
+
     fn create_instance(window: &mut SDL_Window, entry: &Entry) -> ash::Instance {
         // TODO Pass by function parameter
         let app_name = "";
@@ -263,16 +312,75 @@ impl Pipeline {
             .map(|e| e.as_ptr())
             .collect::<Vec<_>>();
 
-        let app_create_info = InstanceCreateInfo {
-            s_type: StructureType::INSTANCE_CREATE_INFO,
-            p_application_info: &app_info,
-            pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
-            enabled_extension_count: required_extensions_cchar.len() as u32,
-            ..Default::default()
-        };
+        #[cfg(debug_assertions)]
+        {
+            if !Self::check_validation_layers(entry) {
+                panic!("Validation layers not available");
+            }
 
-        unsafe { entry.create_instance(&app_create_info, None) }
-            .expect("Cannot create Vulkan instance")
+            let layer_names = Self::VALIDATION_LAYERS
+                .iter()
+                .map(|&vl| unsafe { CStr::from_bytes_with_nul_unchecked(vl) })
+                .map(|vl| vl.as_ptr())
+                .collect::<Vec<_>>();
+
+            let create_info_ext = Self::create_debug_message();
+
+            let app_create_info = InstanceCreateInfo {
+                s_type: StructureType::INSTANCE_CREATE_INFO,
+                p_application_info: &app_info,
+                pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
+                enabled_extension_count: required_extensions_cchar.len() as u32,
+                enabled_layer_count: layer_names.len() as u32,
+                pp_enabled_layer_names: layer_names.as_ptr(),
+                p_next: &create_info_ext as *const DebugUtilsMessengerCreateInfoEXT
+                    as *const c_void,
+
+                ..Default::default()
+            };
+
+            unsafe { entry.create_instance(&app_create_info, None) }
+                .expect("Cannot create Vulkan instance")
+        }
+
+        #[cfg(not(debug_assertions))]
+        {
+            let app_create_info = InstanceCreateInfo {
+                s_type: StructureType::INSTANCE_CREATE_INFO,
+                p_application_info: &app_info,
+                pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
+                enabled_extension_count: required_extensions_cchar.len() as u32,
+                enabled_layer_count: 0,
+                p_next: null(),
+                ..Default::default()
+            };
+
+            unsafe { entry.create_instance(&app_create_info, None) }
+                .expect("Cannot create Vulkan instance")
+        }
+    }
+
+    #[cfg(debug_assertions)]
+    #[must_use]
+    fn check_validation_layers(entry: &Entry) -> bool {
+        let layers = entry
+            .enumerate_instance_layer_properties()
+            .expect("Unable to enumerate layer properties");
+
+        let layer = layers
+            .into_iter()
+            .filter(|l| unsafe {
+                let ptr = CStr::from_ptr(l.layer_name.as_ptr());
+
+                Self::VALIDATION_LAYERS
+                    .iter()
+                    .map(|&vl| unsafe { CStr::from_bytes_with_nul_unchecked(vl) })
+                    .find(|&vl| ptr == vl)
+                    .is_some()
+            })
+            .collect::<Vec<_>>();
+
+        !layer.is_empty()
     }
 
     #[must_use]
@@ -450,7 +558,8 @@ impl Pipeline {
             self.device
                 .allocate_memory(&alloc_info, None)
                 .expect("Cannot allocate image memory");
-            self.device.bind_image_memory(image, device_memory, 0)
+            self.device
+                .bind_image_memory(image, device_memory, 0)
                 .expect("Unable to bind image memory");
         }
     }
@@ -480,7 +589,8 @@ impl Pipeline {
 
         let alloc_info = MemoryAllocateInfo {
             s_type: StructureType::MEMORY_ALLOCATE_INFO,
-            allocation_size: requirements.size, memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
+            allocation_size: requirements.size,
+            memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
             ..Default::default()
         };
 
@@ -491,7 +601,8 @@ impl Pipeline {
         };
 
         unsafe {
-            self.device.bind_buffer_memory(buffer, memory, 0)
+            self.device
+                .bind_buffer_memory(buffer, memory, 0)
                 .expect("Unable to bind buffer");
         }
 
