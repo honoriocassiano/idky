@@ -189,6 +189,8 @@ impl Pipeline {
             .map(|de| de.as_ptr())
             .collect::<Vec<_>>();
 
+        // TODO Add validation layers if supported
+
         let physical_device_features = [PhysicalDeviceFeatures {
             sampler_anisotropy: ash::vk::TRUE,
             ..Default::default()
