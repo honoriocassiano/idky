@@ -183,7 +183,6 @@ impl Pipeline {
             p_enabled_features: physical_device_features.as_ptr(),
             enabled_extension_count: device_extensions.len() as u32,
             pp_enabled_extension_names: device_extensions.as_ptr(),
-            // TODO Add validation layers
             ..Default::default()
         };
 
