@@ -55,9 +55,6 @@ pub struct Pipeline {
 }
 
 impl Pipeline {
-    #[cfg(debug_assertions)]
-    const VALIDATION_LAYERS: [&'static [u8; 28]; 1] = unsafe { [b"VK_LAYER_KHRONOS_validation\0"] };
-
     pub fn from_sdl_window(window: &mut SDL_Window) -> Self {
         let entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
 
@@ -114,6 +111,13 @@ impl Pipeline {
             #[cfg(debug_assertions)]
             debug_utils_messenger,
         }
+    }
+
+    #[cfg(debug_assertions)]
+    fn get_validation_layers() -> Vec<&'static CStr> {
+        let layer = unsafe { CStr::from_bytes_with_nul_unchecked(b"VK_LAYER_KHRONOS_validation\0") };
+
+        vec![layer]
     }
 
     fn create_surface_khr(window: &mut SDL_Window, instance: &Instance) -> SurfaceKHR {
@@ -359,9 +363,8 @@ impl Pipeline {
                 panic!("Validation layers not available");
             }
 
-            let layer_names = Self::VALIDATION_LAYERS
+            let layer_names = Self::get_validation_layers()
                 .iter()
-                .map(|&vl| unsafe { CStr::from_bytes_with_nul_unchecked(vl) })
                 .map(|vl| vl.as_ptr())
                 .collect::<Vec<_>>();
 
@@ -413,10 +416,9 @@ impl Pipeline {
             .filter(|l| unsafe {
                 let ptr = CStr::from_ptr(l.layer_name.as_ptr());
 
-                Self::VALIDATION_LAYERS
+                Self::get_validation_layers()
                     .iter()
-                    .map(|&vl| unsafe { CStr::from_bytes_with_nul_unchecked(vl) })
-                    .find(|&vl| ptr == vl)
+                    .find(|&&vl| ptr == vl)
                     .is_some()
             })
             .collect::<Vec<_>>();
