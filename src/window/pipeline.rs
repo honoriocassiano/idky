@@ -8,7 +8,7 @@ use std::str::Utf8Error;
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
+use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
 
 use sdl::{SDL_GetError, SDL_Window};
 use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
@@ -48,6 +48,10 @@ pub struct Pipeline {
     pub swapchain_images: Vec<Image>,
     pub image_views: Vec<ImageView>,
     pub samplers: Vec<Sampler>,
+    #[cfg(debug_assertions)]
+    pub debug_utils: DebugUtils,
+    #[cfg(debug_assertions)]
+    pub debug_utils_messenger: DebugUtilsMessengerEXT,
 }
 
 impl Pipeline {
@@ -58,6 +62,12 @@ impl Pipeline {
         let entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
 
         let instance = Self::create_instance(window, &entry);
+
+        #[cfg(debug_assertions)]
+        let debug_utils = DebugUtils::new(&entry, &instance);
+
+        #[cfg(debug_assertions)]
+        let debug_utils_messenger = Self::setup_debug_messenger(&debug_utils);
 
         // TODO Create a debug pipeline
         let surface_khr = Self::create_surface_khr(window, &instance);
@@ -99,6 +109,10 @@ impl Pipeline {
             swapchain_images,
             image_views,
             samplers,
+            #[cfg(debug_assertions)]
+            debug_utils,
+            #[cfg(debug_assertions)]
+            debug_utils_messenger,
         }
     }
 
@@ -259,6 +273,11 @@ impl Pipeline {
             );
         }
 
+        #[cfg(debug_assertions)]
+        {
+            extension_names.push(DebugUtils::name().as_ptr());
+        }
+
         unsafe {
             extension_names
                 .into_iter()
@@ -282,7 +301,17 @@ impl Pipeline {
             Err(m) => println!("{}", m),
         };
 
-        0
+        ash::vk::FALSE
+    }
+
+    #[cfg(debug_assertions)]
+    fn setup_debug_messenger(debug_utils: &DebugUtils) -> DebugUtilsMessengerEXT {
+        let create_info = Self::create_debug_message();
+
+        unsafe {
+            debug_utils.create_debug_utils_messenger(&create_info, None)
+                .expect("Unable to create debug messenger")
+        }
     }
 
     #[cfg(debug_assertions)]
@@ -694,6 +723,9 @@ impl Drop for Pipeline {
 
             self
                 .swapchain.destroy_swapchain(self.swapchain_khr, None);
+
+            self.debug_utils
+                .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
 
             self.device.destroy_device(None);
             self.surface.destroy_surface(self.surface_khr, None);
