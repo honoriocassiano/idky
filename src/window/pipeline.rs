@@ -1,14 +1,22 @@
-use std::collections::HashSet;
-use std::error::Error;
 use std::ffi::{c_void, CStr, CString};
 use std::os::raw::c_char;
 use std::ptr::{null, null_mut};
-use std::str::Utf8Error;
 
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR};
+use ash::vk::{
+    ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
+    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT,
+    DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo,
+    DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format,
+    Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling,
+    ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
+    KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags,
+    MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
+    SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType,
+    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+};
 
 use sdl::{SDL_GetError, SDL_Window};
 use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
@@ -76,19 +84,26 @@ impl Pipeline {
         let queue_families =
             Self::get_queue_families(&surface, &instance, physical_device, surface_khr);
 
-        let device = Self::create_device(&instance, physical_device, queue_families, additional_extensions.as_slice());
-
-        let (swapchain, swapchain_khr, surface_format_khr, swapchain_images) = Self::create_swapchain(
+        let device = Self::create_device(
             &instance,
-            &device,
             physical_device,
-            &surface,
-            surface_khr,
-            window,
             queue_families,
+            additional_extensions.as_slice(),
         );
 
-        let image_views = Self::create_image_views(&device, surface_format_khr, swapchain_images.clone());
+        let (swapchain, swapchain_khr, surface_format_khr, swapchain_images) =
+            Self::create_swapchain(
+                &instance,
+                &device,
+                physical_device,
+                &surface,
+                surface_khr,
+                window,
+                queue_families,
+            );
+
+        let image_views =
+            Self::create_image_views(&device, surface_format_khr, swapchain_images.clone());
 
         let samplers = vec![Self::create_sampler(&device)];
 
@@ -115,7 +130,8 @@ impl Pipeline {
 
     #[cfg(debug_assertions)]
     fn get_validation_layers() -> Vec<&'static CStr> {
-        let layer = unsafe { CStr::from_bytes_with_nul_unchecked(b"VK_LAYER_KHRONOS_validation\0") };
+        let layer =
+            unsafe { CStr::from_bytes_with_nul_unchecked(b"VK_LAYER_KHRONOS_validation\0") };
 
         vec![layer]
     }
@@ -149,14 +165,16 @@ impl Pipeline {
                 .find(|&d| Self::check_suitability(&instance, d))
                 .expect("No graphical card found!");
 
-            let extension_properties = instance.enumerate_device_extension_properties(device).expect("Unable to enumerate physical device extension properties");
+            let extension_properties = instance
+                .enumerate_device_extension_properties(device)
+                .expect("Unable to enumerate physical device extension properties");
 
-            let portability_subset = extension_properties
-                .into_iter()
-                .find(|ep| CStr::from_ptr(ep.extension_name.as_ptr()) == KhrPortabilitySubsetFn::name());
+            let portability_subset = extension_properties.into_iter().find(|ep| {
+                CStr::from_ptr(ep.extension_name.as_ptr()) == KhrPortabilitySubsetFn::name()
+            });
 
-            let additional_extensions = portability_subset
-                .map_or(vec![], |ps| vec![KhrPortabilitySubsetFn::name()]);
+            let additional_extensions =
+                portability_subset.map_or(vec![], |ps| vec![KhrPortabilitySubsetFn::name()]);
 
             (device, additional_extensions)
         }
@@ -315,7 +333,8 @@ impl Pipeline {
         let create_info = Self::create_debug_message();
 
         unsafe {
-            debug_utils.create_debug_utils_messenger(&create_info, None)
+            debug_utils
+                .create_debug_utils_messenger(&create_info, None)
                 .expect("Unable to create debug messenger")
         }
     }
@@ -725,8 +744,7 @@ impl Drop for Pipeline {
                 .iter()
                 .for_each(|iv| self.device.destroy_image_view(*iv, None));
 
-            self
-                .swapchain.destroy_swapchain(self.swapchain_khr, None);
+            self.swapchain.destroy_swapchain(self.swapchain_khr, None);
 
             self.debug_utils
                 .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
@@ -746,7 +764,7 @@ mod test {
     fn should_properly_convert_queue_family_index_to_vec() {
         let index = QueueFamilyIndex {
             graphic: 0,
-            present: 0
+            present: 0,
         };
 
         assert_eq!(vec![0], index.to_vec());
@@ -754,10 +772,13 @@ mod test {
 
         let index = QueueFamilyIndex {
             graphic: 0,
-            present: 1
+            present: 1,
         };
 
         assert_eq!(vec![0, 1], index.to_vec());
-        assert_eq!(vec![0, 1], <QueueFamilyIndex as Into<Vec<u32>>>::into(index));
+        assert_eq!(
+            vec![0, 1],
+            <QueueFamilyIndex as Into<Vec<u32>>>::into(index)
+        );
     }
 }
