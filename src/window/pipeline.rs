@@ -173,10 +173,10 @@ impl Pipeline {
                 CStr::from_ptr(ep.extension_name.as_ptr()) == KhrPortabilitySubsetFn::name()
             });
 
-            let additional_extensions =
-                portability_subset.map_or(vec![], |ps| vec![KhrPortabilitySubsetFn::name()]);
-
-            (device, additional_extensions)
+            match portability_subset {
+                None => (device, vec![]),
+                Some(_) => (device, vec![KhrPortabilitySubsetFn::name()]),
+            }
         }
     }
 
