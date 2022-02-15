@@ -3,19 +3,22 @@ use std::ffi::CString;
 use std::path::Path;
 use std::time::Instant;
 
+use ash::Entry;
+
 use sdl::{
     SDL_CreateWindow, SDL_DestroyWindow, SDL_FillRect, SDL_GetKeyboardState, SDL_GetWindowSurface,
-    SDL_PollEvent, SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface,
-    SDL_UpdateWindowSurface, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
-    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
-    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_Init, SDL_INIT_EVERYTHING, SDL_PollEvent, SDL_Scancode_SDL_SCANCODE_DOWN,
+    SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface, SDL_UpdateWindowSurface, SDL_Window,
+    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
+    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
+use sdl::vulkan::SDL_Vulkan_LoadLibrary;
 
 use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
+use crate::window::{Event, Renderable, Renderer, RenderTarget, WindowControlFlow};
 use crate::window::event::EventHandler;
 use crate::window::player::Player;
-use crate::window::{Event, RenderTarget, Renderable, WindowControlFlow};
 
 pub struct Window<'a> {
     system: &'a System,
@@ -63,6 +66,8 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
+        let renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
+
         let surface = unsafe { SDL_GetWindowSurface(window) };
 
         let path = Path::new("./assets/example.bmp");
@@ -76,6 +81,10 @@ impl<'a> Window<'a> {
             player,
             start_time: Instant::now(),
         }
+    }
+
+    pub(super) unsafe fn get_raw_window(&self) -> &SDL_Window {
+        self.window.as_ref().unwrap()
     }
 
     pub fn run(&mut self) {
