@@ -1,4 +1,5 @@
 use std::ffi::CString;
+use std::os::raw::c_int;
 use std::path::Path;
 use std::time::Instant;
 
@@ -6,13 +7,13 @@ use sdl::{
     SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface, SDL_Window,
     SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
     SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
-    SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_WindowFlags_SDL_WINDOW_VULKAN, SDL_WINDOWPOS_CENTERED_MASK,
 };
 
 use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
 use crate::window::{
-    Event, event::EventHandler, player::Player, Renderable, Renderer, RenderTarget,
+    event::EventHandler, player::Player, Event, RenderTarget, Renderable, Renderer,
     WindowControlFlow,
 };
 
@@ -56,8 +57,16 @@ impl<'a> Window<'a> {
         let window_name = CString::new(title).unwrap();
         let flags = backend as u32 | mode as u32;
 
-        let window =
-            unsafe { sdl::SDL_CreateWindow(window_name.as_ptr(), 0, 0, width, height, flags) };
+        let window = unsafe {
+            sdl::SDL_CreateWindow(
+                window_name.as_ptr(),
+                SDL_WINDOWPOS_CENTERED_MASK as c_int,
+                SDL_WINDOWPOS_CENTERED_MASK as c_int,
+                width,
+                height,
+                flags,
+            )
+        };
 
         if window.is_null() {
             panic!("Error initializing window: {}", system.get_error().unwrap());
