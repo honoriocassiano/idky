@@ -1,21 +1,20 @@
-use core::ptr;
 use std::ffi::CString;
 use std::path::Path;
 use std::time::Instant;
 
 use sdl::{
-    SDL_CreateWindow, SDL_DestroyWindow, SDL_FillRect, SDL_GetKeyboardState, SDL_GetWindowSurface,
-    SDL_PollEvent, SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface,
-    SDL_UpdateWindowSurface, SDL_Window, SDL_WindowFlags_SDL_WINDOW_BORDERLESS,
-    SDL_WindowFlags_SDL_WINDOW_FULLSCREEN, SDL_WindowFlags_SDL_WINDOW_METAL,
-    SDL_WindowFlags_SDL_WINDOW_OPENGL, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface, SDL_Window,
+    SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
+    SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
+    SDL_WindowFlags_SDL_WINDOW_VULKAN,
 };
 
 use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
-use crate::window::{Event, Renderable, Renderer, RenderTarget, WindowControlFlow};
-use crate::window::event::EventHandler;
-use crate::window::player::Player;
+use crate::window::{
+    Event, event::EventHandler, player::Player, Renderable, Renderer, RenderTarget,
+    WindowControlFlow,
+};
 
 pub struct Window<'a> {
     system: &'a System,
@@ -57,7 +56,8 @@ impl<'a> Window<'a> {
         let window_name = CString::new(title).unwrap();
         let flags = backend as u32 | mode as u32;
 
-        let window = unsafe { SDL_CreateWindow(window_name.as_ptr(), 0, 0, width, height, flags) };
+        let window =
+            unsafe { sdl::SDL_CreateWindow(window_name.as_ptr(), 0, 0, width, height, flags) };
 
         if window.is_null() {
             panic!("Error initializing window: {}", system.get_error().unwrap());
@@ -65,7 +65,7 @@ impl<'a> Window<'a> {
 
         let renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
 
-        let surface = unsafe { SDL_GetWindowSurface(window) };
+        let surface = unsafe { sdl::SDL_GetWindowSurface(window) };
 
         let path = Path::new("./assets/example.bmp");
         let player = Player::new(path.to_path_buf(), Vec2::zero(), RenderTarget { surface });
@@ -99,18 +99,18 @@ impl<'a> Window<'a> {
 
     pub fn render(&mut self) {
         unsafe {
-            SDL_FillRect(self.surface, ptr::null(), 0x00000000);
+            sdl::SDL_FillRect(self.surface, std::ptr::null(), 0x00000000);
         }
 
         self.player.render();
 
-        unsafe { SDL_UpdateWindowSurface(self.window) };
+        unsafe { sdl::SDL_UpdateWindowSurface(self.window) };
     }
 
     pub fn handle_events(&mut self) -> WindowControlFlow {
         let mut event: Event = Default::default();
 
-        while unsafe { SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
+        while unsafe { sdl::SDL_PollEvent(event.get_raw_pointer_mut()) } != 0 {
             match event.get_type() {
                 SdlEventType::Quit => return WindowControlFlow::Exit,
                 _ => {}
@@ -121,7 +121,7 @@ impl<'a> Window<'a> {
         let state: &[u8];
 
         unsafe {
-            let temp = SDL_GetKeyboardState(&mut size as *mut i32);
+            let temp = sdl::SDL_GetKeyboardState(&mut size as *mut i32);
             state = std::slice::from_raw_parts(temp, size as usize);
         }
 
@@ -150,7 +150,7 @@ impl<'a> Window<'a> {
 impl<'a> Drop for Window<'a> {
     fn drop(&mut self) {
         unsafe {
-            SDL_DestroyWindow(self.window);
+            sdl::SDL_DestroyWindow(self.window);
         }
     }
 }
