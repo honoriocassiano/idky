@@ -1,25 +1,23 @@
 use std::ffi::{c_void, CStr, CString};
 use std::os::raw::c_char;
-use std::ptr::{null, null_mut};
 
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT,
-    DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo,
-    DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format,
-    Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling,
-    ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
-    KhrPortabilitySubsetFn, KhrSwapchainFn, make_api_version, MemoryAllocateInfo, MemoryMapFlags,
+    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
+    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
+    Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange,
+    ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType,
+    InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, MemoryAllocateInfo, MemoryMapFlags,
     MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
     SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType,
     SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
 };
 
-use sdl::{SDL_GetError, SDL_Window};
-use sdl::vulkan::SDL_Vulkan_GetDrawableSize;
+use sdl::SDL_Window;
 
 #[derive(Copy, Clone)]
 pub struct QueueFamilyIndex {
@@ -144,7 +142,7 @@ impl Pipeline {
                 sdl::vulkan::SDL_Vulkan_CreateSurface(window, instance.handle(), &mut surface);
 
             if result == 0 {
-                let error = CStr::from_ptr(SDL_GetError()).to_str().unwrap();
+                let error = CStr::from_ptr(sdl::SDL_GetError()).to_str().unwrap();
 
                 panic!("Failed to create Vulkan surface: {}", error);
             }
@@ -282,12 +280,12 @@ impl Pipeline {
             sdl::vulkan::SDL_Vulkan_GetInstanceExtensions(
                 window,
                 &mut enabled_extension_count,
-                null_mut(),
+                std::ptr::null_mut(),
             );
         }
 
         let mut extension_names = Vec::<*const c_char>::new();
-        extension_names.resize(enabled_extension_count as usize, null());
+        extension_names.resize(enabled_extension_count as usize, std::ptr::null());
 
         unsafe {
             sdl::vulkan::SDL_Vulkan_GetInstanceExtensions(
@@ -360,9 +358,9 @@ impl Pipeline {
         let app_info = ApplicationInfo {
             s_type: StructureType::APPLICATION_INFO,
             p_application_name: app_name.as_ptr() as *const c_char,
-            application_version: make_api_version(1, 1, 0, 0),
+            application_version: ash::vk::make_api_version(1, 1, 0, 0),
             p_engine_name: "No Engine".as_ptr() as *const c_char,
-            engine_version: make_api_version(1, 0, 0, 0),
+            engine_version: ash::vk::make_api_version(1, 0, 0, 0),
             api_version: ash::vk::API_VERSION_1_1,
             ..Default::default()
         };
@@ -483,7 +481,7 @@ impl Pipeline {
         let mut width = 0i32;
         let mut height = 0i32;
 
-        unsafe { SDL_Vulkan_GetDrawableSize(window, &mut width, &mut height) };
+        unsafe { sdl::vulkan::SDL_Vulkan_GetDrawableSize(window, &mut width, &mut height) };
 
         let width = (width as u32).clamp(
             surface_capabilities.min_image_extent.width,
