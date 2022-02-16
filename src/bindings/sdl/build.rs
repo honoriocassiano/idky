@@ -31,16 +31,16 @@ impl Cmake {
     fn generate(&self) -> PathBuf {
         let build_path = env::current_dir().unwrap().join(Path::new("../../../libs"));
 
-        // let command = Command::new("cmake")
-        //     .arg("-S")
-        //     .arg(self.path.as_os_str())
-        //     .arg("-B")
-        //     .arg(build_path.clone())
-        //     .stdout(Stdio::piped())
-        //     .spawn()
-        //     .unwrap();
-        //
-        // Self::print_output(command);
+        let command = Command::new("cmake")
+            .arg("-S")
+            .arg(self.path.as_os_str())
+            .arg("-B")
+            .arg(build_path.clone())
+            .stdout(Stdio::piped())
+            .spawn()
+            .unwrap();
+
+        Self::print_output(command);
 
         build_path
     }
@@ -48,14 +48,14 @@ impl Cmake {
     pub fn build(&self) -> PathBuf {
         let build_path = self.generate();
 
-        // let command = Command::new("cmake")
-        //     .arg("--build")
-        //     .arg(build_path.clone())
-        //     .stdout(Stdio::piped())
-        //     .spawn()
-        //     .unwrap();
-        //
-        // Self::print_output(command);
+        let command = Command::new("cmake")
+            .arg("--build")
+            .arg(build_path.clone())
+            .stdout(Stdio::piped())
+            .spawn()
+            .unwrap();
+
+        Self::print_output(command);
 
         build_path
     }
