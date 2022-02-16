@@ -17,7 +17,7 @@ use ash::vk::{
     ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
     MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
     PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
-    PipelineInputAssemblyStateCreateInfo, PipelineLayoutCreateInfo,
+    PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
     PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
     PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
     PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
@@ -64,6 +64,7 @@ pub struct Pipeline {
     pub swapchain_images: Vec<Image>,
     pub image_views: Vec<ImageView>,
     pub samplers: Vec<Sampler>,
+    pub pipeline_layout: PipelineLayout,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -115,6 +116,8 @@ impl Pipeline {
 
         let samplers = vec![Self::create_sampler(&device)];
 
+        let pipeline_layout = Self::create_graphics_pipeline(&device, swapchain_extent);
+
         Self {
             entry,
             instance,
@@ -130,6 +133,7 @@ impl Pipeline {
             swapchain_images,
             image_views,
             samplers,
+            pipeline_layout,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -634,36 +638,35 @@ impl Pipeline {
         }
     }
 
-    #[allow(unused)]
-    pub fn create_shader_module<T: AsRef<Path>>(&self, path: T) -> ShaderModule {
-        let bytes = Self::read_file(path.as_ref())
+    pub fn create_shader_module<T: AsRef<Path>>(device: &Device, path: T) -> ShaderModule {
+        let (bytes, size) = Self::read_file(path.as_ref())
             .expect(format!("Cannot read file {}", path.as_ref().display()).as_str());
 
-        let create_info = ShaderModuleCreateInfo::builder()
-            .code(unsafe { std::mem::transmute(bytes.as_slice()) })
-            .build();
+        let create_info = ShaderModuleCreateInfo {
+            code_size: size,
+            p_code: unsafe { std::mem::transmute(bytes.as_ptr()) },
+
+            ..Default::default()
+        };
 
         unsafe {
-            self.device
+            device
                 .create_shader_module(&create_info, None)
                 .expect("Cannot create shader module")
         }
     }
 
-    #[allow(unused)]
-    fn read_file<T: AsRef<Path>>(path: T) -> std::io::Result<Vec<u8>> {
+    fn read_file<T: AsRef<Path>>(path: T) -> std::io::Result<(Vec<u8>, usize)> {
         let mut bytes = Vec::<u8>::new();
 
-        File::open(path.as_ref())?
-            .read_to_end(&mut bytes)?;
+        let size = File::open(path.as_ref())?.read_to_end(&mut bytes)?;
 
-        Ok(bytes)
+        Ok((bytes, size))
     }
 
-    #[allow(unused)]
-    fn create_graphics_pipeline(&self) {
-        let vertex_shader = self.create_shader_module("shaders/vert.spv");
-        let fragment_shader = self.create_shader_module("shaders/frag.spv");
+    fn create_graphics_pipeline(device: &Device, swapchain_extent: Extent2D) -> PipelineLayout {
+        let vertex_shader = Self::create_shader_module(device, "shaders/vert.spv");
+        let fragment_shader = Self::create_shader_module(device, "shaders/frag.spv");
 
         let function_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"main\0") };
 
@@ -693,15 +696,15 @@ impl Pipeline {
         let viewport = Viewport::builder()
             .x(0.0)
             .y(0.0)
-            .width(self.swapchain_extent.width as f32)
-            .height(self.swapchain_extent.height as f32)
+            .width(swapchain_extent.width as f32)
+            .height(swapchain_extent.height as f32)
             .min_depth(0.0)
             .max_depth(1.0)
             .build();
 
         let scissor = Rect2D::builder()
             .offset(Offset2D { x: 0, y: 0 })
-            .extent(self.swapchain_extent)
+            .extent(swapchain_extent)
             .build();
 
         let _viewport_create_info = PipelineViewportStateCreateInfo::builder()
@@ -745,14 +748,17 @@ impl Pipeline {
             .push_constant_ranges(&[])
             .build();
 
+        let pipeline_layout;
         unsafe {
-            self.device
+            pipeline_layout = device
                 .create_pipeline_layout(&pipeline_create_info, None)
                 .expect("Unable to create pipeline layout");
 
-            self.device.destroy_shader_module(vertex_shader, None);
-            self.device.destroy_shader_module(fragment_shader, None);
+            device.destroy_shader_module(vertex_shader, None);
+            device.destroy_shader_module(fragment_shader, None);
         }
+
+        pipeline_layout
     }
 
     #[allow(unused)]
@@ -871,6 +877,9 @@ impl Drop for Pipeline {
                 .for_each(|iv| self.device.destroy_image_view(*iv, None));
 
             self.swapchain.destroy_swapchain(self.swapchain_khr, None);
+
+            self.device
+                .destroy_pipeline_layout(self.pipeline_layout, None);
 
             self.debug_utils
                 .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
