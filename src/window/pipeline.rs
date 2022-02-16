@@ -13,7 +13,7 @@ use ash::vk::{
     ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType,
     InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, MemoryAllocateInfo, MemoryMapFlags,
     MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
-    SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode, StructureType,
+    SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode,
     SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
 };
 
@@ -190,12 +190,11 @@ impl Pipeline {
 
         let map = families
             .into_iter()
-            .map(|f| DeviceQueueCreateInfo {
-                s_type: StructureType::DEVICE_QUEUE_CREATE_INFO,
-                queue_family_index: f,
-                queue_count: 1,
-                p_queue_priorities: &priority,
-                ..Default::default()
+            .map(|f| {
+                DeviceQueueCreateInfo::builder()
+                    .queue_family_index(f)
+                    .queue_priorities(&[priority])
+                    .build()
             })
             .collect::<Vec<_>>();
 
@@ -207,20 +206,15 @@ impl Pipeline {
 
         // TODO Add validation layers if supported
 
-        let physical_device_features = [PhysicalDeviceFeatures {
-            sampler_anisotropy: ash::vk::TRUE,
-            ..Default::default()
-        }];
+        let physical_device_features = PhysicalDeviceFeatures::builder()
+            .sampler_anisotropy(true)
+            .build();
 
-        let create_info = DeviceCreateInfo {
-            s_type: StructureType::DEVICE_CREATE_INFO,
-            p_queue_create_infos: map.as_ptr(),
-            queue_create_info_count: map.len() as u32,
-            p_enabled_features: physical_device_features.as_ptr(),
-            enabled_extension_count: device_extensions.len() as u32,
-            pp_enabled_extension_names: device_extensions.as_ptr(),
-            ..Default::default()
-        };
+        let create_info = DeviceCreateInfo::builder()
+            .queue_create_infos(map.as_slice())
+            .enabled_features(&physical_device_features)
+            .enabled_extension_names(device_extensions.as_slice())
+            .build();
 
         unsafe {
             instance
@@ -339,31 +333,32 @@ impl Pipeline {
 
     #[cfg(debug_assertions)]
     fn create_debug_message() -> DebugUtilsMessengerCreateInfoEXT {
-        DebugUtilsMessengerCreateInfoEXT {
-            s_type: StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
-            message_severity: DebugUtilsMessageSeverityFlagsEXT::WARNING
-                | DebugUtilsMessageSeverityFlagsEXT::ERROR,
-            message_type: DebugUtilsMessageTypeFlagsEXT::GENERAL
-                | DebugUtilsMessageTypeFlagsEXT::VALIDATION
-                | DebugUtilsMessageTypeFlagsEXT::PERFORMANCE,
-            pfn_user_callback: Some(Self::debug_callback),
-            ..Default::default()
-        }
+        DebugUtilsMessengerCreateInfoEXT::builder()
+            .message_severity(
+                DebugUtilsMessageSeverityFlagsEXT::WARNING
+                    | DebugUtilsMessageSeverityFlagsEXT::ERROR,
+            )
+            .message_type(
+                DebugUtilsMessageTypeFlagsEXT::GENERAL
+                    | DebugUtilsMessageTypeFlagsEXT::VALIDATION
+                    | DebugUtilsMessageTypeFlagsEXT::PERFORMANCE,
+            )
+            .pfn_user_callback(Some(Self::debug_callback))
+            .build()
     }
 
     fn create_instance(window: &mut SDL_Window, entry: &Entry) -> ash::Instance {
         // TODO Pass by function parameter
-        let app_name = "";
+        let app_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"\0") };
+        let engine_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"No Engine\0") };
 
-        let app_info = ApplicationInfo {
-            s_type: StructureType::APPLICATION_INFO,
-            p_application_name: app_name.as_ptr() as *const c_char,
-            application_version: ash::vk::make_api_version(1, 1, 0, 0),
-            p_engine_name: "No Engine".as_ptr() as *const c_char,
-            engine_version: ash::vk::make_api_version(1, 0, 0, 0),
-            api_version: ash::vk::API_VERSION_1_1,
-            ..Default::default()
-        };
+        let app_info = ApplicationInfo::builder()
+            .application_name(app_name)
+            .application_version(ash::vk::make_api_version(1, 1, 0, 0))
+            .engine_name(engine_name)
+            .engine_version(ash::vk::make_api_version(1, 0, 0, 0))
+            .api_version(ash::vk::API_VERSION_1_1)
+            .build();
 
         // Holds the ownership of string values and must be NOT deleted
         let required_extensions = Self::get_required_extensions(window)
@@ -387,20 +382,14 @@ impl Pipeline {
                 .map(|vl| vl.as_ptr())
                 .collect::<Vec<_>>();
 
-            let create_info_ext = Self::create_debug_message();
+            let mut create_info_ext = Self::create_debug_message();
 
-            let app_create_info = InstanceCreateInfo {
-                s_type: StructureType::INSTANCE_CREATE_INFO,
-                p_application_info: &app_info,
-                pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
-                enabled_extension_count: required_extensions_cchar.len() as u32,
-                enabled_layer_count: layer_names.len() as u32,
-                pp_enabled_layer_names: layer_names.as_ptr(),
-                p_next: &create_info_ext as *const DebugUtilsMessengerCreateInfoEXT
-                    as *const c_void,
-
-                ..Default::default()
-            };
+            let app_create_info = InstanceCreateInfo::builder()
+                .application_info(&app_info)
+                .enabled_extension_names(required_extensions_cchar.as_slice())
+                .enabled_layer_names(layer_names.as_slice())
+                .push_next(&mut create_info_ext)
+                .build();
 
             unsafe { entry.create_instance(&app_create_info, None) }
                 .expect("Cannot create Vulkan instance")
@@ -408,15 +397,11 @@ impl Pipeline {
 
         #[cfg(not(debug_assertions))]
         {
-            let app_create_info = InstanceCreateInfo {
-                s_type: StructureType::INSTANCE_CREATE_INFO,
-                p_application_info: &app_info,
-                pp_enabled_extension_names: required_extensions_cchar.as_ptr(),
-                enabled_extension_count: required_extensions_cchar.len() as u32,
-                enabled_layer_count: 0,
-                p_next: null(),
-                ..Default::default()
-            };
+            let app_create_info = InstanceCreateInfo::builder()
+                .application_info(&app_info)
+                .enabled_extension_names(required_extensions_cchar.as_slice())
+                .enabled_layer_count(0)
+                .build();
 
             unsafe { entry.create_instance(&app_create_info, None) }
                 .expect("Cannot create Vulkan instance")
@@ -500,29 +485,27 @@ impl Pipeline {
         };
 
         let queues: Vec<u32> = queue_family_index.into();
-
-        let create_info = SwapchainCreateInfoKHR {
-            s_type: StructureType::SWAPCHAIN_CREATE_INFO_KHR,
-            surface: surface_khr,
-            min_image_count: surface_capabilities.min_image_count,
-            image_format: surface_format.format,
-            image_color_space: surface_format.color_space,
-            image_extent: swapchain_size,
-            image_array_layers: 1,
-            image_usage: ImageUsageFlags::COLOR_ATTACHMENT,
-            image_sharing_mode: match queues.len() {
-                1 => SharingMode::EXCLUSIVE,
-                2 => SharingMode::CONCURRENT,
-                _ => unreachable!(),
-            },
-            queue_family_index_count: queues.len() as u32,
-            p_queue_family_indices: queues.as_ptr(),
-            pre_transform: surface_capabilities.current_transform,
-            composite_alpha: CompositeAlphaFlagsKHR::OPAQUE,
-            present_mode: PresentModeKHR::FIFO,
-            clipped: ash::vk::TRUE,
-            ..Default::default()
+        let sharing_mode = match queues.len() {
+            1 => SharingMode::EXCLUSIVE,
+            2 => SharingMode::CONCURRENT,
+            _ => unreachable!(),
         };
+
+        let create_info = SwapchainCreateInfoKHR::builder()
+            .surface(surface_khr)
+            .min_image_count(surface_capabilities.min_image_count)
+            .image_format(surface_format.format)
+            .image_color_space(surface_format.color_space)
+            .image_extent(swapchain_size)
+            .image_array_layers(1)
+            .image_usage(ImageUsageFlags::COLOR_ATTACHMENT)
+            .image_sharing_mode(sharing_mode)
+            .queue_family_indices(queues.as_slice())
+            .pre_transform(surface_capabilities.current_transform)
+            .composite_alpha(CompositeAlphaFlagsKHR::OPAQUE)
+            .present_mode(PresentModeKHR::FIFO)
+            .clipped(true)
+            .build();
 
         let swapchain = Swapchain::new(instance, device);
 
@@ -549,21 +532,21 @@ impl Pipeline {
         images
             .iter()
             .map(|image| unsafe {
-                let create_info = ImageViewCreateInfo {
-                    s_type: StructureType::IMAGE_VIEW_CREATE_INFO,
-                    image: *image,
-                    view_type: ImageViewType::TYPE_2D,
-                    format: surface_format_khr.format,
-                    subresource_range: ImageSubresourceRange {
-                        aspect_mask: ImageAspectFlags::COLOR,
-                        base_mip_level: 0,
-                        level_count: 1,
-                        base_array_layer: 0,
-                        layer_count: 1,
-                        ..Default::default()
-                    },
-                    ..Default::default()
-                };
+                let subresource_range = ImageSubresourceRange::builder()
+                    .aspect_mask(ImageAspectFlags::COLOR)
+                    .base_mip_level(0)
+                    .level_count(1)
+                    .base_array_layer(0)
+                    .layer_count(1)
+                    .build();
+
+                let create_info = ImageViewCreateInfo::builder()
+                    .image(*image)
+                    .view_type(ImageViewType::TYPE_2D)
+                    .format(surface_format_khr.format)
+                    .subresource_range(subresource_range)
+                    .build();
+
                 device
                     .create_image_view(&create_info, None)
                     .expect("Cannot create image view")
@@ -581,25 +564,25 @@ impl Pipeline {
         properties: MemoryPropertyFlags,
         device_memory: DeviceMemory,
     ) {
-        let create_info = ImageCreateInfo {
-            s_type: StructureType::IMAGE_CREATE_INFO,
-            image_type: ImageType::TYPE_2D,
-            extent: Extent3D {
-                width,
-                height,
-                depth: 1,
-                ..Default::default()
-            },
-            mip_levels: 1,
-            array_layers: 1,
-            format,
-            tiling,
-            initial_layout: ImageLayout::UNDEFINED,
-            usage,
-            samples: SampleCountFlags::TYPE_1,
-            sharing_mode: SharingMode::EXCLUSIVE,
+        let extent = Extent3D {
+            width,
+            height,
+            depth: 1,
             ..Default::default()
         };
+
+        let create_info = ImageCreateInfo::builder()
+            .image_type(ImageType::TYPE_2D)
+            .extent(extent)
+            .mip_levels(1)
+            .array_layers(1)
+            .format(format)
+            .tiling(tiling)
+            .initial_layout(ImageLayout::UNDEFINED)
+            .usage(usage)
+            .samples(SampleCountFlags::TYPE_1)
+            .sharing_mode(SharingMode::EXCLUSIVE)
+            .build();
 
         let image = unsafe {
             self.device
@@ -609,12 +592,13 @@ impl Pipeline {
 
         let requirements = unsafe { self.device.get_image_memory_requirements(image) };
 
-        let alloc_info = MemoryAllocateInfo {
-            s_type: StructureType::MEMORY_ALLOCATE_INFO,
-            allocation_size: requirements.size,
-            memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
-            ..Default::default()
-        };
+        let alloc_info = MemoryAllocateInfo::builder()
+            .allocation_size(requirements.size)
+            .memory_type_index(Self::find_memory_type(
+                requirements.memory_type_bits,
+                properties,
+            ))
+            .build();
 
         unsafe {
             self.device
@@ -632,14 +616,11 @@ impl Pipeline {
         usage: BufferUsageFlags,
         properties: MemoryPropertyFlags,
     ) -> (Buffer, DeviceMemory) {
-        let create_info = BufferCreateInfo {
-            s_type: StructureType::BUFFER_CREATE_INFO,
-            size,
-            usage,
-            sharing_mode: SharingMode::EXCLUSIVE,
-
-            ..Default::default()
-        };
+        let create_info = BufferCreateInfo::builder()
+            .size(size)
+            .usage(usage)
+            .sharing_mode(SharingMode::EXCLUSIVE)
+            .build();
 
         let buffer = unsafe {
             self.device
@@ -649,12 +630,13 @@ impl Pipeline {
 
         let requirements = unsafe { self.device.get_buffer_memory_requirements(buffer) };
 
-        let alloc_info = MemoryAllocateInfo {
-            s_type: StructureType::MEMORY_ALLOCATE_INFO,
-            allocation_size: requirements.size,
-            memory_type_index: Self::find_memory_type(requirements.memory_type_bits, properties),
-            ..Default::default()
-        };
+        let alloc_info = MemoryAllocateInfo::builder()
+            .allocation_size(requirements.size)
+            .memory_type_index(Self::find_memory_type(
+                requirements.memory_type_bits,
+                properties,
+            ))
+            .build();
 
         let memory = unsafe {
             self.device
@@ -706,17 +688,15 @@ impl Pipeline {
     }
 
     fn create_sampler(device: &Device) -> Sampler {
-        let create_info = SamplerCreateInfo {
-            s_type: StructureType::SAMPLER_CREATE_INFO,
-            mag_filter: Filter::NEAREST,
-            min_filter: Filter::NEAREST,
-            address_mode_u: SamplerAddressMode::REPEAT,
-            address_mode_v: SamplerAddressMode::REPEAT,
-            address_mode_w: SamplerAddressMode::REPEAT,
-            anisotropy_enable: 0,
-            max_anisotropy: 1.0,
-            ..Default::default()
-        };
+        let create_info = SamplerCreateInfo::builder()
+            .mag_filter(Filter::NEAREST)
+            .min_filter(Filter::NEAREST)
+            .address_mode_u(SamplerAddressMode::REPEAT)
+            .address_mode_v(SamplerAddressMode::REPEAT)
+            .address_mode_w(SamplerAddressMode::REPEAT)
+            .anisotropy_enable(false)
+            .max_anisotropy(1.0)
+            .build();
 
         unsafe {
             device
