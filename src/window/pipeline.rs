@@ -49,6 +49,7 @@ pub struct Pipeline {
     pub queue_families: QueueFamilyIndex,
     pub device: Device,
     pub swapchain: Swapchain,
+    pub swapchain_extent: Extent2D,
     pub swapchain_khr: SwapchainKHR,
     pub surface_format_khr: SurfaceFormatKHR,
     pub swapchain_images: Vec<Image>,
@@ -89,7 +90,7 @@ impl Pipeline {
             additional_extensions.as_slice(),
         );
 
-        let (swapchain, swapchain_khr, surface_format_khr, swapchain_images) =
+        let (swapchain, swapchain_extent, swapchain_khr, surface_format_khr, swapchain_images) =
             Self::create_swapchain(
                 &instance,
                 &device,
@@ -114,6 +115,7 @@ impl Pipeline {
             queue_families,
             device,
             swapchain,
+            swapchain_extent,
             swapchain_khr,
             surface_format_khr,
             swapchain_images,
@@ -439,7 +441,13 @@ impl Pipeline {
         surface_khr: SurfaceKHR,
         window: &mut SDL_Window,
         queue_family_index: QueueFamilyIndex,
-    ) -> (Swapchain, SwapchainKHR, SurfaceFormatKHR, Vec<Image>) {
+    ) -> (
+        Swapchain,
+        Extent2D,
+        SwapchainKHR,
+        SurfaceFormatKHR,
+        Vec<Image>,
+    ) {
         let surface_formats = unsafe {
             surface
                 .get_physical_device_surface_formats(physical_device, surface_khr)
@@ -478,7 +486,7 @@ impl Pipeline {
             surface_capabilities.max_image_extent.height,
         );
 
-        let swapchain_size = Extent2D {
+        let swapchain_extent = Extent2D {
             width,
             height,
             ..Default::default()
@@ -496,7 +504,7 @@ impl Pipeline {
             .min_image_count(surface_capabilities.min_image_count)
             .image_format(surface_format.format)
             .image_color_space(surface_format.color_space)
-            .image_extent(swapchain_size)
+            .image_extent(swapchain_extent)
             .image_array_layers(1)
             .image_usage(ImageUsageFlags::COLOR_ATTACHMENT)
             .image_sharing_mode(sharing_mode)
@@ -521,7 +529,13 @@ impl Pipeline {
                 .expect("Cannot get swapchain images")
         };
 
-        (swapchain, swapchain_khr, surface_format, swapchain_images)
+        (
+            swapchain,
+            swapchain_extent,
+            swapchain_khr,
+            surface_format,
+            swapchain_images,
+        )
     }
 
     fn create_image_views(
