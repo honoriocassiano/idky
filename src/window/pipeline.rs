@@ -1,20 +1,29 @@
 use std::ffi::{c_void, CStr, CString};
+use std::fs::File;
+use std::io::Read;
 use std::os::raw::c_char;
+use std::path::Path;
 
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
-    Format, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange,
-    ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType,
-    InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, MemoryAllocateInfo, MemoryMapFlags,
-    MemoryPropertyFlags, PhysicalDevice, PhysicalDeviceFeatures, PresentModeKHR, QueueFlags,
-    SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, SharingMode,
-    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    Format, FrontFace, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
+    ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
+    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
+    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
+    PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
+    PipelineInputAssemblyStateCreateInfo, PipelineLayoutCreateInfo,
+    PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
+    PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
+    PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
+    Rect2D, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, ShaderModule,
+    ShaderModuleCreateInfo, ShaderStageFlags, SharingMode, SurfaceFormatKHR, SurfaceKHR,
+    SwapchainCreateInfoKHR, SwapchainKHR, Viewport,
 };
 
 use sdl::SDL_Window;
@@ -621,6 +630,124 @@ impl Pipeline {
             self.device
                 .bind_image_memory(image, device_memory, 0)
                 .expect("Unable to bind image memory");
+        }
+    }
+
+    pub fn create_shader_module<T: AsRef<Path>>(&self, path: T) -> ShaderModule {
+        let bytes = Self::read_file(path.as_ref())
+            .expect(format!("Cannot read file {}", path.as_ref().display()).as_str());
+
+        let create_info = ShaderModuleCreateInfo::builder()
+            .code(unsafe { std::mem::transmute(bytes.as_slice()) })
+            .build();
+
+        unsafe {
+            self.device
+                .create_shader_module(&create_info, None)
+                .expect("Cannot create shader module")
+        }
+    }
+
+    fn read_file<T: AsRef<Path>>(path: T) -> std::io::Result<Vec<u8>> {
+        let mut bytes = Vec::<u8>::new();
+
+        File::open(path.as_ref())?
+            .read_to_end(&mut bytes)?;
+
+        Ok(bytes)
+    }
+
+    fn create_graphics_pipeline(&self) {
+        let vertex_shader = self.create_shader_module("shaders/vert.spv");
+        let fragment_shader = self.create_shader_module("shaders/frag.spv");
+
+        let function_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"main\0") };
+
+        let _vertex_shader_info = PipelineShaderStageCreateInfo::builder()
+            .stage(ShaderStageFlags::VERTEX)
+            .module(vertex_shader)
+            .name(function_name)
+            .build();
+
+        let _fragment_shader_info = PipelineShaderStageCreateInfo::builder()
+            .stage(ShaderStageFlags::FRAGMENT)
+            .module(fragment_shader)
+            .name(function_name)
+            .build();
+
+        let _shader_stages = [vertex_shader, fragment_shader];
+
+        let _vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::default();
+
+        // TODO Finish pipeline creation
+
+        let _input_assembly_state_create_info = PipelineInputAssemblyStateCreateInfo::builder()
+            .topology(PrimitiveTopology::TRIANGLE_LIST)
+            .primitive_restart_enable(false)
+            .build();
+
+        let viewport = Viewport::builder()
+            .x(0.0)
+            .y(0.0)
+            .width(self.swapchain_extent.width as f32)
+            .height(self.swapchain_extent.height as f32)
+            .min_depth(0.0)
+            .max_depth(1.0)
+            .build();
+
+        let scissor = Rect2D::builder()
+            .offset(Offset2D { x: 0, y: 0 })
+            .extent(self.swapchain_extent)
+            .build();
+
+        let _viewport_create_info = PipelineViewportStateCreateInfo::builder()
+            .viewports(&[viewport])
+            .scissors(&[scissor])
+            .build();
+
+        // TODO Check these values
+        let _rasterizer = PipelineRasterizationStateCreateInfo::builder()
+            .depth_clamp_enable(false)
+            .rasterizer_discard_enable(false)
+            .polygon_mode(PolygonMode::FILL)
+            .line_width(1.0)
+            .cull_mode(CullModeFlags::BACK)
+            .front_face(FrontFace::CLOCKWISE)
+            .depth_bias_enable(false)
+            .build();
+
+        // TODO Check these values
+        let _multisampling = PipelineMultisampleStateCreateInfo::builder()
+            .sample_shading_enable(false)
+            .rasterization_samples(SampleCountFlags::TYPE_1)
+            .build();
+
+        // TODO Check this value
+        let color_blend_attachments = PipelineColorBlendAttachmentState::builder()
+            .blend_enable(false)
+            .build();
+
+        let _color_blending = PipelineColorBlendStateCreateInfo::builder()
+            .logic_op_enable(false)
+            .logic_op(LogicOp::COPY)
+            .attachments(&[color_blend_attachments])
+            .blend_constants([0.0, 0.0, 0.0, 0.0])
+            .build();
+
+        // TODO Set pipeline layout
+        // TODO Set constant ranges
+        let pipeline_create_info = PipelineLayoutCreateInfo::builder()
+            .set_layouts(&[])
+            .push_constant_ranges(&[])
+            .build();
+
+        unsafe {
+            self.device
+                .create_pipeline_layout(&pipeline_create_info, None)
+                .expect("Unable to create pipeline layout");
+
+            self.device.destroy_shader_module(vertex_shader, None);
+            self.device.destroy_shader_module(fragment_shader, None);
         }
     }
 
