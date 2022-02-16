@@ -577,6 +577,7 @@ impl Pipeline {
             .collect::<Vec<_>>()
     }
 
+    #[allow(unused)]
     pub fn create_image(
         &mut self,
         width: u32,
@@ -633,6 +634,7 @@ impl Pipeline {
         }
     }
 
+    #[allow(unused)]
     pub fn create_shader_module<T: AsRef<Path>>(&self, path: T) -> ShaderModule {
         let bytes = Self::read_file(path.as_ref())
             .expect(format!("Cannot read file {}", path.as_ref().display()).as_str());
@@ -648,6 +650,7 @@ impl Pipeline {
         }
     }
 
+    #[allow(unused)]
     fn read_file<T: AsRef<Path>>(path: T) -> std::io::Result<Vec<u8>> {
         let mut bytes = Vec::<u8>::new();
 
@@ -657,6 +660,7 @@ impl Pipeline {
         Ok(bytes)
     }
 
+    #[allow(unused)]
     fn create_graphics_pipeline(&self) {
         let vertex_shader = self.create_shader_module("shaders/vert.spv");
         let fragment_shader = self.create_shader_module("shaders/frag.spv");
@@ -751,6 +755,7 @@ impl Pipeline {
         }
     }
 
+    #[allow(unused)]
     pub fn create_buffer(
         &mut self,
         size: DeviceSize,
@@ -794,6 +799,7 @@ impl Pipeline {
         (buffer, memory)
     }
 
+    #[allow(unused)]
     pub fn create_image_texture(&mut self) {
         // TODO Set size according to image
         let width = 0u32;
@@ -804,10 +810,10 @@ impl Pipeline {
         let memory_usage_flags =
             MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT;
 
-        let (buffer, device_memory) =
+        let (_buffer, device_memory) =
             self.create_buffer(size, buffer_usage_flags, memory_usage_flags);
 
-        let data = unsafe {
+        let _data = unsafe {
             self.device
                 .map_memory(device_memory, 0, size, MemoryMapFlags::empty())
                 .expect("Cannot map memory")
@@ -846,7 +852,8 @@ impl Pipeline {
         }
     }
 
-    fn find_memory_type(type_bits: u32, properties: MemoryPropertyFlags) -> u32 {
+    #[allow(unused)]
+    fn find_memory_type(_type_bits: u32, _properties: MemoryPropertyFlags) -> u32 {
         // TODO
         todo!()
     }

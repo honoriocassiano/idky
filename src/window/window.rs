@@ -13,10 +13,11 @@ use sdl::{
 use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
 use crate::window::{
-    event::EventHandler, player::Player, Event, RenderTarget, Renderable, Renderer,
+    Event, event::EventHandler, player::Player, Renderable, Renderer, RenderTarget,
     WindowControlFlow,
 };
 
+#[allow(dead_code)]
 pub struct Window<'a> {
     system: &'a System,
     window: *mut SDL_Window,
@@ -72,7 +73,7 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
-        let renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
+        let _renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
 
         let surface = unsafe { sdl::SDL_GetWindowSurface(window) };
 

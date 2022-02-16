@@ -2,6 +2,8 @@ use sdl::SDL_Window;
 
 use super::pipeline::Pipeline;
 
+// TODO Check if this struct will be useful
+#[allow(dead_code)]
 pub struct Renderer {
     pipeline: Pipeline,
 }

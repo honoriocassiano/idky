@@ -58,6 +58,7 @@ pub enum WindowControlFlow {
 pub struct EventHandler;
 
 impl EventHandler {
+    #[allow(unused)]
     pub fn handle(&mut self, _event: &Event) -> WindowControlFlow {
         WindowControlFlow::Exit
     }
