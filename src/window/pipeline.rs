@@ -4,10 +4,29 @@ use std::io::Read;
 use std::os::raw::c_char;
 use std::path::Path;
 
-use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference, AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, FrontFace, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo, PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags, Rect2D, RenderPass, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags, SharingMode, SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, Viewport};
+use ash::vk::{
+    ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
+    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
+    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
+    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
+    Format, FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo,
+    ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView,
+    ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn,
+    LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
+    PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
+    PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
+    PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
+    PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
+    PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
+    Rect2D, RenderPass, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
+    SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags, SharingMode,
+    SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    Viewport,
+};
+use ash::{Device, Entry, Instance};
 
 use sdl::SDL_Window;
 
@@ -49,6 +68,7 @@ pub struct Pipeline {
     pub render_pass: RenderPass,
     pub samplers: Vec<Sampler>,
     pub pipeline_layout: PipelineLayout,
+    pub pipeline: ash::vk::Pipeline,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -102,7 +122,8 @@ impl Pipeline {
 
         let samplers = vec![Self::create_sampler(&device)];
 
-        let pipeline_layout = Self::create_graphics_pipeline(&device, swapchain_extent);
+        let (pipeline_layout, pipeline) =
+            Self::create_graphics_pipeline(&device, swapchain_extent, render_pass);
 
         Self {
             entry,
@@ -121,6 +142,7 @@ impl Pipeline {
             render_pass,
             samplers,
             pipeline_layout,
+            pipeline,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -670,7 +692,8 @@ impl Pipeline {
             .build();
 
         unsafe {
-            device.create_render_pass(&create_info, None)
+            device
+                .create_render_pass(&create_info, None)
                 .expect("Unable to create render pass")
         }
     }
@@ -683,31 +706,33 @@ impl Pipeline {
         Ok((bytes, size))
     }
 
-    fn create_graphics_pipeline(device: &Device, swapchain_extent: Extent2D) -> PipelineLayout {
+    fn create_graphics_pipeline(
+        device: &Device,
+        swapchain_extent: Extent2D,
+        render_pass: RenderPass,
+    ) -> (PipelineLayout, ash::vk::Pipeline) {
         let vertex_shader = Self::create_shader_module(device, "shaders/shader_vert.spv");
         let fragment_shader = Self::create_shader_module(device, "shaders/shader_frag.spv");
 
         let function_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"main\0") };
 
-        let _vertex_shader_info = PipelineShaderStageCreateInfo::builder()
+        let vertex_shader_create_info = PipelineShaderStageCreateInfo::builder()
             .stage(ShaderStageFlags::VERTEX)
             .module(vertex_shader)
             .name(function_name)
             .build();
 
-        let _fragment_shader_info = PipelineShaderStageCreateInfo::builder()
+        let fragment_shader_create_info = PipelineShaderStageCreateInfo::builder()
             .stage(ShaderStageFlags::FRAGMENT)
             .module(fragment_shader)
             .name(function_name)
             .build();
 
-        let _shader_stages = [vertex_shader, fragment_shader];
+        let shader_stages = [vertex_shader_create_info, fragment_shader_create_info];
 
-        let _vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::default();
+        let vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::default();
 
-        // TODO Finish pipeline creation
-
-        let _input_assembly_state_create_info = PipelineInputAssemblyStateCreateInfo::builder()
+        let input_assembly_state_create_info = PipelineInputAssemblyStateCreateInfo::builder()
             .topology(PrimitiveTopology::TRIANGLE_LIST)
             .primitive_restart_enable(false)
             .build();
@@ -726,13 +751,13 @@ impl Pipeline {
             .extent(swapchain_extent)
             .build();
 
-        let _viewport_create_info = PipelineViewportStateCreateInfo::builder()
+        let viewport_create_info = PipelineViewportStateCreateInfo::builder()
             .viewports(&[viewport])
             .scissors(&[scissor])
             .build();
 
         // TODO Check these values
-        let _rasterizer = PipelineRasterizationStateCreateInfo::builder()
+        let rasterizer_state_create_info = PipelineRasterizationStateCreateInfo::builder()
             .depth_clamp_enable(false)
             .rasterizer_discard_enable(false)
             .polygon_mode(PolygonMode::FILL)
@@ -743,7 +768,7 @@ impl Pipeline {
             .build();
 
         // TODO Check these values
-        let _multisampling = PipelineMultisampleStateCreateInfo::builder()
+        let multisample_state_create_info = PipelineMultisampleStateCreateInfo::builder()
             .sample_shading_enable(false)
             .rasterization_samples(SampleCountFlags::TYPE_1)
             .build();
@@ -753,7 +778,7 @@ impl Pipeline {
             .blend_enable(false)
             .build();
 
-        let _color_blending = PipelineColorBlendStateCreateInfo::builder()
+        let color_blend_state_create_info = PipelineColorBlendStateCreateInfo::builder()
             .logic_op_enable(false)
             .logic_op(LogicOp::COPY)
             .attachments(&[color_blend_attachments])
@@ -762,22 +787,44 @@ impl Pipeline {
 
         // TODO Set pipeline layout
         // TODO Set constant ranges
-        let pipeline_create_info = PipelineLayoutCreateInfo::builder()
+        let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder()
             .set_layouts(&[])
             .push_constant_ranges(&[])
             .build();
 
-        let pipeline_layout;
-        unsafe {
-            pipeline_layout = device
-                .create_pipeline_layout(&pipeline_create_info, None)
-                .expect("Unable to create pipeline layout");
+        let pipeline_layout = unsafe {
+            device
+                .create_pipeline_layout(&pipeline_layout_create_info, None)
+                .expect("Unable to create pipeline layout")
+        };
 
+        let pipeline_create_info = GraphicsPipelineCreateInfo::builder()
+            .stages(&shader_stages)
+            .vertex_input_state(&vertex_input_state_create_info)
+            .input_assembly_state(&input_assembly_state_create_info)
+            .viewport_state(&viewport_create_info)
+            .rasterization_state(&rasterizer_state_create_info)
+            .multisample_state(&multisample_state_create_info)
+            .color_blend_state(&color_blend_state_create_info)
+            .layout(pipeline_layout)
+            .render_pass(render_pass)
+            .subpass(0)
+            .build();
+
+        let pipeline = unsafe {
+            device
+                .create_graphics_pipelines(Default::default(), &[pipeline_create_info], None)
+                .expect("Unable to create graphics pipeline")
+                .pop()
+                .unwrap()
+        };
+
+        unsafe {
             device.destroy_shader_module(vertex_shader, None);
             device.destroy_shader_module(fragment_shader, None);
         }
 
-        pipeline_layout
+        (pipeline_layout, pipeline)
     }
 
     #[allow(unused)]
@@ -897,11 +944,12 @@ impl Drop for Pipeline {
 
             self.swapchain.destroy_swapchain(self.swapchain_khr, None);
 
+            self.device.destroy_pipeline(self.pipeline, None);
+
             self.device
                 .destroy_pipeline_layout(self.pipeline_layout, None);
 
-            self.device
-                .destroy_render_pass(self.render_pass, None);
+            self.device.destroy_render_pass(self.render_pass, None);
 
             self.debug_utils
                 .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
