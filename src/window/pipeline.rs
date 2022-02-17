@@ -7,24 +7,7 @@ use std::path::Path;
 use ash::{Device, Entry, Instance};
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk::{
-    ApplicationInfo, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
-    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
-    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
-    Format, FrontFace, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
-    ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
-    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
-    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
-    PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
-    PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
-    PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
-    PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
-    PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
-    Rect2D, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, ShaderModule,
-    ShaderModuleCreateInfo, ShaderStageFlags, SharingMode, SurfaceFormatKHR, SurfaceKHR,
-    SwapchainCreateInfoKHR, SwapchainKHR, Viewport,
-};
+use ash::vk::{ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference, AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR, CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter, Format, FrontFace, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo, PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags, Rect2D, RenderPass, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags, SharingMode, SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, Viewport};
 
 use sdl::SDL_Window;
 
@@ -63,6 +46,7 @@ pub struct Pipeline {
     pub surface_format_khr: SurfaceFormatKHR,
     pub swapchain_images: Vec<Image>,
     pub image_views: Vec<ImageView>,
+    pub render_pass: RenderPass,
     pub samplers: Vec<Sampler>,
     pub pipeline_layout: PipelineLayout,
     #[cfg(debug_assertions)]
@@ -114,6 +98,8 @@ impl Pipeline {
         let image_views =
             Self::create_image_views(&device, surface_format_khr, swapchain_images.clone());
 
+        let render_pass = Self::create_render_pass(&device, surface_format_khr);
+
         let samplers = vec![Self::create_sampler(&device)];
 
         let pipeline_layout = Self::create_graphics_pipeline(&device, swapchain_extent);
@@ -132,6 +118,7 @@ impl Pipeline {
             surface_format_khr,
             swapchain_images,
             image_views,
+            render_pass,
             samplers,
             pipeline_layout,
             #[cfg(debug_assertions)]
@@ -656,6 +643,38 @@ impl Pipeline {
         }
     }
 
+    fn create_render_pass(device: &Device, format: SurfaceFormatKHR) -> RenderPass {
+        let attachment_description = AttachmentDescription::builder()
+            .format(format.format)
+            .samples(SampleCountFlags::TYPE_1)
+            .load_op(AttachmentLoadOp::CLEAR)
+            .store_op(AttachmentStoreOp::STORE)
+            .stencil_load_op(AttachmentLoadOp::DONT_CARE)
+            .stencil_store_op(AttachmentStoreOp::DONT_CARE)
+            .initial_layout(ImageLayout::UNDEFINED)
+            .final_layout(ImageLayout::PRESENT_SRC_KHR)
+            .build();
+
+        let attachment_reference = AttachmentReference::builder()
+            .attachment(0)
+            .layout(ImageLayout::COLOR_ATTACHMENT_OPTIMAL)
+            .build();
+
+        let subpass = SubpassDescription::builder()
+            .color_attachments(&[attachment_reference])
+            .build();
+
+        let create_info = RenderPassCreateInfo::builder()
+            .attachments(&[attachment_description])
+            .subpasses(&[subpass])
+            .build();
+
+        unsafe {
+            device.create_render_pass(&create_info, None)
+                .expect("Unable to create render pass")
+        }
+    }
+
     fn read_file<T: AsRef<Path>>(path: T) -> std::io::Result<(Vec<u8>, usize)> {
         let mut bytes = Vec::<u8>::new();
 
@@ -880,6 +899,9 @@ impl Drop for Pipeline {
 
             self.device
                 .destroy_pipeline_layout(self.pipeline_layout, None);
+
+            self.device
+                .destroy_render_pass(self.render_pass, None);
 
             self.debug_utils
                 .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
