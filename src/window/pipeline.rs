@@ -665,8 +665,8 @@ impl Pipeline {
     }
 
     fn create_graphics_pipeline(device: &Device, swapchain_extent: Extent2D) -> PipelineLayout {
-        let vertex_shader = Self::create_shader_module(device, "shaders/vert.spv");
-        let fragment_shader = Self::create_shader_module(device, "shaders/frag.spv");
+        let vertex_shader = Self::create_shader_module(device, "shaders/shader_vert.spv");
+        let fragment_shader = Self::create_shader_module(device, "shaders/shader_frag.spv");
 
         let function_name = unsafe { CStr::from_bytes_with_nul_unchecked(b"main\0") };
 
