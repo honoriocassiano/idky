@@ -12,11 +12,12 @@ use ash::vk::{
     CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
-    Format, FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo,
-    ImageLayout, ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView,
-    ImageViewCreateInfo, ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn,
-    LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
-    PhysicalDeviceFeatures, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
+    Format, Framebuffer, FramebufferCreateInfo, FrontFace, GraphicsPipelineCreateInfo, Image,
+    ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType,
+    ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
+    KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags,
+    MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures,
+    PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
     PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
     PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
     PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
@@ -69,6 +70,7 @@ pub struct Pipeline {
     pub samplers: Vec<Sampler>,
     pub pipeline_layout: PipelineLayout,
     pub pipeline: ash::vk::Pipeline,
+    pub framebuffers: Vec<Framebuffer>,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -125,6 +127,9 @@ impl Pipeline {
         let (pipeline_layout, pipeline) =
             Self::create_graphics_pipeline(&device, swapchain_extent, render_pass);
 
+        let framebuffers =
+            Self::create_framebuffers(&device, &image_views, swapchain_extent, render_pass);
+
         Self {
             entry,
             instance,
@@ -143,6 +148,7 @@ impl Pipeline {
             samplers,
             pipeline_layout,
             pipeline,
+            framebuffers,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -827,6 +833,32 @@ impl Pipeline {
         (pipeline_layout, pipeline)
     }
 
+    fn create_framebuffers(
+        device: &Device,
+        image_views: &Vec<ImageView>,
+        swapchain_extent: Extent2D,
+        render_pass: RenderPass,
+    ) -> Vec<Framebuffer> {
+        image_views
+            .iter()
+            .map(|iv| {
+                let create_info = FramebufferCreateInfo::builder()
+                    .render_pass(render_pass)
+                    .attachments(&[*iv])
+                    .width(swapchain_extent.width)
+                    .height(swapchain_extent.height)
+                    .layers(1)
+                    .build();
+
+                unsafe {
+                    device
+                        .create_framebuffer(&create_info, None)
+                        .expect("Unable to create framebuffer")
+                }
+            })
+            .collect()
+    }
+
     #[allow(unused)]
     pub fn create_buffer(
         &mut self,
@@ -934,6 +966,10 @@ impl Pipeline {
 impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
+            self.framebuffers
+                .iter()
+                .for_each(|f| self.device.destroy_framebuffer(*f, None));
+
             self.samplers
                 .iter()
                 .for_each(|s| self.device.destroy_sampler(*s, None));
