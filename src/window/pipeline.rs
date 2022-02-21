@@ -711,6 +711,8 @@ impl Pipeline {
         let alloc_info = MemoryAllocateInfo::builder()
             .allocation_size(requirements.size)
             .memory_type_index(Self::find_memory_type(
+                &self.instance,
+                self.physical_device,
                 requirements.memory_type_bits,
                 properties,
             ))
@@ -920,7 +922,8 @@ impl Pipeline {
             .build();
 
         unsafe {
-            device.create_buffer(&create_info, None)
+            device
+                .create_buffer(&create_info, None)
                 .expect("Unable to create vertex buffer")
         }
     }
@@ -949,6 +952,8 @@ impl Pipeline {
         let alloc_info = MemoryAllocateInfo::builder()
             .allocation_size(requirements.size)
             .memory_type_index(Self::find_memory_type(
+                &self.instance,
+                self.physical_device,
                 requirements.memory_type_bits,
                 properties,
             ))
@@ -1022,19 +1027,31 @@ impl Pipeline {
         }
     }
 
-    #[allow(unused)]
-    fn find_memory_type(_type_bits: u32, _properties: MemoryPropertyFlags) -> u32 {
-        // TODO
-        todo!()
+    fn find_memory_type(
+        instance: &Instance,
+        physical_device: PhysicalDevice,
+        type_bits: u32,
+        properties: MemoryPropertyFlags,
+    ) -> u32 {
+        let memory_properties =
+            unsafe { instance.get_physical_device_memory_properties(physical_device) };
+
+        memory_properties
+            .memory_types
+            .iter()
+            .enumerate()
+            .find_map(|(i, mt)| {
+                ((type_bits & (1 << i) != 0) && (mt.property_flags.contains(properties)))
+                    .then(|| i as u32)
+            })
+            .expect("Unable to find suitable memory type")
     }
 }
 
 impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
-
-            self.device
-                .destroy_buffer(self.vertex_buffer, None);
+            self.device.destroy_buffer(self.vertex_buffer, None);
 
             self.samplers
                 .iter()
