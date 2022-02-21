@@ -1,6 +1,7 @@
 use std::ffi::{c_void, CStr, CString};
 use std::fs::File;
 use std::io::Read;
+use std::mem::size_of;
 use std::os::raw::c_char;
 use std::path::Path;
 
@@ -24,7 +25,7 @@ use ash::vk::{
     Rect2D, RenderPass, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
     SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags, SharingMode,
     SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
-    Viewport,
+    VertexInputAttributeDescription, VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 use ash::{Device, Entry, Instance};
 
@@ -35,6 +36,81 @@ pub struct QueueFamilyIndex {
     pub graphic: u32,
     pub present: u32,
 }
+
+#[repr(C)]
+struct Vec2 {
+    pub x: f32,
+    pub y: f32,
+}
+
+#[repr(C)]
+struct Vec3 {
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
+}
+
+#[repr(C)]
+struct Vertex {
+    position: Vec2,
+    color: Vec3,
+}
+
+impl Vertex {
+    fn binding_description() -> VertexInputBindingDescription {
+        VertexInputBindingDescription::builder()
+            .binding(0)
+            .stride(size_of::<Vertex>() as u32)
+            .input_rate(VertexInputRate::VERTEX)
+            .build()
+    }
+
+    fn attribute_description() -> [VertexInputAttributeDescription; 2] {
+        let a1 = VertexInputAttributeDescription::builder()
+            .binding(0)
+            .location(0)
+            .format(Format::R32G32_SFLOAT)
+            .offset(0)
+            .build();
+
+        let a2 = VertexInputAttributeDescription::builder()
+            .binding(0)
+            .location(1)
+            .format(Format::R32G32B32_SFLOAT)
+            // TODO Check if this is correct
+            .offset(size_of::<Vec3>() as u32) // Offset of field 'position'
+            .build();
+
+        [a1, a2]
+    }
+}
+
+const POSITIONS: [Vertex; 3] = [
+    Vertex {
+        position: Vec2 { x: 0.0, y: -0.5 },
+        color: Vec3 {
+            x: 1.0,
+            y: 0.0,
+            z: 0.0,
+        },
+    },
+    Vertex {
+        position: Vec2 { x: 0.5, y: 0.5 },
+        color: Vec3 {
+            x: 0.0,
+            y: 1.0,
+            z: 0.0,
+        },
+    },
+    Vertex {
+        position: Vec2 { x: -0.5, y: 0.5 },
+        color: Vec3 {
+            x: 0.0,
+            y: 0.0,
+            z: 1.0,
+        },
+    },
+];
 
 impl Into<Vec<u32>> for QueueFamilyIndex {
     fn into(self) -> Vec<u32> {
