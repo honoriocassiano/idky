@@ -1,7 +1,6 @@
 use std::ffi::{c_void, CStr, CString};
 use std::fs::File;
 use std::io::Read;
-use std::mem::{size_of, size_of_val};
 use std::os::raw::c_char;
 use std::path::Path;
 
@@ -60,7 +59,7 @@ impl Vertex {
     fn binding_description() -> VertexInputBindingDescription {
         VertexInputBindingDescription::builder()
             .binding(0)
-            .stride(size_of::<Vertex>() as u32)
+            .stride(std::mem::size_of::<Vertex>() as u32)
             .input_rate(VertexInputRate::VERTEX)
             .build()
     }
@@ -78,7 +77,7 @@ impl Vertex {
             .location(1)
             .format(Format::R32G32B32_SFLOAT)
             // TODO Check if this is correct
-            .offset(size_of::<Vec3>() as u32) // Offset of field 'position'
+            .offset(std::mem::size_of::<Vec3>() as u32) // Offset of field 'position'
             .build();
 
         [a1, a2]
@@ -915,7 +914,7 @@ impl Pipeline {
 
     fn create_vertex_buffer<T: ?Sized>(device: &Device, data: &T) -> Buffer {
         let create_info = BufferCreateInfo::builder()
-            .size(size_of_val(data) as DeviceSize)
+            .size(std::mem::size_of_val(data) as DeviceSize)
             .usage(BufferUsageFlags::VERTEX_BUFFER)
             .sharing_mode(SharingMode::EXCLUSIVE)
             .build();
