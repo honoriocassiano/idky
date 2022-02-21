@@ -1,7 +1,7 @@
 use std::ffi::{c_void, CStr, CString};
 use std::fs::File;
 use std::io::Read;
-use std::mem::size_of;
+use std::mem::{size_of, size_of_val};
 use std::os::raw::c_char;
 use std::path::Path;
 
@@ -85,7 +85,7 @@ impl Vertex {
     }
 }
 
-const POSITIONS: [Vertex; 3] = [
+const VERTICES: [Vertex; 3] = [
     Vertex {
         position: Vec2 { x: 0.0, y: -0.5 },
         color: Vec3 {
@@ -145,6 +145,7 @@ pub struct Pipeline {
     pub samplers: Vec<Sampler>,
     pub pipeline_layout: PipelineLayout,
     pub pipeline: ash::vk::Pipeline,
+    pub vertex_buffer: Buffer,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -201,6 +202,8 @@ impl Pipeline {
         let (pipeline_layout, pipeline) =
             Self::create_graphics_pipeline(&device, swapchain_extent, render_pass);
 
+        let vertex_buffer = Self::create_vertex_buffer(&device, &VERTICES);
+
         Self {
             entry,
             instance,
@@ -219,6 +222,7 @@ impl Pipeline {
             samplers,
             pipeline_layout,
             pipeline,
+            vertex_buffer,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -909,6 +913,19 @@ impl Pipeline {
         (pipeline_layout, pipeline)
     }
 
+    fn create_vertex_buffer<T: ?Sized>(device: &Device, data: &T) -> Buffer {
+        let create_info = BufferCreateInfo::builder()
+            .size(size_of_val(data) as DeviceSize)
+            .usage(BufferUsageFlags::VERTEX_BUFFER)
+            .sharing_mode(SharingMode::EXCLUSIVE)
+            .build();
+
+        unsafe {
+            device.create_buffer(&create_info, None)
+                .expect("Unable to create vertex buffer")
+        }
+    }
+
     #[allow(unused)]
     pub fn create_buffer(
         &mut self,
@@ -1016,6 +1033,10 @@ impl Pipeline {
 impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
+
+            self.device
+                .destroy_buffer(self.vertex_buffer, None);
+
             self.samplers
                 .iter()
                 .for_each(|s| self.device.destroy_sampler(*s, None));
