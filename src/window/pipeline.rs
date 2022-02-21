@@ -806,7 +806,13 @@ impl Pipeline {
 
         let shader_stages = [vertex_shader_create_info, fragment_shader_create_info];
 
-        let vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::default();
+        let vertex_binding_description = Vertex::binding_description();
+        let vertex_attribute_description = Vertex::attribute_description();
+
+        let vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::builder()
+            .vertex_binding_descriptions(&[vertex_binding_description])
+            .vertex_attribute_descriptions(&vertex_attribute_description)
+            .build();
 
         let input_assembly_state_create_info = PipelineInputAssemblyStateCreateInfo::builder()
             .topology(PrimitiveTopology::TRIANGLE_LIST)
