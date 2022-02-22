@@ -13,19 +13,20 @@ use ash::vk::{
     CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
     DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
-    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
-    Format, Framebuffer, FramebufferCreateInfo, FrontFace, GraphicsPipelineCreateInfo, Image,
-    ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType,
-    ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
-    KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags,
-    MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures, PipelineBindPoint,
-    PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
-    PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
-    PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
-    PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
-    PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
-    Rect2D, RenderPass, RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler,
-    SamplerAddressMode, SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags,
+    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
+    FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
+    FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
+    ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
+    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
+    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
+    PhysicalDeviceFeatures, PipelineBindPoint, PipelineColorBlendAttachmentState,
+    PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
+    PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
+    PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo,
+    PipelineVertexInputStateCreateInfo, PipelineViewportStateCreateInfo, PolygonMode,
+    PresentModeKHR, PrimitiveTopology, QueueFlags, Rect2D, RenderPass, RenderPassBeginInfo,
+    RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo,
+    Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags,
     SharingMode, SubpassContents, SubpassDescription, SurfaceFormatKHR, SurfaceKHR,
     SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
     VertexInputBindingDescription, VertexInputRate, Viewport,
@@ -56,6 +57,12 @@ struct Vec3 {
 struct Vertex {
     position: Vec2,
     color: Vec3,
+}
+
+pub struct SyncObjects {
+    image_available_semaphore: Semaphore,
+    render_finished_semaphore: Semaphore,
+    in_flight_fence: Fence,
 }
 
 impl Vertex {
@@ -149,6 +156,8 @@ pub struct Pipeline {
     pub pipeline: ash::vk::Pipeline,
     pub framebuffers: Vec<Framebuffer>,
     pub command_pool: CommandPool,
+    pub command_buffers: Vec<CommandBuffer>,
+    pub sync_objects: SyncObjects,
     pub vertex_buffer: Buffer,
     pub vertex_buffer_memory: DeviceMemory,
     #[cfg(debug_assertions)]
@@ -212,7 +221,16 @@ impl Pipeline {
 
         let command_pool = Self::create_command_pool(&device, queue_families);
 
-        // let command_buffers = Self::create_command_buffers(&device, command_pool, &framebuffers, render_pass, swapchain_extent, pipeline);
+        let command_buffers = Self::create_command_buffers(
+            &device,
+            command_pool,
+            &framebuffers,
+            render_pass,
+            swapchain_extent,
+            pipeline,
+        );
+
+        let sync_objects = Self::create_sync_objects(&device);
 
         let (vertex_buffer, vertex_buffer_memory) =
             Self::create_vertex_buffer(&instance, physical_device, &device, &VERTICES);
@@ -237,7 +255,8 @@ impl Pipeline {
             pipeline,
             framebuffers,
             command_pool,
-            // command_buffers,
+            command_buffers,
+            sync_objects,
             vertex_buffer,
             vertex_buffer_memory,
             #[cfg(debug_assertions)]
@@ -386,6 +405,34 @@ impl Pipeline {
 
         // TODO Implement a verification
         true
+    }
+
+    fn create_sync_objects(device: &Device) -> SyncObjects {
+        let semaphore_create_info = SemaphoreCreateInfo::default();
+
+        let fence_create_info = FenceCreateInfo::builder()
+            .flags(FenceCreateFlags::SIGNALED)
+            .build();
+
+        unsafe {
+            let image_available_semaphore = device
+                .create_semaphore(&semaphore_create_info, None)
+                .expect("Unable to create semaphore");
+
+            let render_finished_semaphore = device
+                .create_semaphore(&semaphore_create_info, None)
+                .expect("Unable to create semaphore");
+
+            let in_flight_fence = device
+                .create_fence(&fence_create_info, None)
+                .expect("Unable to create fence");
+
+            SyncObjects {
+                image_available_semaphore,
+                render_finished_semaphore,
+                in_flight_fence,
+            }
+        }
     }
 
     fn get_required_extensions(window: &mut SDL_Window) -> Vec<String> {
@@ -1022,7 +1069,8 @@ impl Pipeline {
 
                 device.cmd_end_render_pass(*cb);
 
-                device.end_command_buffer(*cb)
+                device
+                    .end_command_buffer(*cb)
                     .expect("Unable to end command buffer");
             }
         }
@@ -1211,6 +1259,13 @@ impl Drop for Pipeline {
         unsafe {
             self.device.destroy_buffer(self.vertex_buffer, None);
             self.device.free_memory(self.vertex_buffer_memory, None);
+
+            self.device
+                .destroy_semaphore(self.sync_objects.render_finished_semaphore, None);
+            self.device
+                .destroy_semaphore(self.sync_objects.image_available_semaphore, None);
+            self.device
+                .destroy_fence(self.sync_objects.in_flight_fence, None);
 
             self.device.destroy_command_pool(self.command_pool, None);
 
