@@ -145,6 +145,7 @@ pub struct Pipeline {
     pub pipeline_layout: PipelineLayout,
     pub pipeline: ash::vk::Pipeline,
     pub vertex_buffer: Buffer,
+    pub vertex_buffer_memory: DeviceMemory,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -201,7 +202,8 @@ impl Pipeline {
         let (pipeline_layout, pipeline) =
             Self::create_graphics_pipeline(&device, swapchain_extent, render_pass);
 
-        let vertex_buffer = Self::create_vertex_buffer(&device, &VERTICES);
+        let (vertex_buffer, vertex_buffer_memory) =
+            Self::create_vertex_buffer(&instance, physical_device, &device, &VERTICES);
 
         Self {
             entry,
@@ -222,6 +224,7 @@ impl Pipeline {
             pipeline_layout,
             pipeline,
             vertex_buffer,
+            vertex_buffer_memory,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -914,18 +917,60 @@ impl Pipeline {
         (pipeline_layout, pipeline)
     }
 
-    fn create_vertex_buffer<T: ?Sized>(device: &Device, data: &T) -> Buffer {
+    fn create_vertex_buffer<T: ?Sized>(
+        instance: &Instance,
+        physical_device: PhysicalDevice,
+        device: &Device,
+        data: &T,
+    ) -> (Buffer, DeviceMemory) {
         let create_info = BufferCreateInfo::builder()
             .size(std::mem::size_of_val(data) as DeviceSize)
             .usage(BufferUsageFlags::VERTEX_BUFFER)
             .sharing_mode(SharingMode::EXCLUSIVE)
             .build();
 
-        unsafe {
+        let buffer = unsafe {
             device
                 .create_buffer(&create_info, None)
                 .expect("Unable to create vertex buffer")
+        };
+
+        let memory_requirements = unsafe { device.get_buffer_memory_requirements(buffer) };
+
+        let allocation_info = MemoryAllocateInfo::builder()
+            .allocation_size(memory_requirements.size)
+            .memory_type_index(Self::find_memory_type(
+                &instance,
+                physical_device,
+                memory_requirements.memory_type_bits,
+                MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT,
+            ))
+            .build();
+
+        let device_memory = unsafe {
+            device
+                .allocate_memory(&allocation_info, None)
+                .expect("Unable to allocate memory for vertex buffer")
+        };
+
+        unsafe {
+            device
+                .bind_buffer_memory(buffer, device_memory, 0)
+                .expect("Unable to bind memory buffer");
+            let data = device
+                .map_memory(device_memory, 0, create_info.size, Default::default())
+                .expect("Unable to map memory");
+
+            std::ptr::copy(
+                VERTICES.as_ptr() as *const c_void,
+                data,
+                create_info.size as usize,
+            );
+
+            device.unmap_memory(device_memory);
         }
+
+        (buffer, device_memory)
     }
 
     #[allow(unused)]
@@ -1052,6 +1097,7 @@ impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
             self.device.destroy_buffer(self.vertex_buffer, None);
+            self.device.free_memory(self.vertex_buffer_memory, None);
 
             self.samplers
                 .iter()
