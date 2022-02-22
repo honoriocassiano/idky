@@ -8,8 +8,10 @@ use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
-    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, CompositeAlphaFlagsKHR,
-    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
+    CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
+    CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
+    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Filter,
     Format, Framebuffer, FramebufferCreateInfo, FrontFace, GraphicsPipelineCreateInfo, Image,
@@ -17,15 +19,15 @@ use ash::vk::{
     ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
     KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags,
     MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures,
-    PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
+    PipelineBindPoint, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
     PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
     PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
     PipelineShaderStageCreateInfo, PipelineVertexInputStateCreateInfo,
     PipelineViewportStateCreateInfo, PolygonMode, PresentModeKHR, PrimitiveTopology, QueueFlags,
-    Rect2D, RenderPass, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
-    SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags, SharingMode,
-    SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
-    Viewport,
+    Rect2D, RenderPass, RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler,
+    SamplerAddressMode, SamplerCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags,
+    SharingMode, SubpassContents, SubpassDescription, SurfaceFormatKHR, SurfaceKHR,
+    SwapchainCreateInfoKHR, SwapchainKHR, Viewport,
 };
 use ash::{Device, Entry, Instance};
 
@@ -71,6 +73,7 @@ pub struct Pipeline {
     pub pipeline_layout: PipelineLayout,
     pub pipeline: ash::vk::Pipeline,
     pub framebuffers: Vec<Framebuffer>,
+    pub command_pool: CommandPool,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -130,6 +133,10 @@ impl Pipeline {
         let framebuffers =
             Self::create_framebuffers(&device, &image_views, swapchain_extent, render_pass);
 
+        let command_pool = Self::create_command_pool(&device, queue_families);
+
+        // let command_buffers = Self::create_command_buffers(&device, command_pool, &framebuffers, render_pass, swapchain_extent, pipeline);
+
         Self {
             entry,
             instance,
@@ -149,6 +156,8 @@ impl Pipeline {
             pipeline_layout,
             pipeline,
             framebuffers,
+            command_pool,
+            // command_buffers,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -859,6 +868,77 @@ impl Pipeline {
             .collect()
     }
 
+    fn create_command_pool(device: &Device, queue_families: QueueFamilyIndex) -> CommandPool {
+        let create_info = CommandPoolCreateInfo::builder()
+            .queue_family_index(queue_families.graphic)
+            .build();
+
+        unsafe {
+            device
+                .create_command_pool(&create_info, None)
+                .expect("Unable to create command pool")
+        }
+    }
+
+    fn create_command_buffers(
+        device: &Device,
+        command_pool: CommandPool,
+        framebuffers: &Vec<Framebuffer>,
+        render_pass: RenderPass,
+        extent: Extent2D,
+        pipeline: ash::vk::Pipeline,
+    ) -> Vec<CommandBuffer> {
+        let create_info = CommandBufferAllocateInfo::builder()
+            .command_pool(command_pool)
+            .level(CommandBufferLevel::PRIMARY)
+            .command_buffer_count(framebuffers.len() as u32)
+            .build();
+
+        let command_buffers = unsafe {
+            device
+                .allocate_command_buffers(&create_info)
+                .expect("Unable to create command buffers")
+        };
+
+        for (cb, fb) in command_buffers.iter().zip(framebuffers) {
+            let command_buffer_begin_info = CommandBufferBeginInfo::default();
+
+            unsafe {
+                device
+                    .begin_command_buffer(*cb, &command_buffer_begin_info)
+                    .expect("Unable to begin command buffer");
+            }
+
+            let render_area = Rect2D::builder()
+                .offset(Offset2D::default())
+                .extent(extent)
+                .build();
+
+            let clear_value = ClearValue::default();
+
+            let render_pass_begin_info = RenderPassBeginInfo::builder()
+                .render_pass(render_pass)
+                .framebuffer(*fb)
+                .render_area(render_area)
+                .clear_values(&[clear_value])
+                .build();
+
+            unsafe {
+                device.cmd_begin_render_pass(*cb, &render_pass_begin_info, SubpassContents::INLINE);
+
+                device.cmd_bind_pipeline(*cb, PipelineBindPoint::GRAPHICS, pipeline);
+                // TODO Check these values
+                device.cmd_draw(*cb, 3, 1, 0, 0);
+
+                device.cmd_end_render_pass(*cb);
+
+                device.end_command_buffer(*cb);
+            }
+        }
+
+        command_buffers
+    }
+
     #[allow(unused)]
     pub fn create_buffer(
         &mut self,
@@ -966,6 +1046,9 @@ impl Pipeline {
 impl Drop for Pipeline {
     fn drop(&mut self) {
         unsafe {
+
+            self.device.destroy_command_pool(self.command_pool, None);
+
             self.framebuffers
                 .iter()
                 .for_each(|f| self.device.destroy_framebuffer(*f, None));
