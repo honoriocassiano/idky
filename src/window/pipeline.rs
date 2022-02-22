@@ -1022,7 +1022,8 @@ impl Pipeline {
 
                 device.cmd_end_render_pass(*cb);
 
-                device.end_command_buffer(*cb);
+                device.end_command_buffer(*cb)
+                    .expect("Unable to end command buffer");
             }
         }
 
