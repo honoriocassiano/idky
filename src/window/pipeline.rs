@@ -10,8 +10,8 @@ use ash::vk::{
     ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
     AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
     CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
-    CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    CommandBufferResetFlags, CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR,
+    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
     FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
@@ -22,14 +22,14 @@ use ash::vk::{
     PhysicalDeviceFeatures, PipelineBindPoint, PipelineColorBlendAttachmentState,
     PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
     PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
-    PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo,
+    PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo, PipelineStageFlags,
     PipelineVertexInputStateCreateInfo, PipelineViewportStateCreateInfo, PolygonMode,
-    PresentModeKHR, PrimitiveTopology, QueueFlags, Rect2D, RenderPass, RenderPassBeginInfo,
-    RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo,
-    Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags,
-    SharingMode, SubpassContents, SubpassDescription, SurfaceFormatKHR, SurfaceKHR,
-    SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
-    VertexInputBindingDescription, VertexInputRate, Viewport,
+    PresentInfoKHR, PresentModeKHR, PrimitiveTopology, Queue, QueueFlags, Rect2D, RenderPass,
+    RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
+    SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
+    ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDescription,
+    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    VertexInputAttributeDescription, VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 use ash::{Device, Entry, Instance};
 use sdl::SDL_Window;
@@ -144,6 +144,8 @@ pub struct Pipeline {
     pub physical_device: PhysicalDevice,
     pub queue_families: QueueFamilyIndex,
     pub device: Device,
+    pub graphics_queue: Queue,
+    pub present_queue: Queue,
     pub swapchain: Swapchain,
     pub swapchain_extent: Extent2D,
     pub swapchain_khr: SwapchainKHR,
@@ -188,7 +190,7 @@ impl Pipeline {
         let queue_families =
             Self::get_queue_families(&surface, &instance, physical_device, surface_khr);
 
-        let device = Self::create_device(
+        let (device, graphics_queue, present_queue) = Self::create_device(
             &instance,
             physical_device,
             queue_families,
@@ -243,6 +245,8 @@ impl Pipeline {
             physical_device,
             queue_families,
             device,
+            graphics_queue,
+            present_queue,
             swapchain,
             swapchain_extent,
             swapchain_khr,
@@ -323,7 +327,7 @@ impl Pipeline {
         physical_device: PhysicalDevice,
         queue_families: QueueFamilyIndex,
         additional_extensions: &[&'static CStr],
-    ) -> Device {
+    ) -> (Device, Queue, Queue) {
         let families: Vec<u32> = queue_families.into();
 
         let priority = 1.0f32;
@@ -356,11 +360,17 @@ impl Pipeline {
             .enabled_extension_names(device_extensions.as_slice())
             .build();
 
-        unsafe {
+        let device = unsafe {
             instance
                 .create_device(physical_device, &create_info, None)
                 .expect("Unable to create device")
-        }
+        };
+
+        let graphics_queue = unsafe { device.get_device_queue(queue_families.graphic, 0) };
+
+        let present_queue = unsafe { device.get_device_queue(queue_families.present, 0) };
+
+        (device, graphics_queue, present_queue)
     }
 
     fn get_queue_families(
