@@ -270,6 +270,74 @@ impl Pipeline {
         }
     }
 
+    #[allow(dead_code)]
+    pub fn draw(&self) {
+        let fences = [self.sync_objects.in_flight_fence];
+        let command_buffer = *self.command_buffers.first().unwrap();
+
+        unsafe {
+            self.device
+                .wait_for_fences(&fences, true, u64::MAX)
+                .expect("Unable to wait for fences");
+
+            self.device
+                .reset_fences(&fences)
+                .expect("Unable to reset fences");
+
+            self.swapchain
+                .acquire_next_image(
+                    self.swapchain_khr,
+                    u64::MAX,
+                    self.sync_objects.image_available_semaphore,
+                    Fence::null(),
+                )
+                .expect("Unable to acquire next image");
+
+            self.device
+                .reset_command_buffer(command_buffer, CommandBufferResetFlags::empty())
+                .expect("Unable to reset command buffer");
+        }
+
+        let image_index = self.record_commands();
+
+        let signal_semaphores = &[self.sync_objects.render_finished_semaphore];
+
+        let submit_info = SubmitInfo::builder()
+            .wait_semaphores(&[self.sync_objects.image_available_semaphore])
+            .wait_dst_stage_mask(&[PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT])
+            .command_buffers(&[command_buffer])
+            .signal_semaphores(signal_semaphores)
+            .build();
+
+        unsafe {
+            self.device
+                .queue_submit(
+                    self.graphics_queue,
+                    &[submit_info],
+                    self.sync_objects.in_flight_fence,
+                )
+                .expect("Unable to submit draw command");
+        }
+
+        let present_info = PresentInfoKHR::builder()
+            .wait_semaphores(signal_semaphores)
+            .swapchains(&[self.swapchain_khr])
+            .image_indices(&[image_index])
+            .build();
+
+        unsafe {
+            self.swapchain
+                .queue_present(self.present_queue, &present_info)
+                .expect("Unable to present to queue");
+        }
+    }
+
+    #[allow(dead_code)]
+    fn record_commands(&self) -> u32 {
+        // TODO Record commands
+        todo!()
+    }
+
     #[cfg(debug_assertions)]
     fn get_validation_layers() -> Vec<&'static CStr> {
         let layer =
