@@ -8,17 +8,18 @@ use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
-    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
-    CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
-    CommandBufferResetFlags, CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR,
-    CullModeFlags, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearColorValue,
+    ClearValue, CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo,
+    CommandBufferLevel, CommandBufferResetFlags, CommandPool, CommandPoolCreateFlags,
+    CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
+    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
     FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
     FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
     ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
-    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
-    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
+    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSurfaceFn, KhrSwapchainFn,
+    LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
     PhysicalDeviceFeatures, PipelineBindPoint, PipelineColorBlendAttachmentState,
     PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
     PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
@@ -263,7 +264,6 @@ impl Pipeline {
         }
     }
 
-    #[allow(dead_code)]
     pub fn draw(&self) {
         let fences = [self.sync_objects.in_flight_fence];
         let command_buffer = *self.command_buffers.first().unwrap();
@@ -332,7 +332,6 @@ impl Pipeline {
         }
     }
 
-    #[allow(dead_code)]
     fn record_commands(&self, command_buffer: CommandBuffer, swapchain_framebuffer: Framebuffer) {
         let command_buffer_begin_info = CommandBufferBeginInfo::default();
 
@@ -368,8 +367,13 @@ impl Pipeline {
                 PipelineBindPoint::GRAPHICS,
                 self.pipeline,
             );
+
+            self.device
+                .cmd_bind_vertex_buffers(command_buffer, 0, &[self.vertex_buffer], &[0]);
+
             // TODO Check these values
-            self.device.cmd_draw(command_buffer, 3, 1, 0, 0);
+            self.device
+                .cmd_draw(command_buffer, VERTICES.len() as u32, 1, 0, 0);
 
             self.device.cmd_end_render_pass(command_buffer);
 
@@ -771,11 +775,7 @@ impl Pipeline {
             surface_capabilities.max_image_extent.height,
         );
 
-        let swapchain_extent = Extent2D {
-            width,
-            height,
-            ..Default::default()
-        };
+        let swapchain_extent = Extent2D { width, height };
 
         let queues: Vec<u32> = queue_family_index.into();
         let sharing_mode = match queues.len() {
@@ -784,6 +784,7 @@ impl Pipeline {
             _ => unreachable!(),
         };
 
+        let present_mode = PresentModeKHR::FIFO;
         let create_info = SwapchainCreateInfoKHR::builder()
             .surface(surface_khr)
             .min_image_count(surface_capabilities.min_image_count)
@@ -796,7 +797,7 @@ impl Pipeline {
             .queue_family_indices(queues.as_slice())
             .pre_transform(surface_capabilities.current_transform)
             .composite_alpha(CompositeAlphaFlagsKHR::OPAQUE)
-            .present_mode(PresentModeKHR::FIFO)
+            .present_mode(present_mode)
             .clipped(true)
             .build();
 
