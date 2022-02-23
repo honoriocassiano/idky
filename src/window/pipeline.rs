@@ -8,18 +8,18 @@ use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
     AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
-    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearColorValue,
-    ClearValue, CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo,
-    CommandBufferLevel, CommandBufferResetFlags, CommandPool, CommandPoolCreateFlags,
-    CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
-    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
-    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
-    FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
-    FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
+    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
+    CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
+    CommandBufferResetFlags, CommandPool, CommandPoolCreateFlags, CommandPoolCreateInfo,
+    CompositeAlphaFlagsKHR, CullModeFlags, DebugUtilsMessageSeverityFlagsEXT,
+    DebugUtilsMessageTypeFlagsEXT, DebugUtilsMessengerCallbackDataEXT,
+    DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT, DeviceCreateInfo, DeviceMemory,
+    DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence, FenceCreateFlags,
+    FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo, FrontFace,
+    GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
     ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
-    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSurfaceFn, KhrSwapchainFn,
-    LogicOp, MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
+    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
+    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
     PhysicalDeviceFeatures, PipelineBindPoint, PipelineColorBlendAttachmentState,
     PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
     PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
@@ -64,6 +64,10 @@ pub struct SyncObjects {
     image_available_semaphore: Semaphore,
     render_finished_semaphore: Semaphore,
     in_flight_fence: Fence,
+}
+
+fn device_extensions() -> [&'static CStr; 1] {
+    [KhrSwapchainFn::name()]
 }
 
 impl Vertex {
@@ -455,7 +459,7 @@ impl Pipeline {
             })
             .collect::<Vec<_>>();
 
-        let device_extensions = [&[KhrSwapchainFn::name()], additional_extensions]
+        let device_extensions = [&device_extensions(), additional_extensions]
             .concat()
             .iter()
             .map(|de| de.as_ptr())
@@ -516,18 +520,40 @@ impl Pipeline {
         }
     }
 
-    fn check_suitability(_instance: &Instance, _device: PhysicalDevice) -> bool {
-        // let properties = unsafe { instance.get_physical_device_properties(*device) };
-        // let features = unsafe { instance.get_physical_device_features(*device) };
-        //
-        // let name = unsafe {
-        //     CStr::from_ptr(properties.device_name.as_ptr())
-        //         .to_str()
-        //         .unwrap()
-        // };
+    fn check_device_support(instance: &Instance, physical_device: PhysicalDevice) -> bool {
+        unsafe {
+            let available_extension_properties = instance
+                .enumerate_device_extension_properties(physical_device)
+                .expect("Unable to enumerate device extensions properties");
 
-        // TODO Implement a verification
-        true
+            let required_extensions = device_extensions();
+
+            let unavailable_extensions_count = required_extensions
+                .iter()
+                .filter(|de| {
+                    available_extension_properties
+                        .iter()
+                        .find(|aep| **de == CStr::from_ptr(aep.extension_name.as_ptr()))
+                        .is_none()
+                })
+                .count();
+
+            unavailable_extensions_count == 0
+        }
+    }
+
+    #[allow(dead_code)]
+    fn query_swapchain_support() {
+        // TODO
+        todo!()
+    }
+
+    fn check_suitability(instance: &Instance, device: PhysicalDevice) -> bool {
+        let extensions_supported = Self::check_device_support(instance, device);
+
+        // TODO Check swapchain support
+
+        extensions_supported
     }
 
     fn create_sync_objects(device: &Device) -> SyncObjects {
