@@ -227,9 +227,6 @@ impl Pipeline {
             &device,
             command_pool,
             &framebuffers,
-            render_pass,
-            swapchain_extent,
-            pipeline,
         );
 
         let sync_objects = Self::create_sync_objects(&device);
@@ -283,22 +280,24 @@ impl Pipeline {
             self.device
                 .reset_fences(&fences)
                 .expect("Unable to reset fences");
+        }
 
-            self.swapchain
+        let (image_index, _) = unsafe {self.swapchain
                 .acquire_next_image(
                     self.swapchain_khr,
                     u64::MAX,
                     self.sync_objects.image_available_semaphore,
                     Fence::null(),
                 )
-                .expect("Unable to acquire next image");
+                .expect("Unable to acquire next image") };
 
+        unsafe {
             self.device
                 .reset_command_buffer(command_buffer, CommandBufferResetFlags::empty())
                 .expect("Unable to reset command buffer");
         }
 
-        let image_index = self.record_commands();
+        self.record_commands(command_buffer, *self.framebuffers.get(image_index as usize).unwrap());
 
         let signal_semaphores = &[self.sync_objects.render_finished_semaphore];
 
@@ -333,9 +332,42 @@ impl Pipeline {
     }
 
     #[allow(dead_code)]
-    fn record_commands(&self) -> u32 {
-        // TODO Record commands
-        todo!()
+    fn record_commands(&self, command_buffer: CommandBuffer, swapchain_framebuffer: Framebuffer) {
+        let command_buffer_begin_info = CommandBufferBeginInfo::default();
+
+        unsafe {
+            self.device
+                .begin_command_buffer(command_buffer, &command_buffer_begin_info)
+                .expect("Unable to begin command buffer");
+        }
+
+        let render_area = Rect2D::builder()
+            .offset(Offset2D::default())
+            .extent(self.swapchain_extent)
+            .build();
+
+        let clear_value = ClearValue::default();
+
+        let render_pass_begin_info = RenderPassBeginInfo::builder()
+            .render_pass(self.render_pass)
+            .framebuffer(swapchain_framebuffer)
+            .render_area(render_area)
+            .clear_values(&[clear_value])
+            .build();
+
+        unsafe {
+            self.device.cmd_begin_render_pass(command_buffer, &render_pass_begin_info, SubpassContents::INLINE);
+
+            self.device.cmd_bind_pipeline(command_buffer, PipelineBindPoint::GRAPHICS, self.pipeline);
+            // TODO Check these values
+            self.device.cmd_draw(command_buffer, 3, 1, 0, 0);
+
+            self.device.cmd_end_render_pass(command_buffer);
+
+            self.device
+                .end_command_buffer(command_buffer)
+                .expect("Unable to end command buffer");
+        }
     }
 
     #[cfg(debug_assertions)]
@@ -1099,9 +1131,6 @@ impl Pipeline {
         device: &Device,
         command_pool: CommandPool,
         framebuffers: &Vec<Framebuffer>,
-        render_pass: RenderPass,
-        extent: Extent2D,
-        pipeline: ash::vk::Pipeline,
     ) -> Vec<CommandBuffer> {
         let create_info = CommandBufferAllocateInfo::builder()
             .command_pool(command_pool)
@@ -1114,44 +1143,6 @@ impl Pipeline {
                 .allocate_command_buffers(&create_info)
                 .expect("Unable to create command buffers")
         };
-
-        for (cb, fb) in command_buffers.iter().zip(framebuffers) {
-            let command_buffer_begin_info = CommandBufferBeginInfo::default();
-
-            unsafe {
-                device
-                    .begin_command_buffer(*cb, &command_buffer_begin_info)
-                    .expect("Unable to begin command buffer");
-            }
-
-            let render_area = Rect2D::builder()
-                .offset(Offset2D::default())
-                .extent(extent)
-                .build();
-
-            let clear_value = ClearValue::default();
-
-            let render_pass_begin_info = RenderPassBeginInfo::builder()
-                .render_pass(render_pass)
-                .framebuffer(*fb)
-                .render_area(render_area)
-                .clear_values(&[clear_value])
-                .build();
-
-            unsafe {
-                device.cmd_begin_render_pass(*cb, &render_pass_begin_info, SubpassContents::INLINE);
-
-                device.cmd_bind_pipeline(*cb, PipelineBindPoint::GRAPHICS, pipeline);
-                // TODO Check these values
-                device.cmd_draw(*cb, 3, 1, 0, 0);
-
-                device.cmd_end_render_pass(*cb);
-
-                device
-                    .end_command_buffer(*cb)
-                    .expect("Unable to end command buffer");
-            }
-        }
 
         command_buffers
     }
