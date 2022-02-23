@@ -29,8 +29,9 @@ use ash::vk::{
     RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
     SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
     ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDependency,
-    SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
-    VertexInputAttributeDescription, VertexInputBindingDescription, VertexInputRate, Viewport,
+    SubpassDescription, SurfaceCapabilitiesKHR, SurfaceFormatKHR, SurfaceKHR,
+    SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
+    VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 use ash::{Device, Entry, Instance};
 use sdl::SDL_Window;
@@ -64,6 +65,13 @@ pub struct SyncObjects {
     image_available_semaphore: Semaphore,
     render_finished_semaphore: Semaphore,
     in_flight_fence: Fence,
+}
+
+#[allow(dead_code)]
+pub struct SwapChainSupportDetails {
+    capabilities: SurfaceCapabilitiesKHR,
+    formats: Vec<SurfaceFormatKHR>,
+    present_modes: Vec<PresentModeKHR>,
 }
 
 fn device_extensions() -> [&'static CStr; 1] {
@@ -190,7 +198,8 @@ impl Pipeline {
 
         let surface = Surface::new(&entry, &instance);
 
-        let (physical_device, additional_extensions) = Self::create_physical_device(&instance);
+        let (physical_device, additional_extensions) =
+            Self::create_physical_device(&instance, &surface, surface_khr);
 
         let queue_families =
             Self::get_queue_families(&surface, &instance, physical_device, surface_khr);
@@ -413,7 +422,11 @@ impl Pipeline {
         surface_khr
     }
 
-    fn create_physical_device(instance: &Instance) -> (PhysicalDevice, Vec<&'static CStr>) {
+    fn create_physical_device(
+        instance: &Instance,
+        surface: &Surface,
+        surface_khr: SurfaceKHR,
+    ) -> (PhysicalDevice, Vec<&'static CStr>) {
         unsafe {
             let result = instance
                 .enumerate_physical_devices()
@@ -421,7 +434,7 @@ impl Pipeline {
 
             let device = result
                 .into_iter()
-                .find(|&d| Self::check_suitability(&instance, d))
+                .find(|&d| Self::check_suitability(&instance, surface, surface_khr, d))
                 .expect("No graphical card found!");
 
             let extension_properties = instance
@@ -542,18 +555,56 @@ impl Pipeline {
         }
     }
 
-    #[allow(dead_code)]
-    fn query_swapchain_support() {
-        // TODO
-        todo!()
+    fn query_swapchain_support(
+        surface: &Surface,
+        surface_khr: SurfaceKHR,
+        physical_device: PhysicalDevice,
+    ) -> SwapChainSupportDetails {
+        let capabilities = unsafe {
+            surface
+                .get_physical_device_surface_capabilities(physical_device, surface_khr)
+                .expect("Unable to query surface capabilities")
+        };
+
+        let formats = unsafe {
+            surface
+                .get_physical_device_surface_formats(physical_device, surface_khr)
+                .expect("Unable to query surface formats")
+        };
+
+        let present_modes = unsafe {
+            surface
+                .get_physical_device_surface_present_modes(physical_device, surface_khr)
+                .expect("Unable to query surface present modes")
+        };
+
+        SwapChainSupportDetails {
+            capabilities,
+            formats,
+            present_modes,
+        }
     }
 
-    fn check_suitability(instance: &Instance, device: PhysicalDevice) -> bool {
+    fn check_suitability(
+        instance: &Instance,
+        surface: &Surface,
+        surface_khr: SurfaceKHR,
+        device: PhysicalDevice,
+    ) -> bool {
         let extensions_supported = Self::check_device_support(instance, device);
 
-        // TODO Check swapchain support
+        let swap_chain_supported = match extensions_supported {
+            true => {
+                let swap_chain_support =
+                    Self::query_swapchain_support(surface, surface_khr, device);
 
-        extensions_supported
+                !swap_chain_support.formats.is_empty()
+                    && !swap_chain_support.present_modes.is_empty()
+            }
+            false => false,
+        };
+
+        extensions_supported && extensions_supported && swap_chain_supported
     }
 
     fn create_sync_objects(device: &Device) -> SyncObjects {
