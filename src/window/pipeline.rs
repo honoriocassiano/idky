@@ -7,7 +7,7 @@ use std::path::Path;
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
-    ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
+    AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
     AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
     CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
     CommandBufferResetFlags, CommandPool, CommandPoolCreateInfo, CompositeAlphaFlagsKHR,
@@ -27,8 +27,8 @@ use ash::vk::{
     PresentInfoKHR, PresentModeKHR, PrimitiveTopology, Queue, QueueFlags, Rect2D, RenderPass,
     RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
     SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
-    ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDescription,
-    SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDependency,
+    SubpassDescription, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
     VertexInputAttributeDescription, VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 use ash::{Device, Entry, Instance};
@@ -223,11 +223,7 @@ impl Pipeline {
 
         let command_pool = Self::create_command_pool(&device, queue_families);
 
-        let command_buffers = Self::create_command_buffers(
-            &device,
-            command_pool,
-            &framebuffers,
-        );
+        let command_buffers = Self::create_command_buffers(&device, command_pool, &framebuffers);
 
         let sync_objects = Self::create_sync_objects(&device);
 
@@ -282,14 +278,16 @@ impl Pipeline {
                 .expect("Unable to reset fences");
         }
 
-        let (image_index, _) = unsafe {self.swapchain
+        let (image_index, _) = unsafe {
+            self.swapchain
                 .acquire_next_image(
                     self.swapchain_khr,
                     u64::MAX,
                     self.sync_objects.image_available_semaphore,
                     Fence::null(),
                 )
-                .expect("Unable to acquire next image") };
+                .expect("Unable to acquire next image")
+        };
 
         unsafe {
             self.device
@@ -297,7 +295,10 @@ impl Pipeline {
                 .expect("Unable to reset command buffer");
         }
 
-        self.record_commands(command_buffer, *self.framebuffers.get(image_index as usize).unwrap());
+        self.record_commands(
+            command_buffer,
+            *self.framebuffers.get(image_index as usize).unwrap(),
+        );
 
         let signal_semaphores = &[self.sync_objects.render_finished_semaphore];
 
@@ -356,9 +357,17 @@ impl Pipeline {
             .build();
 
         unsafe {
-            self.device.cmd_begin_render_pass(command_buffer, &render_pass_begin_info, SubpassContents::INLINE);
+            self.device.cmd_begin_render_pass(
+                command_buffer,
+                &render_pass_begin_info,
+                SubpassContents::INLINE,
+            );
 
-            self.device.cmd_bind_pipeline(command_buffer, PipelineBindPoint::GRAPHICS, self.pipeline);
+            self.device.cmd_bind_pipeline(
+                command_buffer,
+                PipelineBindPoint::GRAPHICS,
+                self.pipeline,
+            );
             // TODO Check these values
             self.device.cmd_draw(command_buffer, 3, 1, 0, 0);
 
@@ -942,9 +951,19 @@ impl Pipeline {
             .color_attachments(&[attachment_reference])
             .build();
 
+        let subpass_dependency = SubpassDependency::builder()
+            .src_subpass(ash::vk::SUBPASS_EXTERNAL)
+            .dst_subpass(0)
+            .src_stage_mask(PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
+            .dst_stage_mask(PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
+            .src_access_mask(AccessFlags::empty())
+            .dst_access_mask(AccessFlags::COLOR_ATTACHMENT_WRITE)
+            .build();
+
         let create_info = RenderPassCreateInfo::builder()
             .attachments(&[attachment_description])
             .subpasses(&[subpass])
+            .dependencies(&[subpass_dependency])
             .build();
 
         unsafe {
