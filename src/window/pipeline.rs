@@ -1138,6 +1138,7 @@ impl Pipeline {
     fn create_command_pool(device: &Device, queue_families: QueueFamilyIndex) -> CommandPool {
         let create_info = CommandPoolCreateInfo::builder()
             .queue_family_index(queue_families.graphic)
+            .flags(CommandPoolCreateFlags::RESET_COMMAND_BUFFER)
             .build();
 
         unsafe {
