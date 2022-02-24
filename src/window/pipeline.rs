@@ -99,8 +99,7 @@ impl Vertex {
             .binding(0)
             .location(1)
             .format(Format::R32G32B32_SFLOAT)
-            // TODO Check if this is correct
-            .offset(std::mem::size_of::<Vec3>() as u32) // Offset of field 'position'
+            .offset(std::mem::size_of::<Vec2>() as u32) // Offset of field 'position'
             .build();
 
         [a1, a2]
