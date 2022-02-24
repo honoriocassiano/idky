@@ -4,23 +4,30 @@ use std::io::Read;
 use std::os::raw::c_char;
 use std::path::Path;
 
+#[cfg(debug_assertions)]
 use ash::extensions::ext::DebugUtils;
+
 use ash::extensions::khr::{Surface, Swapchain};
+
+#[cfg(debug_assertions)]
 use ash::vk::{
-    AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
-    AttachmentStoreOp, Bool32, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue,
-    ColorComponentFlags, CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo,
-    CommandBufferLevel, CommandBufferResetFlags, CommandPool, CommandPoolCreateFlags,
-    CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
-    DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    Bool32, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
     DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
+};
+
+use ash::vk::{
+    AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentDescriptionFlags,
+    AttachmentLoadOp, AttachmentReference, AttachmentStoreOp, Buffer, BufferCreateInfo,
+    BufferUsageFlags, ClearValue, ColorComponentFlags, CommandBuffer, CommandBufferAllocateInfo,
+    CommandBufferBeginInfo, CommandBufferLevel, CommandBufferResetFlags, CommandPool,
+    CommandPoolCreateFlags, CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
     DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
     FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
     FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
     ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
     ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
     MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
-    PhysicalDeviceFeatures, PipelineBindPoint, PipelineColorBlendAttachmentState,
+    PhysicalDeviceFeatures, PipelineBindPoint, PipelineCache, PipelineColorBlendAttachmentState,
     PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
     PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
     PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo, PipelineStageFlags,
@@ -29,8 +36,8 @@ use ash::vk::{
     RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
     SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
     ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDependency,
-    SubpassDescription, SurfaceCapabilitiesKHR, SurfaceFormatKHR, SurfaceKHR,
-    SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
+    SubpassDescription, SubpassDescriptionFlags, SurfaceCapabilitiesKHR, SurfaceFormatKHR,
+    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
     VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 use ash::{Device, Entry, Instance};
@@ -221,8 +228,7 @@ impl Pipeline {
                 queue_families,
             );
 
-        let image_views =
-            Self::create_image_views(&device, surface_format_khr, swapchain_images.clone());
+        let image_views = Self::create_image_views(&device, surface_format_khr, &swapchain_images);
 
         let render_pass = Self::create_render_pass(&device, surface_format_khr);
 
@@ -767,7 +773,6 @@ impl Pipeline {
             let app_create_info = InstanceCreateInfo::builder()
                 .application_info(&app_info)
                 .enabled_extension_names(required_extensions_cchar.as_slice())
-                .enabled_layer_count(0)
                 .build();
 
             unsafe { entry.create_instance(&app_create_info, None) }
@@ -887,7 +892,7 @@ impl Pipeline {
 
         let swapchain_images = unsafe {
             swapchain
-                .get_swapchain_images(swapchain_khr.clone())
+                .get_swapchain_images(*&swapchain_khr)
                 .expect("Cannot get swapchain images")
         };
 
@@ -903,7 +908,7 @@ impl Pipeline {
     fn create_image_views(
         device: &Device,
         surface_format_khr: SurfaceFormatKHR,
-        images: Vec<Image>,
+        images: &Vec<Image>,
     ) -> Vec<ImageView> {
         images
             .iter()
@@ -1025,6 +1030,7 @@ impl Pipeline {
             .build();
 
         let subpass = SubpassDescription::builder()
+            .pipeline_bind_point(PipelineBindPoint::GRAPHICS)
             .color_attachments(&[attachment_reference])
             .build();
 
@@ -1146,8 +1152,6 @@ impl Pipeline {
         // TODO Set pipeline layout
         // TODO Set constant ranges
         let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder()
-            .set_layouts(&[])
-            .push_constant_ranges(&[])
             .build();
 
         let pipeline_layout = unsafe {
@@ -1171,7 +1175,7 @@ impl Pipeline {
 
         let pipeline = unsafe {
             device
-                .create_graphics_pipelines(Default::default(), &[pipeline_create_info], None)
+                .create_graphics_pipelines(PipelineCache::null(), &[pipeline_create_info], None)
                 .expect("Unable to create graphics pipeline")
                 .pop()
                 .unwrap()
@@ -1456,6 +1460,7 @@ impl Drop for Pipeline {
 
             self.device.destroy_render_pass(self.render_pass, None);
 
+            #[cfg(debug_assertions)]
             self.debug_utils
                 .destroy_debug_utils_messenger(self.debug_utils_messenger, None);
 
