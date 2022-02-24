@@ -13,8 +13,7 @@ use sdl::{
 use crate::core::{System, Vec2, Vector};
 use crate::sdl::SdlEventType;
 use crate::window::{
-    Event, event::EventHandler, player::Player, Renderable, Renderer, RenderTarget,
-    WindowControlFlow,
+    event::EventHandler, player::Player, Event, RenderTarget, Renderer, WindowControlFlow,
 };
 
 #[allow(dead_code)]
@@ -25,6 +24,7 @@ pub struct Window<'a> {
     event_handler: EventHandler,
     player: Player,
     start_time: Instant,
+    renderer: Renderer,
 }
 
 #[allow(dead_code)]
@@ -73,7 +73,7 @@ impl<'a> Window<'a> {
             panic!("Error initializing window: {}", system.get_error().unwrap());
         }
 
-        let _renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
+        let renderer = Renderer::new(unsafe { window.as_mut() }.unwrap());
 
         let surface = unsafe { sdl::SDL_GetWindowSurface(window) };
 
@@ -87,6 +87,7 @@ impl<'a> Window<'a> {
             event_handler: EventHandler::default(),
             player,
             start_time: Instant::now(),
+            renderer,
         }
     }
 
@@ -108,13 +109,7 @@ impl<'a> Window<'a> {
     }
 
     pub fn render(&mut self) {
-        unsafe {
-            sdl::SDL_FillRect(self.surface, std::ptr::null(), 0x00000000);
-        }
-
-        self.player.render();
-
-        unsafe { sdl::SDL_UpdateWindowSurface(self.window) };
+        self.renderer.draw();
     }
 
     pub fn handle_events(&mut self) -> WindowControlFlow {
