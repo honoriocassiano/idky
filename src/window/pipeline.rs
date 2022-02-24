@@ -384,9 +384,9 @@ impl Pipeline {
             self.device
                 .cmd_bind_vertex_buffers(command_buffer, 0, &[self.vertex_buffer], &[0]);
 
-            // TODO Check these values
+            let triangles_count = VERTICES.len() as u32;
             self.device
-                .cmd_draw(command_buffer, VERTICES.len() as u32, 1, 0, 0);
+                .cmd_draw(command_buffer, triangles_count, triangles_count / 3, 0, 0);
 
             self.device.cmd_end_render_pass(command_buffer);
 
