@@ -1013,7 +1013,7 @@ impl Pipeline {
     }
 
     fn create_render_pass(device: &Device, format: SurfaceFormatKHR) -> RenderPass {
-        let attachment_description = AttachmentDescription::builder()
+        let attachment_descriptions = [AttachmentDescription::builder()
             .format(format.format)
             .samples(SampleCountFlags::TYPE_1)
             .load_op(AttachmentLoadOp::CLEAR)
@@ -1022,32 +1022,31 @@ impl Pipeline {
             .stencil_store_op(AttachmentStoreOp::DONT_CARE)
             .initial_layout(ImageLayout::UNDEFINED)
             .final_layout(ImageLayout::PRESENT_SRC_KHR)
-            .build();
+            .build()];
 
-        let attachment_reference = AttachmentReference::builder()
+        let attachment_references = [AttachmentReference::builder()
             .attachment(0)
             .layout(ImageLayout::COLOR_ATTACHMENT_OPTIMAL)
-            .build();
+            .build()];
 
-        let subpass = SubpassDescription::builder()
+        let subpasses = [SubpassDescription::builder()
             .pipeline_bind_point(PipelineBindPoint::GRAPHICS)
-            .color_attachments(&[attachment_reference])
-            .build();
+            .color_attachments(&attachment_references)
+            .build()];
 
-        let subpass_dependency = SubpassDependency::builder()
+        let subpass_dependencies = [SubpassDependency::builder()
             .src_subpass(ash::vk::SUBPASS_EXTERNAL)
             .dst_subpass(0)
             .src_stage_mask(PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
             .dst_stage_mask(PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
             .src_access_mask(AccessFlags::empty())
             .dst_access_mask(AccessFlags::COLOR_ATTACHMENT_WRITE)
-            .build();
+            .build()];
 
         let create_info = RenderPassCreateInfo::builder()
-            .attachments(&[attachment_description])
-            .subpasses(&[subpass])
-            .dependencies(&[subpass_dependency])
-            .build();
+            .attachments(&attachment_descriptions)
+            .subpasses(&subpasses)
+            .dependencies(&subpass_dependencies);
 
         unsafe {
             device
@@ -1088,11 +1087,11 @@ impl Pipeline {
 
         let shader_stages = [vertex_shader_create_info, fragment_shader_create_info];
 
-        let vertex_binding_description = Vertex::binding_description();
+        let vertex_binding_description = [Vertex::binding_description()];
         let vertex_attribute_description = Vertex::attribute_description();
 
         let vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::builder()
-            .vertex_binding_descriptions(&[vertex_binding_description])
+            .vertex_binding_descriptions(&vertex_binding_description)
             .vertex_attribute_descriptions(&vertex_attribute_description)
             .build();
 
@@ -1101,23 +1100,23 @@ impl Pipeline {
             .primitive_restart_enable(false)
             .build();
 
-        let viewport = Viewport::builder()
+        let viewports = [Viewport::builder()
             .x(0.0)
             .y(0.0)
             .width(swapchain_extent.width as f32)
             .height(swapchain_extent.height as f32)
             .min_depth(0.0)
             .max_depth(1.0)
-            .build();
+            .build()];
 
-        let scissor = Rect2D::builder()
+        let scissors = [Rect2D::builder()
             .offset(Offset2D { x: 0, y: 0 })
             .extent(swapchain_extent)
-            .build();
+            .build()];
 
         let viewport_create_info = PipelineViewportStateCreateInfo::builder()
-            .viewports(&[viewport])
-            .scissors(&[scissor])
+            .viewports(&viewports)
+            .scissors(&scissors)
             .build();
 
         // TODO Check these values
@@ -1137,22 +1136,21 @@ impl Pipeline {
             .rasterization_samples(SampleCountFlags::TYPE_1)
             .build();
 
-        let color_blend_attachments = PipelineColorBlendAttachmentState::builder()
+        let color_blend_attachments = [PipelineColorBlendAttachmentState::builder()
             .color_write_mask(ColorComponentFlags::RGBA)
             .blend_enable(false)
-            .build();
+            .build()];
 
         let color_blend_state_create_info = PipelineColorBlendStateCreateInfo::builder()
             .logic_op_enable(false)
             .logic_op(LogicOp::COPY)
-            .attachments(&[color_blend_attachments])
+            .attachments(&color_blend_attachments)
             .blend_constants([0.0, 0.0, 0.0, 0.0])
             .build();
 
         // TODO Set pipeline layout
         // TODO Set constant ranges
-        let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder()
-            .build();
+        let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder().build();
 
         let pipeline_layout = unsafe {
             device
