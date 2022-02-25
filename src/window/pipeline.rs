@@ -65,6 +65,7 @@ struct Vertex {
     color: Vec3,
 }
 
+#[derive(Copy, Clone)]
 pub struct SyncObjects {
     image_available_semaphore: Semaphore,
     render_finished_semaphore: Semaphore,
@@ -152,6 +153,8 @@ impl QueueFamilyIndex {
     }
 }
 
+const MAX_FRAMES_IN_FLIGHT: usize = 2;
+
 pub struct Pipeline {
     pub entry: Entry,
     pub instance: Instance,
@@ -175,9 +178,10 @@ pub struct Pipeline {
     pub framebuffers: Vec<Framebuffer>,
     pub command_pool: CommandPool,
     pub command_buffers: Vec<CommandBuffer>,
-    pub sync_objects: SyncObjects,
+    pub sync_objects: Vec<SyncObjects>,
     pub vertex_buffer: Buffer,
     pub vertex_buffer_memory: DeviceMemory,
+    pub current_frame: usize,
     #[cfg(debug_assertions)]
     pub debug_utils: DebugUtils,
     #[cfg(debug_assertions)]
@@ -272,6 +276,7 @@ impl Pipeline {
             sync_objects,
             vertex_buffer,
             vertex_buffer_memory,
+            current_frame: 0,
             #[cfg(debug_assertions)]
             debug_utils,
             #[cfg(debug_assertions)]
@@ -279,9 +284,12 @@ impl Pipeline {
         }
     }
 
-    pub fn draw(&self) {
-        let fences = [self.sync_objects.in_flight_fence];
-        let command_buffer = *self.command_buffers.first().unwrap();
+    pub fn draw(&mut self) {
+
+        let sync_objects = *self.sync_objects.get(self.current_frame).unwrap();
+        let command_buffer = *self.command_buffers.get(self.current_frame).unwrap();
+
+        let fences = [sync_objects.in_flight_fence];
 
         unsafe {
             self.device
@@ -298,7 +306,7 @@ impl Pipeline {
                 .acquire_next_image(
                     self.swapchain_khr,
                     u64::MAX,
-                    self.sync_objects.image_available_semaphore,
+                    sync_objects.image_available_semaphore,
                     Fence::null(),
                 )
                 .expect("Unable to acquire next image")
@@ -315,9 +323,9 @@ impl Pipeline {
             *self.framebuffers.get(image_index as usize).unwrap(),
         );
 
-        let signal_semaphores = [self.sync_objects.render_finished_semaphore];
+        let signal_semaphores = [sync_objects.render_finished_semaphore];
 
-        let wait_semaphores = [self.sync_objects.image_available_semaphore];
+        let wait_semaphores = [sync_objects.image_available_semaphore];
         let command_buffers = [command_buffer];
         let wait_dst_stage_masks = [PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT];
         let submit_infos = [SubmitInfo::builder()
@@ -332,7 +340,7 @@ impl Pipeline {
                 .queue_submit(
                     self.graphics_queue,
                     &submit_infos,
-                    self.sync_objects.in_flight_fence,
+                    sync_objects.in_flight_fence,
                 )
                 .expect("Unable to submit draw command");
         }
@@ -348,6 +356,12 @@ impl Pipeline {
             self.swapchain
                 .queue_present(self.present_queue, &present_info)
                 .expect("Unable to present to queue");
+        }
+
+        self.current_frame = (self.current_frame + 1) % MAX_FRAMES_IN_FLIGHT;
+
+        unsafe {
+            self.device.device_wait_idle().unwrap();
         }
     }
 
@@ -611,30 +625,32 @@ impl Pipeline {
         extensions_supported && extensions_supported && swap_chain_supported
     }
 
-    fn create_sync_objects(device: &Device) -> SyncObjects {
+    fn create_sync_objects(device: &Device) -> Vec<SyncObjects> {
         let semaphore_create_info = SemaphoreCreateInfo::default();
 
         let fence_create_info = FenceCreateInfo::builder().flags(FenceCreateFlags::SIGNALED);
 
-        unsafe {
-            let image_available_semaphore = device
-                .create_semaphore(&semaphore_create_info, None)
-                .expect("Unable to create semaphore");
+        (0..MAX_FRAMES_IN_FLIGHT)
+            .into_iter()
+            .map(|_| unsafe {
+                let image_available_semaphore = device
+                    .create_semaphore(&semaphore_create_info, None)
+                    .expect("Unable to create semaphore");
 
-            let render_finished_semaphore = device
-                .create_semaphore(&semaphore_create_info, None)
-                .expect("Unable to create semaphore");
+                let render_finished_semaphore = device
+                    .create_semaphore(&semaphore_create_info, None)
+                    .expect("Unable to create semaphore");
 
-            let in_flight_fence = device
-                .create_fence(&fence_create_info, None)
-                .expect("Unable to create fence");
+                let in_flight_fence = device
+                    .create_fence(&fence_create_info, None)
+                    .expect("Unable to create fence");
 
-            SyncObjects {
-                image_available_semaphore,
-                render_finished_semaphore,
-                in_flight_fence,
-            }
-        }
+                SyncObjects {
+                    image_available_semaphore,
+                    render_finished_semaphore,
+                    in_flight_fence,
+                }
+            }).collect()
     }
 
     fn get_required_extensions(window: &mut SDL_Window) -> Vec<String> {
@@ -1212,12 +1228,12 @@ impl Pipeline {
     fn create_command_buffers(
         device: &Device,
         command_pool: CommandPool,
-        framebuffers: &Vec<Framebuffer>,
+        _framebuffers: &Vec<Framebuffer>, // TODO Remove this parameter?
     ) -> Vec<CommandBuffer> {
         let create_info = CommandBufferAllocateInfo::builder()
             .command_pool(command_pool)
             .level(CommandBufferLevel::PRIMARY)
-            .command_buffer_count(framebuffers.len() as u32);
+            .command_buffer_count(MAX_FRAMES_IN_FLIGHT as u32);
 
         let command_buffers = unsafe {
             device
@@ -1405,12 +1421,17 @@ impl Drop for Pipeline {
             self.device.destroy_buffer(self.vertex_buffer, None);
             self.device.free_memory(self.vertex_buffer_memory, None);
 
-            self.device
-                .destroy_semaphore(self.sync_objects.render_finished_semaphore, None);
-            self.device
-                .destroy_semaphore(self.sync_objects.image_available_semaphore, None);
-            self.device
-                .destroy_fence(self.sync_objects.in_flight_fence, None);
+            self.sync_objects
+                .iter()
+                .for_each(|so| {
+                    self.device
+                        .destroy_semaphore(so.render_finished_semaphore, None);
+                    self.device
+                        .destroy_semaphore(so.image_available_semaphore, None);
+                    self.device
+                        .destroy_fence(so.in_flight_fence, None);
+
+                });
 
             self.device.destroy_command_pool(self.command_pool, None);
 

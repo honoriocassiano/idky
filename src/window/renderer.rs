@@ -15,7 +15,7 @@ impl Renderer {
         Self { pipeline }
     }
 
-    pub fn draw(&self) {
+    pub fn draw(&mut self) {
         self.pipeline.draw();
     }
 }
