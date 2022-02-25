@@ -6,17 +6,9 @@ use std::path::Path;
 
 #[cfg(debug_assertions)]
 use ash::extensions::ext::DebugUtils;
-
 use ash::extensions::khr::{Surface, Swapchain};
-
-#[cfg(debug_assertions)]
 use ash::vk::{
-    Bool32, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
-    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
-};
-
-use ash::vk::{
-    AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentDescriptionFlags,
+    AccessFlags, ApplicationInfo, AttachmentDescription,
     AttachmentLoadOp, AttachmentReference, AttachmentStoreOp, Buffer, BufferCreateInfo,
     BufferUsageFlags, ClearValue, ColorComponentFlags, CommandBuffer, CommandBufferAllocateInfo,
     CommandBufferBeginInfo, CommandBufferLevel, CommandBufferResetFlags, CommandPool,
@@ -36,9 +28,14 @@ use ash::vk::{
     RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
     SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
     ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDependency,
-    SubpassDescription, SubpassDescriptionFlags, SurfaceCapabilitiesKHR, SurfaceFormatKHR,
+    SubpassDescription, SurfaceCapabilitiesKHR, SurfaceFormatKHR,
     SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
     VertexInputBindingDescription, VertexInputRate, Viewport,
+};
+#[cfg(debug_assertions)]
+use ash::vk::{
+    Bool32, DebugUtilsMessageSeverityFlagsEXT, DebugUtilsMessageTypeFlagsEXT,
+    DebugUtilsMessengerCallbackDataEXT, DebugUtilsMessengerCreateInfoEXT, DebugUtilsMessengerEXT,
 };
 use ash::{Device, Entry, Instance};
 use sdl::SDL_Window;
@@ -318,30 +315,34 @@ impl Pipeline {
             *self.framebuffers.get(image_index as usize).unwrap(),
         );
 
-        let signal_semaphores = &[self.sync_objects.render_finished_semaphore];
+        let signal_semaphores = [self.sync_objects.render_finished_semaphore];
 
-        let submit_info = SubmitInfo::builder()
-            .wait_semaphores(&[self.sync_objects.image_available_semaphore])
-            .wait_dst_stage_mask(&[PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT])
-            .command_buffers(&[command_buffer])
-            .signal_semaphores(signal_semaphores)
-            .build();
+        let wait_semaphores = [self.sync_objects.image_available_semaphore];
+        let command_buffers = [command_buffer];
+        let wait_dst_stage_masks = [PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT];
+        let submit_infos = [SubmitInfo::builder()
+            .wait_semaphores(&wait_semaphores)
+            .wait_dst_stage_mask(&wait_dst_stage_masks)
+            .command_buffers(&command_buffers)
+            .signal_semaphores(&signal_semaphores)
+            .build()];
 
         unsafe {
             self.device
                 .queue_submit(
                     self.graphics_queue,
-                    &[submit_info],
+                    &submit_infos,
                     self.sync_objects.in_flight_fence,
                 )
                 .expect("Unable to submit draw command");
         }
 
+        let swapchains = [self.swapchain_khr];
+        let image_indices = [image_index];
         let present_info = PresentInfoKHR::builder()
-            .wait_semaphores(signal_semaphores)
-            .swapchains(&[self.swapchain_khr])
-            .image_indices(&[image_index])
-            .build();
+            .wait_semaphores(&signal_semaphores)
+            .swapchains(&swapchains)
+            .image_indices(&image_indices);
 
         unsafe {
             self.swapchain
@@ -364,14 +365,13 @@ impl Pipeline {
             .extent(self.swapchain_extent)
             .build();
 
-        let clear_value = ClearValue::default();
+        let clear_values = [ClearValue::default()];
 
         let render_pass_begin_info = RenderPassBeginInfo::builder()
             .render_pass(self.render_pass)
             .framebuffer(swapchain_framebuffer)
             .render_area(render_area)
-            .clear_values(&[clear_value])
-            .build();
+            .clear_values(&clear_values);
 
         unsafe {
             self.device.cmd_begin_render_pass(
@@ -386,8 +386,10 @@ impl Pipeline {
                 self.pipeline,
             );
 
+            let vertex_buffers = [self.vertex_buffer];
+            let device_sizes = [DeviceSize::default()];
             self.device
-                .cmd_bind_vertex_buffers(command_buffer, 0, &[self.vertex_buffer], &[0]);
+                .cmd_bind_vertex_buffers(command_buffer, 0, &vertex_buffers, &device_sizes);
 
             let triangles_count = VERTICES.len() as u32;
             self.device
@@ -465,14 +467,14 @@ impl Pipeline {
     ) -> (Device, Queue, Queue) {
         let families: Vec<u32> = queue_families.into();
 
-        let priority = 1.0f32;
+        let priorities = [1.0f32];
 
         let map = families
             .into_iter()
             .map(|f| {
                 DeviceQueueCreateInfo::builder()
                     .queue_family_index(f)
-                    .queue_priorities(&[priority])
+                    .queue_priorities(&priorities)
                     .build()
             })
             .collect::<Vec<_>>();
@@ -485,15 +487,12 @@ impl Pipeline {
 
         // TODO Add validation layers if supported
 
-        let physical_device_features = PhysicalDeviceFeatures::builder()
-            .sampler_anisotropy(true)
-            .build();
+        let physical_device_features = PhysicalDeviceFeatures::builder().sampler_anisotropy(true);
 
         let create_info = DeviceCreateInfo::builder()
             .queue_create_infos(map.as_slice())
             .enabled_features(&physical_device_features)
-            .enabled_extension_names(device_extensions.as_slice())
-            .build();
+            .enabled_extension_names(device_extensions.as_slice());
 
         let device = unsafe {
             instance
@@ -615,9 +614,7 @@ impl Pipeline {
     fn create_sync_objects(device: &Device) -> SyncObjects {
         let semaphore_create_info = SemaphoreCreateInfo::default();
 
-        let fence_create_info = FenceCreateInfo::builder()
-            .flags(FenceCreateFlags::SIGNALED)
-            .build();
+        let fence_create_info = FenceCreateInfo::builder().flags(FenceCreateFlags::SIGNALED);
 
         unsafe {
             let image_available_semaphore = device
@@ -730,8 +727,7 @@ impl Pipeline {
             .application_version(ash::vk::make_api_version(1, 1, 0, 0))
             .engine_name(engine_name)
             .engine_version(ash::vk::make_api_version(1, 0, 0, 0))
-            .api_version(ash::vk::API_VERSION_1_1)
-            .build();
+            .api_version(ash::vk::API_VERSION_1_1);
 
         // Holds the ownership of string values and must be NOT deleted
         let required_extensions = Self::get_required_extensions(window)
@@ -761,8 +757,7 @@ impl Pipeline {
                 .application_info(&app_info)
                 .enabled_extension_names(required_extensions_cchar.as_slice())
                 .enabled_layer_names(layer_names.as_slice())
-                .push_next(&mut create_info_ext)
-                .build();
+                .push_next(&mut create_info_ext);
 
             unsafe { entry.create_instance(&app_create_info, None) }
                 .expect("Cannot create Vulkan instance")
@@ -772,8 +767,7 @@ impl Pipeline {
         {
             let app_create_info = InstanceCreateInfo::builder()
                 .application_info(&app_info)
-                .enabled_extension_names(required_extensions_cchar.as_slice())
-                .build();
+                .enabled_extension_names(required_extensions_cchar.as_slice());
 
             unsafe { entry.create_instance(&app_create_info, None) }
                 .expect("Cannot create Vulkan instance")
@@ -879,8 +873,7 @@ impl Pipeline {
             .pre_transform(surface_capabilities.current_transform)
             .composite_alpha(CompositeAlphaFlagsKHR::OPAQUE)
             .present_mode(present_mode)
-            .clipped(true)
-            .build();
+            .clipped(true);
 
         let swapchain = Swapchain::new(instance, device);
 
@@ -925,8 +918,7 @@ impl Pipeline {
                     .image(*image)
                     .view_type(ImageViewType::TYPE_2D)
                     .format(surface_format_khr.format)
-                    .subresource_range(subresource_range)
-                    .build();
+                    .subresource_range(subresource_range);
 
                 device
                     .create_image_view(&create_info, None)
@@ -963,8 +955,7 @@ impl Pipeline {
             .initial_layout(ImageLayout::UNDEFINED)
             .usage(usage)
             .samples(SampleCountFlags::TYPE_1)
-            .sharing_mode(SharingMode::EXCLUSIVE)
-            .build();
+            .sharing_mode(SharingMode::EXCLUSIVE);
 
         let image = unsafe {
             self.device
@@ -981,8 +972,7 @@ impl Pipeline {
                 self.physical_device,
                 requirements.memory_type_bits,
                 properties,
-            ))
-            .build();
+            ));
 
         unsafe {
             self.device
@@ -1092,13 +1082,11 @@ impl Pipeline {
 
         let vertex_input_state_create_info = PipelineVertexInputStateCreateInfo::builder()
             .vertex_binding_descriptions(&vertex_binding_description)
-            .vertex_attribute_descriptions(&vertex_attribute_description)
-            .build();
+            .vertex_attribute_descriptions(&vertex_attribute_description);
 
         let input_assembly_state_create_info = PipelineInputAssemblyStateCreateInfo::builder()
             .topology(PrimitiveTopology::TRIANGLE_LIST)
-            .primitive_restart_enable(false)
-            .build();
+            .primitive_restart_enable(false);
 
         let viewports = [Viewport::builder()
             .x(0.0)
@@ -1116,8 +1104,7 @@ impl Pipeline {
 
         let viewport_create_info = PipelineViewportStateCreateInfo::builder()
             .viewports(&viewports)
-            .scissors(&scissors)
-            .build();
+            .scissors(&scissors);
 
         // TODO Check these values
         let rasterizer_state_create_info = PipelineRasterizationStateCreateInfo::builder()
@@ -1127,14 +1114,12 @@ impl Pipeline {
             .line_width(1.0)
             .cull_mode(CullModeFlags::BACK)
             .front_face(FrontFace::CLOCKWISE)
-            .depth_bias_enable(false)
-            .build();
+            .depth_bias_enable(false);
 
         // TODO Check these values
         let multisample_state_create_info = PipelineMultisampleStateCreateInfo::builder()
             .sample_shading_enable(false)
-            .rasterization_samples(SampleCountFlags::TYPE_1)
-            .build();
+            .rasterization_samples(SampleCountFlags::TYPE_1);
 
         let color_blend_attachments = [PipelineColorBlendAttachmentState::builder()
             .color_write_mask(ColorComponentFlags::RGBA)
@@ -1145,12 +1130,11 @@ impl Pipeline {
             .logic_op_enable(false)
             .logic_op(LogicOp::COPY)
             .attachments(&color_blend_attachments)
-            .blend_constants([0.0, 0.0, 0.0, 0.0])
-            .build();
+            .blend_constants([0.0, 0.0, 0.0, 0.0]);
 
         // TODO Set pipeline layout
         // TODO Set constant ranges
-        let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder().build();
+        let pipeline_layout_create_info = PipelineLayoutCreateInfo::builder();
 
         let pipeline_layout = unsafe {
             device
@@ -1158,7 +1142,7 @@ impl Pipeline {
                 .expect("Unable to create pipeline layout")
         };
 
-        let pipeline_create_info = GraphicsPipelineCreateInfo::builder()
+        let pipeline_create_infos = [GraphicsPipelineCreateInfo::builder()
             .stages(&shader_stages)
             .vertex_input_state(&vertex_input_state_create_info)
             .input_assembly_state(&input_assembly_state_create_info)
@@ -1169,11 +1153,11 @@ impl Pipeline {
             .layout(pipeline_layout)
             .render_pass(render_pass)
             .subpass(0)
-            .build();
+            .build()];
 
         let pipeline = unsafe {
             device
-                .create_graphics_pipelines(PipelineCache::null(), &[pipeline_create_info], None)
+                .create_graphics_pipelines(PipelineCache::null(), &pipeline_create_infos, None)
                 .expect("Unable to create graphics pipeline")
                 .pop()
                 .unwrap()
@@ -1196,13 +1180,13 @@ impl Pipeline {
         image_views
             .iter()
             .map(|iv| {
+                let ivs = [*iv];
                 let create_info = FramebufferCreateInfo::builder()
                     .render_pass(render_pass)
-                    .attachments(&[*iv])
+                    .attachments(&ivs)
                     .width(swapchain_extent.width)
                     .height(swapchain_extent.height)
-                    .layers(1)
-                    .build();
+                    .layers(1);
 
                 unsafe {
                     device
@@ -1216,8 +1200,7 @@ impl Pipeline {
     fn create_command_pool(device: &Device, queue_families: QueueFamilyIndex) -> CommandPool {
         let create_info = CommandPoolCreateInfo::builder()
             .queue_family_index(queue_families.graphic)
-            .flags(CommandPoolCreateFlags::RESET_COMMAND_BUFFER)
-            .build();
+            .flags(CommandPoolCreateFlags::RESET_COMMAND_BUFFER);
 
         unsafe {
             device
@@ -1234,8 +1217,7 @@ impl Pipeline {
         let create_info = CommandBufferAllocateInfo::builder()
             .command_pool(command_pool)
             .level(CommandBufferLevel::PRIMARY)
-            .command_buffer_count(framebuffers.len() as u32)
-            .build();
+            .command_buffer_count(framebuffers.len() as u32);
 
         let command_buffers = unsafe {
             device
@@ -1255,8 +1237,7 @@ impl Pipeline {
         let create_info = BufferCreateInfo::builder()
             .size(std::mem::size_of_val(data) as DeviceSize)
             .usage(BufferUsageFlags::VERTEX_BUFFER)
-            .sharing_mode(SharingMode::EXCLUSIVE)
-            .build();
+            .sharing_mode(SharingMode::EXCLUSIVE);
 
         let buffer = unsafe {
             device
@@ -1273,8 +1254,7 @@ impl Pipeline {
                 physical_device,
                 memory_requirements.memory_type_bits,
                 MemoryPropertyFlags::HOST_VISIBLE | MemoryPropertyFlags::HOST_COHERENT,
-            ))
-            .build();
+            ));
 
         let device_memory = unsafe {
             device
@@ -1312,8 +1292,7 @@ impl Pipeline {
         let create_info = BufferCreateInfo::builder()
             .size(size)
             .usage(usage)
-            .sharing_mode(SharingMode::EXCLUSIVE)
-            .build();
+            .sharing_mode(SharingMode::EXCLUSIVE);
 
         let buffer = unsafe {
             self.device
@@ -1330,8 +1309,7 @@ impl Pipeline {
                 self.physical_device,
                 requirements.memory_type_bits,
                 properties,
-            ))
-            .build();
+            ));
 
         let memory = unsafe {
             self.device
@@ -1391,8 +1369,7 @@ impl Pipeline {
             .address_mode_v(SamplerAddressMode::REPEAT)
             .address_mode_w(SamplerAddressMode::REPEAT)
             .anisotropy_enable(false)
-            .max_anisotropy(1.0)
-            .build();
+            .max_anisotropy(1.0);
 
         unsafe {
             device
