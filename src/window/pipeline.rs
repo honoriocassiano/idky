@@ -154,7 +154,8 @@ impl QueueFamilyIndex {
 
 const MAX_FRAMES_IN_FLIGHT: usize = 2;
 
-pub struct Pipeline {
+pub struct Pipeline<'a> {
+    pub window: &'a mut SDL_Window,
     pub entry: Entry,
     pub instance: Instance,
     pub surface: Surface,
@@ -187,8 +188,8 @@ pub struct Pipeline {
     pub debug_utils_messenger: DebugUtilsMessengerEXT,
 }
 
-impl Pipeline {
-    pub fn from_sdl_window(window: &mut SDL_Window) -> Self {
+impl<'a> Pipeline<'a> {
+    pub fn from_sdl_window(window: &'a mut SDL_Window) -> Self {
         let entry = unsafe { Entry::load() }.expect("Unable to load Vulkan");
 
         let instance = Self::create_instance(window, &entry);
@@ -250,6 +251,7 @@ impl Pipeline {
             Self::create_vertex_buffer(&instance, physical_device, &device, &VERTICES);
 
         Self {
+            window,
             entry,
             instance,
             surface,
@@ -300,14 +302,21 @@ impl Pipeline {
         }
 
         let (image_index, _) = unsafe {
-            self.swapchain
-                .acquire_next_image(
-                    self.swapchain_khr,
-                    u64::MAX,
-                    sync_objects.image_available_semaphore,
-                    Fence::null(),
-                )
-                .expect("Unable to acquire next image")
+            match self.swapchain.acquire_next_image(
+                self.swapchain_khr,
+                u64::MAX,
+                sync_objects.image_available_semaphore,
+                Fence::null(),
+            ) {
+                Ok(v) => v,
+                Err(ash::vk::Result::ERROR_OUT_OF_DATE_KHR) => {
+                    self.recreate_swapchain();
+                    return;
+                }
+                Err(_) => {
+                    panic!("Unable to acquire swap chain next image");
+                }
+            }
         };
 
         unsafe {
@@ -351,9 +360,18 @@ impl Pipeline {
             .image_indices(&image_indices);
 
         unsafe {
-            self.swapchain
+            match self
+                .swapchain
                 .queue_present(self.present_queue, &present_info)
-                .expect("Unable to present to queue");
+            {
+                Ok(false) => {}
+                Ok(true) | Err(ash::vk::Result::ERROR_OUT_OF_DATE_KHR) => {
+                    self.recreate_swapchain();
+                }
+                Err(_) => {
+                    panic!("Unable to present to queue");
+                }
+            }
         }
 
         self.current_frame = (self.current_frame + 1) % MAX_FRAMES_IN_FLIGHT;
@@ -415,6 +433,75 @@ impl Pipeline {
         }
     }
 
+    fn destroy_swapchain(&mut self) {
+        unsafe {
+            self.framebuffers
+                .iter()
+                .for_each(|f| self.device.destroy_framebuffer(*f, None));
+
+            self.samplers
+                .iter()
+                .for_each(|s| self.device.destroy_sampler(*s, None));
+
+            self.image_views
+                .iter()
+                .for_each(|iv| self.device.destroy_image_view(*iv, None));
+
+            self.swapchain.destroy_swapchain(self.swapchain_khr, None);
+
+            self.device.destroy_pipeline(self.pipeline, None);
+
+            self.device
+                .destroy_pipeline_layout(self.pipeline_layout, None);
+
+            self.device.destroy_render_pass(self.render_pass, None);
+        }
+    }
+
+    fn recreate_swapchain(&mut self) {
+        unsafe {
+            self.device.device_wait_idle().unwrap();
+        }
+
+        self.destroy_swapchain();
+
+        let (swapchain, swapchain_extent, swapchain_khr, surface_format_khr, swapchain_images) =
+            Self::create_swapchain(
+                &self.instance,
+                &self.device,
+                self.physical_device,
+                &self.surface,
+                self.surface_khr,
+                self.window,
+                self.queue_families,
+            );
+
+        let image_views =
+            Self::create_image_views(&self.device, surface_format_khr, &swapchain_images);
+
+        let render_pass = Self::create_render_pass(&self.device, surface_format_khr);
+
+        let samplers = vec![Self::create_sampler(&self.device)];
+
+        let (pipeline_layout, pipeline) =
+            Self::create_graphics_pipeline(&self.device, swapchain_extent, render_pass);
+
+        let framebuffers =
+            Self::create_framebuffers(&self.device, &image_views, swapchain_extent, render_pass);
+
+        self.swapchain = swapchain;
+        self.swapchain_extent = swapchain_extent;
+        self.swapchain_khr = swapchain_khr;
+        self.surface_format_khr = surface_format_khr;
+        self.image_views = image_views;
+        self.swapchain_images = swapchain_images;
+        self.render_pass = render_pass;
+        self.samplers = samplers;
+        self.pipeline_layout = pipeline_layout;
+        self.pipeline = pipeline;
+        self.framebuffers = framebuffers;
+    }
+
     #[cfg(debug_assertions)]
     fn get_validation_layers() -> Vec<&'static CStr> {
         let layer =
@@ -470,6 +557,8 @@ impl Pipeline {
             }
         }
     }
+
+    // TODO Add function to resize
 
     fn create_device(
         instance: &Instance,
@@ -838,12 +927,6 @@ impl Pipeline {
                 .get_physical_device_surface_capabilities(physical_device, surface_khr)
                 .expect("Cannot get surface capabilities")
         };
-
-        // surface_formats
-        //     .iter()
-        //     .for_each(|f| {
-        //        println!("{:?}", f);
-        //     });
 
         let surface_format = surface_formats
             .into_iter()
@@ -1410,7 +1493,7 @@ impl Pipeline {
     }
 }
 
-impl Drop for Pipeline {
+impl Drop for Pipeline<'_> {
     fn drop(&mut self) {
         unsafe {
             self.device.destroy_buffer(self.vertex_buffer, None);
@@ -1426,26 +1509,7 @@ impl Drop for Pipeline {
 
             self.device.destroy_command_pool(self.command_pool, None);
 
-            self.framebuffers
-                .iter()
-                .for_each(|f| self.device.destroy_framebuffer(*f, None));
-
-            self.samplers
-                .iter()
-                .for_each(|s| self.device.destroy_sampler(*s, None));
-
-            self.image_views
-                .iter()
-                .for_each(|iv| self.device.destroy_image_view(*iv, None));
-
-            self.swapchain.destroy_swapchain(self.swapchain_khr, None);
-
-            self.device.destroy_pipeline(self.pipeline, None);
-
-            self.device
-                .destroy_pipeline_layout(self.pipeline_layout, None);
-
-            self.device.destroy_render_pass(self.render_pass, None);
+            self.destroy_swapchain();
 
             #[cfg(debug_assertions)]
             self.debug_utils

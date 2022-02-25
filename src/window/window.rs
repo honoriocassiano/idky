@@ -6,7 +6,8 @@ use sdl::{
     SDL_Scancode_SDL_SCANCODE_DOWN, SDL_Scancode_SDL_SCANCODE_UP, SDL_Surface, SDL_Window,
     SDL_WindowFlags_SDL_WINDOW_BORDERLESS, SDL_WindowFlags_SDL_WINDOW_FULLSCREEN,
     SDL_WindowFlags_SDL_WINDOW_METAL, SDL_WindowFlags_SDL_WINDOW_OPENGL,
-    SDL_WindowFlags_SDL_WINDOW_VULKAN, SDL_WINDOWPOS_CENTERED_MASK,
+    SDL_WindowFlags_SDL_WINDOW_RESIZABLE, SDL_WindowFlags_SDL_WINDOW_VULKAN,
+    SDL_WINDOWPOS_CENTERED_MASK,
 };
 
 use crate::core::{System, Vec2, Vector};
@@ -23,7 +24,7 @@ pub struct Window<'a> {
     event_handler: EventHandler,
     player: Player,
     start_time: Instant,
-    renderer: Renderer,
+    renderer: Renderer<'a>,
 }
 
 #[allow(dead_code)]
