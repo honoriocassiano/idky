@@ -1,5 +1,4 @@
 use std::ffi::CString;
-use std::os::raw::c_int;
 use std::path::Path;
 use std::time::Instant;
 
@@ -61,8 +60,8 @@ impl<'a> Window<'a> {
         let window = unsafe {
             sdl::SDL_CreateWindow(
                 window_name.as_ptr(),
-                SDL_WINDOWPOS_CENTERED_MASK as c_int,
-                SDL_WINDOWPOS_CENTERED_MASK as c_int,
+                SDL_WINDOWPOS_CENTERED_MASK as _,
+                SDL_WINDOWPOS_CENTERED_MASK as _,
                 width,
                 height,
                 flags,
@@ -126,8 +125,8 @@ impl<'a> Window<'a> {
         let state: &[u8];
 
         unsafe {
-            let temp = sdl::SDL_GetKeyboardState(&mut size as *mut i32);
-            state = std::slice::from_raw_parts(temp, size as usize);
+            let temp = sdl::SDL_GetKeyboardState(&mut size as _);
+            state = std::slice::from_raw_parts(temp, size as _);
         }
 
         let index_up = SDL_Scancode_SDL_SCANCODE_UP as usize;

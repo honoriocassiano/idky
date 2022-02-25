@@ -1,4 +1,4 @@
-use std::ffi::{c_void, CStr, CString};
+use std::ffi::{CStr, CString};
 use std::fs::File;
 use std::io::Read;
 use std::os::raw::c_char;
@@ -8,29 +8,28 @@ use std::path::Path;
 use ash::extensions::ext::DebugUtils;
 use ash::extensions::khr::{Surface, Swapchain};
 use ash::vk::{
-    AccessFlags, ApplicationInfo, AttachmentDescription,
-    AttachmentLoadOp, AttachmentReference, AttachmentStoreOp, Buffer, BufferCreateInfo,
-    BufferUsageFlags, ClearValue, ColorComponentFlags, CommandBuffer, CommandBufferAllocateInfo,
-    CommandBufferBeginInfo, CommandBufferLevel, CommandBufferResetFlags, CommandPool,
-    CommandPoolCreateFlags, CommandPoolCreateInfo, CompositeAlphaFlagsKHR, CullModeFlags,
-    DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo, DeviceSize, Extent2D, Extent3D, Fence,
-    FenceCreateFlags, FenceCreateInfo, Filter, Format, Framebuffer, FramebufferCreateInfo,
-    FrontFace, GraphicsPipelineCreateInfo, Image, ImageAspectFlags, ImageCreateInfo, ImageLayout,
-    ImageSubresourceRange, ImageTiling, ImageType, ImageUsageFlags, ImageView, ImageViewCreateInfo,
-    ImageViewType, InstanceCreateInfo, KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp,
-    MemoryAllocateInfo, MemoryMapFlags, MemoryPropertyFlags, Offset2D, PhysicalDevice,
-    PhysicalDeviceFeatures, PipelineBindPoint, PipelineCache, PipelineColorBlendAttachmentState,
-    PipelineColorBlendStateCreateInfo, PipelineInputAssemblyStateCreateInfo, PipelineLayout,
-    PipelineLayoutCreateInfo, PipelineMultisampleStateCreateInfo,
-    PipelineRasterizationStateCreateInfo, PipelineShaderStageCreateInfo, PipelineStageFlags,
-    PipelineVertexInputStateCreateInfo, PipelineViewportStateCreateInfo, PolygonMode,
-    PresentInfoKHR, PresentModeKHR, PrimitiveTopology, Queue, QueueFlags, Rect2D, RenderPass,
-    RenderPassBeginInfo, RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode,
-    SamplerCreateInfo, Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo,
-    ShaderStageFlags, SharingMode, SubmitInfo, SubpassContents, SubpassDependency,
-    SubpassDescription, SurfaceCapabilitiesKHR, SurfaceFormatKHR,
-    SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR, VertexInputAttributeDescription,
-    VertexInputBindingDescription, VertexInputRate, Viewport,
+    AccessFlags, ApplicationInfo, AttachmentDescription, AttachmentLoadOp, AttachmentReference,
+    AttachmentStoreOp, Buffer, BufferCreateInfo, BufferUsageFlags, ClearValue, ColorComponentFlags,
+    CommandBuffer, CommandBufferAllocateInfo, CommandBufferBeginInfo, CommandBufferLevel,
+    CommandBufferResetFlags, CommandPool, CommandPoolCreateFlags, CommandPoolCreateInfo,
+    CompositeAlphaFlagsKHR, CullModeFlags, DeviceCreateInfo, DeviceMemory, DeviceQueueCreateInfo,
+    DeviceSize, Extent2D, Extent3D, Fence, FenceCreateFlags, FenceCreateInfo, Filter, Format,
+    Framebuffer, FramebufferCreateInfo, FrontFace, GraphicsPipelineCreateInfo, Image,
+    ImageAspectFlags, ImageCreateInfo, ImageLayout, ImageSubresourceRange, ImageTiling, ImageType,
+    ImageUsageFlags, ImageView, ImageViewCreateInfo, ImageViewType, InstanceCreateInfo,
+    KhrPortabilitySubsetFn, KhrSwapchainFn, LogicOp, MemoryAllocateInfo, MemoryMapFlags,
+    MemoryPropertyFlags, Offset2D, PhysicalDevice, PhysicalDeviceFeatures, PipelineBindPoint,
+    PipelineCache, PipelineColorBlendAttachmentState, PipelineColorBlendStateCreateInfo,
+    PipelineInputAssemblyStateCreateInfo, PipelineLayout, PipelineLayoutCreateInfo,
+    PipelineMultisampleStateCreateInfo, PipelineRasterizationStateCreateInfo,
+    PipelineShaderStageCreateInfo, PipelineStageFlags, PipelineVertexInputStateCreateInfo,
+    PipelineViewportStateCreateInfo, PolygonMode, PresentInfoKHR, PresentModeKHR,
+    PrimitiveTopology, Queue, QueueFlags, Rect2D, RenderPass, RenderPassBeginInfo,
+    RenderPassCreateInfo, SampleCountFlags, Sampler, SamplerAddressMode, SamplerCreateInfo,
+    Semaphore, SemaphoreCreateInfo, ShaderModule, ShaderModuleCreateInfo, ShaderStageFlags,
+    SharingMode, SubmitInfo, SubpassContents, SubpassDependency, SubpassDescription,
+    SurfaceCapabilitiesKHR, SurfaceFormatKHR, SurfaceKHR, SwapchainCreateInfoKHR, SwapchainKHR,
+    VertexInputAttributeDescription, VertexInputBindingDescription, VertexInputRate, Viewport,
 };
 #[cfg(debug_assertions)]
 use ash::vk::{
@@ -87,7 +86,7 @@ impl Vertex {
     fn binding_description() -> VertexInputBindingDescription {
         VertexInputBindingDescription::builder()
             .binding(0)
-            .stride(std::mem::size_of::<Vertex>() as u32)
+            .stride(std::mem::size_of::<Vertex>() as _)
             .input_rate(VertexInputRate::VERTEX)
             .build()
     }
@@ -104,7 +103,7 @@ impl Vertex {
             .binding(0)
             .location(1)
             .format(Format::R32G32B32_SFLOAT)
-            .offset(std::mem::size_of::<Vec2>() as u32) // Offset of field 'position'
+            .offset(std::mem::size_of::<Vec2>() as _) // Offset of field 'position'
             .build();
 
         [a1, a2]
@@ -285,7 +284,6 @@ impl Pipeline {
     }
 
     pub fn draw(&mut self) {
-
         let sync_objects = *self.sync_objects.get(self.current_frame).unwrap();
         let command_buffer = *self.command_buffers.get(self.current_frame).unwrap();
 
@@ -405,7 +403,7 @@ impl Pipeline {
             self.device
                 .cmd_bind_vertex_buffers(command_buffer, 0, &vertex_buffers, &device_sizes);
 
-            let triangles_count = VERTICES.len() as u32;
+            let triangles_count = VERTICES.len() as _;
             self.device
                 .cmd_draw(command_buffer, triangles_count, triangles_count / 3, 0, 0);
 
@@ -534,13 +532,13 @@ impl Pipeline {
             .iter()
             .enumerate()
             .find(|(_, q)| q.queue_flags.contains(QueueFlags::GRAPHICS))
-            .map(|(i, _)| i as u32)
+            .map(|(i, _)| i as _)
             .expect("No suitable graphics queue family found");
 
-        let present_queue = (0..queue_family_properties.len() as u32)
+        let present_queue = (0..queue_family_properties.len() as _)
             .find(|&i| unsafe {
                 surface
-                    .get_physical_device_surface_support(device, i as u32, surface_khr)
+                    .get_physical_device_surface_support(device, i, surface_khr)
                     .is_ok()
             })
             .expect("No suitable present queue family found");
@@ -650,7 +648,8 @@ impl Pipeline {
                     render_finished_semaphore,
                     in_flight_fence,
                 }
-            }).collect()
+            })
+            .collect()
     }
 
     fn get_required_extensions(window: &mut SDL_Window) -> Vec<String> {
@@ -665,7 +664,7 @@ impl Pipeline {
         }
 
         let mut extension_names = Vec::<*const c_char>::new();
-        extension_names.resize(enabled_extension_count as usize, std::ptr::null());
+        extension_names.resize(enabled_extension_count as _, std::ptr::null());
 
         unsafe {
             sdl::vulkan::SDL_Vulkan_GetInstanceExtensions(
@@ -693,7 +692,7 @@ impl Pipeline {
         _message_severity: DebugUtilsMessageSeverityFlagsEXT,
         _message_types: DebugUtilsMessageTypeFlagsEXT,
         p_callback_data: *const DebugUtilsMessengerCallbackDataEXT,
-        _p_user_data: *mut c_void,
+        _p_user_data: *mut std::ffi::c_void,
     ) -> Bool32 {
         let message = unsafe { CStr::from_ptr((*p_callback_data).p_message).to_str() };
 
@@ -1107,8 +1106,8 @@ impl Pipeline {
         let viewports = [Viewport::builder()
             .x(0.0)
             .y(0.0)
-            .width(swapchain_extent.width as f32)
-            .height(swapchain_extent.height as f32)
+            .width(swapchain_extent.width as _)
+            .height(swapchain_extent.height as _)
             .min_depth(0.0)
             .max_depth(1.0)
             .build()];
@@ -1233,7 +1232,7 @@ impl Pipeline {
         let create_info = CommandBufferAllocateInfo::builder()
             .command_pool(command_pool)
             .level(CommandBufferLevel::PRIMARY)
-            .command_buffer_count(MAX_FRAMES_IN_FLIGHT as u32);
+            .command_buffer_count(MAX_FRAMES_IN_FLIGHT as _);
 
         let command_buffers = unsafe {
             device
@@ -1251,7 +1250,7 @@ impl Pipeline {
         data: &T,
     ) -> (Buffer, DeviceMemory) {
         let create_info = BufferCreateInfo::builder()
-            .size(std::mem::size_of_val(data) as DeviceSize)
+            .size(std::mem::size_of_val(data) as _)
             .usage(BufferUsageFlags::VERTEX_BUFFER)
             .sharing_mode(SharingMode::EXCLUSIVE);
 
@@ -1286,11 +1285,7 @@ impl Pipeline {
                 .map_memory(device_memory, 0, create_info.size, Default::default())
                 .expect("Unable to map memory");
 
-            std::ptr::copy(
-                VERTICES.as_ptr() as *const c_void,
-                data,
-                create_info.size as usize,
-            );
+            std::ptr::copy(VERTICES.as_ptr() as _, data, create_info.size as _);
 
             device.unmap_memory(device_memory);
         }
@@ -1409,7 +1404,7 @@ impl Pipeline {
             .enumerate()
             .find_map(|(i, mt)| {
                 ((type_bits & (1 << i) != 0) && (mt.property_flags.contains(properties)))
-                    .then(|| i as u32)
+                    .then(|| i as _)
             })
             .expect("Unable to find suitable memory type")
     }
@@ -1421,17 +1416,13 @@ impl Drop for Pipeline {
             self.device.destroy_buffer(self.vertex_buffer, None);
             self.device.free_memory(self.vertex_buffer_memory, None);
 
-            self.sync_objects
-                .iter()
-                .for_each(|so| {
-                    self.device
-                        .destroy_semaphore(so.render_finished_semaphore, None);
-                    self.device
-                        .destroy_semaphore(so.image_available_semaphore, None);
-                    self.device
-                        .destroy_fence(so.in_flight_fence, None);
-
-                });
+            self.sync_objects.iter().for_each(|so| {
+                self.device
+                    .destroy_semaphore(so.render_finished_semaphore, None);
+                self.device
+                    .destroy_semaphore(so.image_available_semaphore, None);
+                self.device.destroy_fence(so.in_flight_fence, None);
+            });
 
             self.device.destroy_command_pool(self.command_pool, None);
 
